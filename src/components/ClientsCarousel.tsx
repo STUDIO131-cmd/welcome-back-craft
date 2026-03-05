@@ -9,8 +9,10 @@ import client8 from "@/assets/clients/client8.png";
 import client9 from "@/assets/clients/client9.png";
 import client10 from "@/assets/clients/client10.png";
 
-const row1 = [cimples, auramia, corpoBallet, ouromil, anaFlavia];
-const row2 = [laVie, client7, client8, client9, client10];
+const clients = [
+  cimples, auramia, corpoBallet, ouromil, anaFlavia,
+  laVie, client7, client8, client9, client10,
+];
 
 const ClientsCarousel = () => {
   return (
@@ -22,7 +24,7 @@ const ClientsCarousel = () => {
 
       <div className="overflow-hidden">
         <div className="flex animate-scroll-left" style={{ width: "max-content" }}>
-          {[...row1, ...row1].map((src, i) => (
+          {[...clients, ...clients].map((src, i) => (
             <div key={i} className="flex-shrink-0 mx-3">
               <img
                 src={src}
@@ -34,22 +36,6 @@ const ClientsCarousel = () => {
           ))}
         </div>
       </div>
-
-      <div className="overflow-hidden mt-6">
-        <div className="flex animate-scroll-right" style={{ width: "max-content" }}>
-          {[...row2, ...row2].map((src, i) => (
-            <div key={i} className="flex-shrink-0 mx-3">
-              <img
-                src={src}
-                alt="Cliente"
-                className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div className="section-divider" />
     </section>
   );
