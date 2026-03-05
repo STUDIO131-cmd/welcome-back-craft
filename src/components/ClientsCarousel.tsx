@@ -22,14 +22,14 @@ const ClientsCarousel = () => {
         Algumas marcas que já atendemos:
       </h2>
 
-      <div className="overflow-hidden">
-        <div className="flex animate-scroll-left" style={{ width: "max-content" }}>
-          {[...clients, ...clients].map((src, i) => (
-            <div key={i} className="flex-shrink-0 mx-3">
+      <div className="section-container">
+        <div className="flex flex-wrap justify-center gap-6">
+          {clients.map((src, i) => (
+            <div key={i}>
               <img
                 src={src}
                 alt="Cliente"
-                className="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                className="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 loading="lazy"
               />
             </div>
