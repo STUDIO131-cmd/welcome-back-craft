@@ -1,17 +1,29 @@
 
 
-## Plan: Static grid layout for clients section
+## Plan: Two-row infinite scroll carousel
 
-**Goal:** Remove the scrolling animation from `ClientsCarousel` and display the 10 client logos in a static grid (2-3 rows) constrained to the same `max-w-5xl` width used by other sections (like CampaignsSection).
+### Changes to `src/components/ClientsCarousel.tsx`
 
-**Changes:**
+1. **Increase icon sizes by 14px**: `w-[117px] h-[117px]`, `md:w-[153px] md:h-[153px]`, `lg:w-[165px] lg:h-[165px]`
+2. **Split into two rows** scrolling in the same direction (right), using `animate-scroll-right` for both
+3. **Reduce spacing** between rows: use `gap-2` or small margin between rows
+4. **Wrap both rows** in a `section-container` (`max-w-5xl mx-auto px-6`) with `overflow-hidden` to constrain width to match the campaigns section
+5. Split clients array: row 1 = first 5, row 2 = last 5, each duplicated for infinite loop
 
-### `src/components/ClientsCarousel.tsx`
-- Remove the `overflow-hidden`, `animate-scroll-left`, `width: max-content`, and logo duplication (`[...clients, ...clients]`)
-- Wrap content in `section-container` (which applies `max-w-5xl mx-auto px-6`)
-- Use a `flex flex-wrap justify-center gap-6` layout so logos naturally wrap into 2-3 rows depending on screen size
-- Keep grayscale hover effect and rounded-full styling
-- Slightly reduce logo sizes to fit ~5 per row on desktop (e.g. `w-32 h-32 md:w-36 md:h-36`)
+### Structure
+```text
+<section className="py-16">
+  <section-divider />
+  <h2>...</h2>
+  <div className="section-container overflow-hidden">
+    <div className="flex flex-col gap-2">
+      <!-- Row 1: clients[0..4] duplicated, animate-scroll-right -->
+      <!-- Row 2: clients[5..9] duplicated, animate-scroll-right -->
+    </div>
+  </div>
+  <section-divider />
+</section>
+```
 
-No other files need changes.
+No other files need changes — `animate-scroll-right` already exists in `index.css`.
 
