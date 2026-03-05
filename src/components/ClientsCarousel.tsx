@@ -37,7 +37,7 @@ const ClientsCarousel = () => {
         Algumas marcas que já atendemos:
       </h2>
 
-      <div className="section-container overflow-hidden">
+      <div className="section-container overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}>
         <div className="flex flex-col gap-2">
           <ScrollRow items={row1} />
           <ScrollRow items={row2} />
