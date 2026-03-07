@@ -216,7 +216,7 @@ const CampaignsSection = () => {
               </p>
 
               {/* Masonry columns layout */}
-              <div className="columns-1 sm:columns-2 md:columns-3 gap-2">
+              <div className="columns-1 sm:columns-2 gap-2">
                 {campaigns[openGallery].gallery.map((item, idx) => (
                   <div key={idx} className="mb-2 break-inside-avoid">
                     {item.type === "video" ? (
