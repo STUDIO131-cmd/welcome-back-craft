@@ -121,6 +121,23 @@ const campaigns = [
   { src: aImg3, type: "image" as const },
   { src: aImg4, type: "image" as const }] satisfies
   GalleryItem[]
+},
+{
+  image: null,
+  title: "Coleção Cravates by Corpo De Ballet",
+  subtitle: "Lançamento | Moda Ballet",
+  description:
+  "Campos do Jordão foi o lugar escolhido para dar vida ao universo criado no lançamento da coleção de ballet Cravates.\n\nToda a ideia da campanha partiu de duas personagens que já faziam parte da história da marca: Cher e Etoiles.\n\nCada uma delas carrega um estilo e uma personalidade própria, e isso foi usado como base para construir a identidade visual da nova coleção.\n\nCher traz leveza, delicadeza e suavidade. Etoiles representa um lado mais refinado, elegante e sofisticado. A coleção Cravates nasceu justamente da união dessas duas essências.",
+  tags: ["Fotografia", "Lookbook", "Direção Criativa", "Vídeo"],
+  gallery: [
+  { src: crVid1, type: "video" as const },
+  { src: crImg1, type: "image" as const },
+  { src: crImg2, type: "image" as const },
+  { src: crImg3, type: "image" as const },
+  { src: crImg4, type: "image" as const },
+  { src: crImg5, type: "image" as const },
+  { src: crImg6, type: "image" as const }] satisfies
+  GalleryItem[]
 }];
 
 
