@@ -1,24 +1,21 @@
 
 
-## Plan: Liquid Glass Carousel Redesign
+## Plan: Blur edges + faster scroll on clients carousel
 
 ### Changes to `src/components/ClientsCarousel.tsx`
 
-1. **Remove solid white background with radial mask** (lines 41-49) — delete entirely
+1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
 
-2. **Remove horizontal fade mask** from the carousel container (lines 53-56)
+2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
 
-3. **Wrap carousel content in a liquid glass bar** — apply the project's existing "white liquid glass" style:
-   - `backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl`
-   - Add horizontal padding (`px-6 md:px-10`) for floating effect (icons don't touch edges)
-   - Add vertical padding (`py-6`) to breathe around the circular icons
+### Implementation details
 
-4. **Remove grayscale filter** — change `grayscale hover:grayscale-0` to just keep images colorful (remove both classes from line 23)
+- On the `section-container overflow-hidden` div, add inline style:
+  ```
+  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  ```
+- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
 
-5. **Keep** the infinite scroll animation and existing icon sizes unchanged
-
-### Result
-- Glass bar with blur/translucency wraps the two rows of circular client logos
-- Lateral padding creates the floating effect inside the glass container
-- All logos display in full color permanently
+Two files edited: `ClientsCarousel.tsx` and `index.css`.
 
