@@ -107,11 +107,11 @@ const campaigns = [
   { src: pfVid1, type: "video", span: "full" },
   { src: pfImg1, type: "image", span: "half" },
   { src: pfImg2, type: "image", span: "full" },
-  { src: pfVid2, type: "video", span: "full" },
+  { src: pfVid2, type: "video", span: "half" },
   { src: pfImg3, type: "image", span: "half" },
   { src: pfImg4, type: "image", span: "half" },
   { src: pfImg5, type: "image", span: "half" },
-  { src: pfImg6, type: "image", span: "half" }] satisfies
+  { src: pfImg6, type: "image", span: "full" }] satisfies
   GalleryItem[]
 },
 {
