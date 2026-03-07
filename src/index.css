@@ -32,15 +32,15 @@
     --muted: 0 0% 18%;
     --muted-foreground: 0 0% 70%;
 
-    --accent: 30 12% 42%;
-    --accent-foreground: 30 5% 95%;
+    --accent: 0 0% 22%;
+    --accent-foreground: 0 0% 92%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 92%;
 
-    --border: 30 8% 78%;
-    --input: 30 8% 78%;
-    --ring: 30 10% 35%;
+    --border: 0 0% 25%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 60%;
 
     --radius: 0.75rem;
 
