@@ -5,6 +5,14 @@ import pageBg from "@/assets/page-bg.jpg";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
+import tngVid1 from "@/assets/campaigns/tng/TNG-Campaing01.mp4";
+import tngImg1 from "@/assets/campaigns/tng/5D4A5594.jpg";
+import tngImg2 from "@/assets/campaigns/tng/5D4A5611.jpg";
+import tngVid2 from "@/assets/campaigns/tng/TNG-Campaing03.mp4";
+import tngVid3 from "@/assets/campaigns/tng/TNG-01.mp4";
+import tngImg3 from "@/assets/campaigns/tng/5D4A5623.jpg";
+import tngImg4 from "@/assets/campaigns/tng/5D4A5613_1.jpg";
+import tngImg5 from "@/assets/campaigns/tng/5D4A6454.jpg";
 import cImg1 from "@/assets/campaigns/cimples/img1.jpg";
 import cImg2 from "@/assets/campaigns/cimples/img2.jpg";
 import cImg3 from "@/assets/campaigns/cimples/img3.jpg";
@@ -46,7 +54,14 @@ const campaigns = [
   "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
   tags: ["Branding", "Campanha", "Vídeo & Foto"],
   gallery: [
-  { src: daniGallery, type: "image" as const }] satisfies
+  { src: tngVid1, type: "video" as const },
+  { src: tngImg1, type: "image" as const },
+  { src: tngImg2, type: "image" as const },
+  { src: tngVid2, type: "video" as const },
+  { src: tngVid3, type: "video" as const },
+  { src: tngImg3, type: "image" as const },
+  { src: tngImg4, type: "image" as const },
+  { src: tngImg5, type: "image" as const }] satisfies
   GalleryItem[]
 },
 {
