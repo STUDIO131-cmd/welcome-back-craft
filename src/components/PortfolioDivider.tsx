@@ -6,7 +6,7 @@ const PortfolioDivider = () => {
       <img
         src={portfolioTitle}
         alt="Portfólio"
-        className="h-12 md:h-16 lg:h-20 w-auto object-contain"
+        className="w-[320px] md:w-[380px] lg:w-[420px] h-auto object-contain"
       />
     </div>
   );
