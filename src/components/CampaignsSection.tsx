@@ -149,7 +149,7 @@ const CampaignsSection = () => {
             onClick={() => setOpenGallery(null)}
           >
             <motion.div
-              className="relative max-w-4xl w-full max-h-[85vh] overflow-y-auto rounded-2xl backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] p-6 shadow-[0_16px_64px_rgba(0,0,0,0.3)]"
+              className="relative max-w-5xl w-full max-h-[85vh] overflow-y-auto rounded-2xl backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] p-6 shadow-[0_16px_64px_rgba(0,0,0,0.3)]"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -174,7 +174,7 @@ const CampaignsSection = () => {
               </p>
 
               {/* Bento Grid Gallery */}
-              <div className="grid grid-cols-4 auto-rows-[150px] gap-3">
+              <div className="grid grid-cols-4 auto-rows-[200px] gap-2">
                 {campaigns[openGallery].gallery.map((item, idx) => (
                   <div
                     key={idx}
@@ -185,13 +185,13 @@ const CampaignsSection = () => {
                         src={item.src}
                         controls
                         muted
-                        className="w-full h-full object-contain bg-black/20 rounded-lg"
+                        className="w-full h-full object-cover rounded-lg"
                       />
                     ) : (
                       <img
                         src={item.src}
                         alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                        className="w-full h-full object-contain bg-black/20 rounded-lg"
+                        className="w-full h-full object-cover rounded-lg"
                       />
                     )}
                   </div>
