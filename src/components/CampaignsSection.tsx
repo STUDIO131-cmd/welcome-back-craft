@@ -44,6 +44,14 @@ import crImg3 from "@/assets/campaigns/cravates/IMG_0455.jpg";
 import crImg4 from "@/assets/campaigns/cravates/IMG_0276.jpg";
 import crImg5 from "@/assets/campaigns/cravates/IMG_0190.jpg";
 import crImg6 from "@/assets/campaigns/cravates/IMG_0143.jpg";
+import vcVid1 from "@/assets/campaigns/velvetcherry/video.mp4";
+import vcImg1 from "@/assets/campaigns/velvetcherry/img1.jpg";
+import vcImg2 from "@/assets/campaigns/velvetcherry/img2.jpg";
+import vcImg3 from "@/assets/campaigns/velvetcherry/img3.jpg";
+import vcImg4 from "@/assets/campaigns/velvetcherry/img4.jpg";
+import vcImg5 from "@/assets/campaigns/velvetcherry/img5.jpg";
+import vcImg6 from "@/assets/campaigns/velvetcherry/img6.jpg";
+import vcImg7 from "@/assets/campaigns/velvetcherry/img7.jpg";
 
 type GalleryItem = {
   src: string;
