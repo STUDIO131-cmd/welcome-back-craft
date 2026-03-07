@@ -219,7 +219,7 @@ const CampaignsSection = () => {
 
               {/* Grid 2-col layout */}
               <div className="max-w-2xl mx-auto px-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
                   {campaigns[openGallery].gallery.map((item, idx) => (
                     <div key={idx}>
                       {item.type === "video" ? (
