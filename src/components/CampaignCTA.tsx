@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
+import campanhasVideo from "@/assets/campaigns/campanhas.mp4";
 
 const CampaignCTA = () => {
   return (
