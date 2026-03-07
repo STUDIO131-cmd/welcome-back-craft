@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const ValueProposition = () => {
   return (
-    <section className="py-20 section-container text-center">
+    <section className="py-10 section-container text-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
