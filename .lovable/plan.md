@@ -1,40 +1,37 @@
+## Plano: Seção intermediária + ajuste no carrossel de marcas
 
+### 1. Novo componente `CampaignCTA.tsx`
 
-## Plano: Padronizar galerias das campanhas para receber arquivos diferentes
+Criar componente entre `CampaignsSection` e `ClientsCarousel` com:
 
-Atualmente, apenas a campanha "CIMPLES" tem uma galeria completa com 8 itens (4 fotos + 4 vídeos). As outras duas campanhas ("The National Gallery" e "PINK Friday") têm apenas 1 item cada, reutilizando a imagem de capa.
+- **Texto central**: "A campanha é construída para sustentar a venda naquele momento e não só "marcar presença"."
+- **Botão liquid glass animado**: "Quero avaliar uma campanha" — scroll suave até `#orcamento` (id do ContactForm)
+  - Estilo: `backdrop-blur-xl bg-white/[0.08] border border-white/[0.15]` com hover glow/scale animation
+- **Subtítulo**: "Como funciona a nossa atuação"
+- **Barra liquid glass animada** com ícone de relógio (Clock do lucide-react): "Assista ao vídeo 2 min."  
+Adicionar um placeholder de vídeo com capa layer blur e um icon de play centralizado
 
-### O que fazer
+Tudo centralizado, com `section-container`, espaçamento `py-12`.
 
-1. **Criar pastas de assets para cada campanha** — assim como existe `src/assets/campaigns/cimples/`, criar:
-   - `src/assets/campaigns/gallery/` (para "The National Gallery")
-   - `src/assets/campaigns/pink-friday/` (para "PINK Friday")
+### 2. Atualizar `Index.tsx`
 
-2. **Adicionar arquivos placeholder** — para cada campanha, adicionar imagens e/ou vídeos nessas pastas. Você precisará enviar os arquivos reais para cada pasta.
+Importar e inserir `CampaignCTA` entre `CampaignsSection` e `ClientsCarousel`.
 
-3. **Atualizar os imports e arrays `gallery`** em `CampaignsSection.tsx` — importar os novos arquivos e preencher os arrays `gallery` das campanhas 2 e 3 com a mesma estrutura de `GalleryItem[]` que a primeira campanha já usa.
+### 3. Ajustar background do `ClientsCarousel.tsx`
 
-### Estrutura resultante
+- Trocar o fundo `rgba(255,255,255,0.12)` por **branco sólido** (`#FFFFFF` / `bg-white`)
+- Remover `backdrop-blur-xl`
+- Manter o fade lateral com `mask-image` (já existe)
+- Atualizar cor do título para escuro (`text-gray-900`)
+- Bordas superior e inferior com fade-out sutil para o fundo da página (usar `box-shadow` ou gradientes nas bordas)
+- Ícones mantêm grayscale com hover colorido
+- A glassbar se mantem "abraçando" todo conteúdo 
 
-```text
-src/assets/campaigns/
-├── cimples/          (já existe — 4 imgs + 4 vídeos)
-│   ├── img1.jpg ... img4.jpg
-│   └── video1.mp4 ... video4.mp4
-├── gallery/          (nova pasta)
-│   ├── img1.jpg ... (seus arquivos)
-│   └── video1.mp4 ... (seus arquivos)
-├── pink-friday/      (nova pasta)
-│   ├── img1.jpg ... (seus arquivos)
-│   └── video1.mp4 ... (seus arquivos)
-```
+### Arquivos
 
-### Alteração em `CampaignsSection.tsx`
-
-- Adicionar imports dos novos arquivos de cada pasta
-- Preencher o array `gallery` de cada campanha com os novos items, seguindo o mesmo padrão `{ src: arquivo, type: "image" | "video" }`
-
-### Próximo passo
-
-Envie os arquivos (fotos e vídeos) que quer usar para cada campanha, e eu monto os imports e arrays automaticamente.
-
+- **Criar**: `src/components/CampaignCTA.tsx`
+- **Editar**: `src/pages/Index.tsx` (adicionar import + componente)
+- **Editar**: `src/components/ClientsCarousel.tsx` (background branco sólido + fade borders)  
+  
+  
+Confirme seu entendimento antes de executar
