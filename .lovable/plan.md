@@ -1,21 +1,14 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+## Plan: Add purple gradient fade to HeroSection
 
-### Changes to `src/components/ClientsCarousel.tsx`
+Add a bottom-to-top gradient overlay on the HeroSection using color `#4a4375`, going from solid at the bottom to transparent at the top.
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+### Changes to `src/components/HeroSection.tsx`
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
-
-### Implementation details
-
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
-
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+Add a `div` with absolute positioning covering the full section, using a CSS gradient:
+- `background: linear-gradient(to top, #4a4375, transparent)`
+- Position the section as `relative` and the gradient div as `absolute inset-0`
+- Add `pointer-events-none` so it doesn't block interactions
+- Ensure content stays above with `relative z-10`
 
