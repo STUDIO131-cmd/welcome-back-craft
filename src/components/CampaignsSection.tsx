@@ -30,6 +30,13 @@ import cVid1 from "@/assets/campaigns/cimples/video1.mp4";
 import cVid2 from "@/assets/campaigns/cimples/video2.mp4";
 import cVid3 from "@/assets/campaigns/cimples/video3.mp4";
 import cVid4 from "@/assets/campaigns/cimples/video4.mp4";
+import aVid1 from "@/assets/campaigns/auramia/teaser2.mp4";
+import aVid2 from "@/assets/campaigns/auramia/teaser3.mp4";
+import aVid3 from "@/assets/campaigns/auramia/entrevista.mp4";
+import aImg1 from "@/assets/campaigns/auramia/5D4A0703_1.jpg";
+import aImg2 from "@/assets/campaigns/auramia/5D4A0768_1.jpg";
+import aImg3 from "@/assets/campaigns/auramia/5D4A0750_1.jpg";
+import aImg4 from "@/assets/campaigns/auramia/5D4A0834_1.jpg";
 
 type GalleryItem = {
   src: string;
@@ -89,6 +96,23 @@ const campaigns = [
   { src: pfImg4, type: "image" as const },
   { src: pfImg5, type: "image" as const },
   { src: pfImg6, type: "image" as const }] satisfies
+  GalleryItem[]
+},
+{
+  image: null,
+  title: "Auramia by Beatriz Manganelli",
+  subtitle: "Lançamento | Moda Fitness",
+  description:
+  "Estivemos em Aracaju (SE) para o lançamento da Auramia. A coleção Brisa trouxe sensação: calmaria, leveza e um tecido que abraça o corpo na rotina da mulher brasileira.\n\nPara este projeto fizemos estudo de público, calendário de publicações com fases de antecipação e lançamento, foto e vídeo, tudo alinhado para gerar intenção de compra.\n\nCom a repercussão organizada, causamos o efeito empilhamento de demanda: quando o site abriu, vários modelos esgotaram em 24h.",
+  tags: ["Calendário de Conteúdo", "Audiovisual", "Direção"],
+  gallery: [
+  { src: aVid1, type: "video" as const },
+  { src: aImg1, type: "image" as const },
+  { src: aImg2, type: "image" as const },
+  { src: aVid2, type: "video" as const },
+  { src: aVid3, type: "video" as const },
+  { src: aImg3, type: "image" as const },
+  { src: aImg4, type: "image" as const }] satisfies
   GalleryItem[]
 }];
 
