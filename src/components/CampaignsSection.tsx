@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play } from "lucide-react";
-import galleryBg from "@/assets/campaigns/gallery-bg.jpg";
+import pageBg from "@/assets/page-bg.jpg";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
@@ -160,7 +160,7 @@ const CampaignsSection = () => {
                   </p>
                   <h3
                     className="font-heading text-lg md:text-xl font-semibold"
-                    style={{ color: "#C73C32", textShadow: "0 0 8px rgba(199,60,50,0.4)" }}
+                    style={{ color: "#FFFFFF", textShadow: "0 0 12px rgba(255,255,255,0.3)" }}
                   >
                     {campaign.title}
                   </h3>
@@ -188,7 +188,7 @@ const CampaignsSection = () => {
         {openGallery !== null && (
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-cover bg-center bg-fixed"
-            style={{ backgroundImage: `url(${galleryBg})` }}
+            style={{ backgroundImage: `url(${pageBg})` }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
