@@ -31,20 +31,32 @@ const ScrollRow = ({ items }: { items: string[] }) => (
 
 const ClientsCarousel = () => {
   return (
-    <section className="py-16">
-      <div className="section-divider" />
-      <h2 className="font-display text-2xl md:text-3xl text-center text-foreground/70 mb-12">
-        Algumas marcas que já atendemos:
-      </h2>
+    <div
+      className="w-full py-12 backdrop-blur-xl border-y border-white/10"
+      style={{
+        background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.08) 100%)",
+        boxShadow: "0 0 40px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(255,255,255,0.05)",
+      }}
+    >
+      <div className="section-container">
+        <h2 className="font-display text-2xl md:text-3xl text-center text-white/70 mb-8">
+          Algumas marcas que já atendemos:
+        </h2>
 
-      <div className="section-container overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}>
-        <div className="flex flex-col gap-2">
-          <ScrollRow items={row1} />
-          <ScrollRow items={row2} />
+        <div
+          className="overflow-hidden"
+          style={{
+            maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          }}
+        >
+          <div className="flex flex-col gap-2">
+            <ScrollRow items={row1} />
+            <ScrollRow items={row2} />
+          </div>
         </div>
       </div>
-      <div className="section-divider" />
-    </section>
+    </div>
   );
 };
 

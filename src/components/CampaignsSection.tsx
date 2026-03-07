@@ -66,7 +66,7 @@ const CampaignsSection = () => {
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
-              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-500 hover:shadow-[0_8px_32px_rgba(255,255,255,0.08),inset_0_1px_0_rgba(255,255,255,0.2)]"
+              className="group relative cursor-pointer rounded-2xl overflow-hidden bg-[#EAEAEA] shadow-md transition-all duration-500 hover:shadow-lg"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -99,20 +99,23 @@ const CampaignsSection = () => {
                   />
                 </div>
                 <div className="p-6 md:p-8 md:w-3/5 space-y-3 flex flex-col justify-center">
-                  <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground">
+                  <p className="text-xs tracking-[0.2em] uppercase text-gray-500">
                     {campaign.subtitle}
                   </p>
-                  <h3 className="font-heading text-lg md:text-xl font-semibold text-foreground/90">
+                  <h3
+                    className="font-heading text-lg md:text-xl font-semibold"
+                    style={{ color: "#C73C32", textShadow: "0 0 8px rgba(199,60,50,0.4)" }}
+                  >
                     {campaign.title}
                   </h3>
-                  <p className="text-sm text-foreground/70 leading-relaxed">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     {campaign.description}
                   </p>
                   <div className="flex flex-wrap gap-2 pt-2">
                     {campaign.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 text-[10px] tracking-wider uppercase rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-foreground/70"
+                        className="px-3 py-1 text-[10px] tracking-wider uppercase rounded-full bg-gray-200 border border-gray-300 text-gray-500"
                       >
                         {tag}
                       </span>

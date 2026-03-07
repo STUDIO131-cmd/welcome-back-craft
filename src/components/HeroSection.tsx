@@ -29,7 +29,7 @@ const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}>
         
-        <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
+        <p className="text-lg md:text-xl text-white/80 leading-relaxed">
           Projetos sob medida para vender mais
           <br />
           em momentos decisivos de negócio.
