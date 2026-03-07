@@ -1,15 +1,13 @@
+import portfolioTitle from "@/assets/portfolio-title.png";
+
 const PortfolioDivider = () => {
   return (
-    <div className="w-full py-4 bg-[#EAEAEA]">
-      <p
-        className="text-center text-lg md:text-xl tracking-[0.4em] uppercase text-[#4A4375]"
-        style={{
-          fontFamily: "'TikTok Sans', sans-serif",
-          fontWeight: 500,
-        }}
-      >
-        Portfolio
-      </p>
+    <div className="w-full py-6 flex justify-center">
+      <img
+        src={portfolioTitle}
+        alt="Portfólio"
+        className="h-12 md:h-16 lg:h-20 w-auto object-contain"
+      />
     </div>
   );
 };
