@@ -13,7 +13,7 @@ const images = [g1, g2, g23, g3, g4, g5, g6, g7, g8, g9];
 
 const GalleryScroll = () => {
   return (
-    <section className="py-16 overflow-hidden">
+    <section className="py-8 overflow-hidden">
       <div className="flex animate-scroll-gallery" style={{ width: "max-content" }}>
         {[...images, ...images].map((src, i) => (
           <div key={i} className="flex-shrink-0 mx-2">

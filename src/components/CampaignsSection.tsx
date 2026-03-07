@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Camera } from "lucide-react";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
+
+type GalleryItem = {
+  src: string;
+  type: "image" | "video";
+  span?: string;
+};
 
 const campaigns = [
   {
@@ -13,7 +19,9 @@ const campaigns = [
     description:
       "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
     tags: ["Direção Criativa", "Fotografia", "Vídeo"],
-    gallery: [daniCimples],
+    gallery: [
+      { src: daniCimples, type: "image" as const, span: "col-span-2 row-span-2" },
+    ] satisfies GalleryItem[],
   },
   {
     image: daniGallery,
@@ -22,7 +30,9 @@ const campaigns = [
     description:
       "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
     tags: ["Branding", "Campanha", "Vídeo & Foto"],
-    gallery: [daniGallery],
+    gallery: [
+      { src: daniGallery, type: "image" as const, span: "col-span-2 row-span-2" },
+    ] satisfies GalleryItem[],
   },
   {
     image: pinkFriday,
@@ -31,7 +41,9 @@ const campaigns = [
     description:
       "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
     tags: ["Promoção", "Direção Criativa"],
-    gallery: [pinkFriday],
+    gallery: [
+      { src: pinkFriday, type: "image" as const, span: "col-span-2 row-span-2" },
+    ] satisfies GalleryItem[],
   },
 ];
 
@@ -49,12 +61,8 @@ const CampaignsSection = () => {
 
   return (
     <>
-      <section className="py-16 section-container">
-        <h2 className="font-display text-2xl md:text-3xl text-center text-foreground/70 mb-16">
-          Campanhas em Destaque
-        </h2>
-
-        <div className="space-y-10">
+      <section className="py-8 section-container">
+        <div className="space-y-6">
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
@@ -66,21 +74,22 @@ const CampaignsSection = () => {
               custom={i}
               onClick={() => setOpenGallery(i)}
             >
-              {/* Hover blink overlay */}
+              {/* Hover overlay with glass bar */}
               <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span
-                  className="text-white/90 text-sm md:text-base tracking-[0.3em] uppercase animate-pulse"
-                  style={{
-                    textShadow:
-                      "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5)",
-                  }}
-                >
-                  Veja a galeria
-                </span>
+                <div className="px-6 py-3 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/[0.15]">
+                  <span
+                    className="text-white/90 text-sm md:text-base tracking-[0.3em] uppercase"
+                    style={{
+                      textShadow:
+                        "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3)",
+                    }}
+                  >
+                    VEJA A GALERIA
+                  </span>
+                </div>
               </div>
 
               <div className="flex flex-col md:flex-row gap-0">
-                {/* Image */}
                 <div className="md:w-2/5 flex-shrink-0">
                   <img
                     src={campaign.image}
@@ -89,8 +98,6 @@ const CampaignsSection = () => {
                     loading="lazy"
                   />
                 </div>
-
-                {/* Content */}
                 <div className="p-6 md:p-8 md:w-3/5 space-y-3 flex flex-col justify-center">
                   <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground">
                     {campaign.subtitle}
@@ -143,18 +150,45 @@ const CampaignsSection = () => {
                 <X size={20} />
               </button>
 
-              <h3 className="font-heading text-xl font-semibold text-foreground/90 mb-6">
+              {/* Icon */}
+              <div className="flex justify-center mb-4">
+                <div className="w-14 h-14 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/[0.15] flex items-center justify-center">
+                  <Camera size={24} className="text-white/80" />
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 className="font-heading text-xl font-semibold text-foreground/90 text-center mb-3">
                 {campaigns[openGallery].title}
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {campaigns[openGallery].gallery.map((src, idx) => (
-                  <img
+              {/* Description */}
+              <p className="text-sm text-foreground/70 text-center leading-relaxed line-clamp-4 max-w-2xl mx-auto mb-6">
+                {campaigns[openGallery].description}
+              </p>
+
+              {/* Bento Grid Gallery */}
+              <div className="grid grid-cols-4 auto-rows-[150px] gap-3">
+                {campaigns[openGallery].gallery.map((item, idx) => (
+                  <div
                     key={idx}
-                    src={src}
-                    alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                    className="w-full rounded-lg object-cover"
-                  />
+                    className={`rounded-lg overflow-hidden ${item.span || "col-span-1 row-span-1"}`}
+                  >
+                    {item.type === "video" ? (
+                      <video
+                        src={item.src}
+                        controls
+                        muted
+                        className="w-full h-full object-contain bg-black/20 rounded-lg"
+                      />
+                    ) : (
+                      <img
+                        src={item.src}
+                        alt={`${campaigns[openGallery].title} - ${idx + 1}`}
+                        className="w-full h-full object-contain bg-black/20 rounded-lg"
+                      />
+                    )}
+                  </div>
                 ))}
               </div>
             </motion.div>

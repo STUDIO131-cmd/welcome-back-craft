@@ -33,12 +33,12 @@ const differentials = [
 
 const DifferentialsSection = () => {
   return (
-    <section className="py-20" id="conteudo">
+    <section className="py-10" id="conteudo">
       <div className="section-container">
         <h2 className="font-heading text-xl md:text-2xl text-center text-foreground/80 mb-4">
           Entenda se estamos prontos para o próximo passo:
         </h2>
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <a
             href="#conteudo"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"

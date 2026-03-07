@@ -24,7 +24,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="py-20 bg-card" id="orcamento">
+    <section className="py-10 bg-card" id="orcamento">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
