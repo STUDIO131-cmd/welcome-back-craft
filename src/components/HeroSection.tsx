@@ -1,27 +1,20 @@
 import { motion } from "framer-motion";
 import logoCampanhas from "@/assets/logo-campanhas.png";
+import logoHeader from "@/assets/logo-campanhas-header.png";
 
 const HeroSection = () => {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[70vh] py-20 px-6 text-center">
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #4a4375, transparent)' }} />
-      
 
-
-
-
-
-      
-      
-      
-      
-
-
-
-
-
-
-      
+      <motion.img
+        src={logoHeader}
+        alt="Logo Campanhas"
+        className="relative z-10 w-[280px] md:w-[420px] max-w-full"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+      />
 
       <motion.div
         className="relative z-10 mt-8 max-w-xl space-y-4"
