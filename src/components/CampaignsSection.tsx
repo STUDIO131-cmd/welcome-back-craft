@@ -5,6 +5,7 @@ import pageBg from "@/assets/page-bg.jpg";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
+import pinkFridayCover from "@/assets/campaigns/pink-friday-cover.png";
 import pfVid1 from "@/assets/campaigns/pinkfriday/PF_1_2.mp4";
 import pfImg1 from "@/assets/campaigns/pinkfriday/5D4A6291.jpg";
 import pfImg2 from "@/assets/campaigns/pinkfriday/A4_2.jpg";
@@ -73,7 +74,7 @@ const campaigns = [
   GalleryItem[]
 },
 {
-  image: pinkFriday,
+  image: pinkFridayCover,
   title: "PINK Friday × Marina Fraga",
   subtitle: "Black Friday — Pink Shine",
   description:
