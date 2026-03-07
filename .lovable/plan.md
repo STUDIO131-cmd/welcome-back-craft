@@ -1,17 +1,21 @@
 
 
-## Problema
+## Plan: Blur edges + faster scroll on clients carousel
 
-`object-contain` respeita proporções mas cria espaços vazios feios dentro das células do grid (barras pretas/escuras ao redor das mídias). As células têm altura fixa de 180px e as mídias não preenchem o espaço.
+### Changes to `src/components/ClientsCarousel.tsx`
 
-## Solução
+1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
 
-Voltar para `object-cover` — é o padrão usado em todo bento grid profissional. O corte é mínimo e controlado quando os spans são bem escolhidos. A diferença é que agora os spans já estão curados manualmente, então o corte será sutil e não agressivo como antes.
+2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
 
-### Mudanças
+### Implementation details
 
-1. **BentoGallery**: trocar `object-contain` por `object-cover` nas imagens e vídeos
-2. **VideoPlayer**: trocar `object-contain` por `object-cover` no elemento `<video>`
+- On the `section-container overflow-hidden` div, add inline style:
+  ```
+  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  ```
+- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
 
-São apenas 2 linhas de CSS — `object-contain` → `object-cover` no componente `BentoGallery` (img) e no `VideoPlayer` (video).
+Two files edited: `ClientsCarousel.tsx` and `index.css`.
 

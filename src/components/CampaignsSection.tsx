@@ -223,7 +223,7 @@ const VideoPlayer = ({ src, alt, className }: { src: string; alt: string; classN
         playsInline
         onPause={handlePause}
         onEnded={handlePause}
-        className="w-full h-full object-contain rounded-xl"
+        className="w-full h-full object-cover rounded-xl"
         aria-label={alt}
       />
       {!playing && (
@@ -253,7 +253,7 @@ const BentoGallery = ({ items, campaignTitle }: { items: GalleryItem[]; campaign
             <img
               src={item.src}
               alt={`${campaignTitle} - ${idx + 1}`}
-              className="w-full h-full object-contain rounded-xl"
+              className="w-full h-full object-cover rounded-xl"
               loading="lazy"
             />
           )}
