@@ -1,21 +1,41 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+## Plano: Estilo liquid glass branco + texto #EAEAEA global
 
-### Changes to `src/components/ClientsCarousel.tsx`
+### 1. Cor de texto global → #EAEAEA
+- Alterar as CSS variables em `src/index.css`:
+  - `--foreground` para o equivalente HSL de `#EAEAEA` (~0 0% 92%)
+  - `--muted-foreground` para algo como ~0 0% 70% (manter contraste relativo)
+  - `--card-foreground`, `--popover-foreground` também atualizados
+- Isso propaga automaticamente para todos os componentes que usam `text-foreground`, `text-muted-foreground`, etc.
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+### 2. Cards da galeria de campanhas → liquid glass branco 80%
+- No `CampaignsSection.tsx`, alterar o fundo dos cards de campanha de `bg-[#EAEAEA]` para:
+  - `backdrop-blur-xl bg-white/[0.12] border border-white/[0.15]` (liquid glass)
+- Textos internos (título, descrição, subtítulo, tags) → todos `text-[#EAEAEA]` ou `text-white/80`
+- Tags: fundo `bg-white/10 border-white/20 text-white/70`
+- Título vermelho mantido mas com ajuste de legibilidade
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+### 3. Carrossel de clientes → barra liquid glass branca
+- No `ClientsCarousel.tsx`, alterar o container envolvendo as fotos:
+  - De gradiente atual para `backdrop-blur-xl bg-white/[0.12] border border-white/[0.15]`
+  - Estilo consistente com os cards da galeria
+- Texto do título → `text-[#EAEAEA]`
 
-### Implementation details
+### 4. Ajustes complementares
+- `ContactForm.tsx`: seção `bg-card` → trocar para liquid glass (`backdrop-blur-xl bg-white/[0.08]`), inputs e labels em `text-[#EAEAEA]`
+- `ValueProposition.tsx`, `CtaSection.tsx`, `DifferentialsSection.tsx`: textos e botões adaptados para #EAEAEA
+- `FooterSection.tsx`: texto atualizado
+- Botões CTA: manter estilo mas garantir texto claro
 
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
-
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+### Arquivos editados
+- `src/index.css` (CSS variables)
+- `src/components/CampaignsSection.tsx`
+- `src/components/ClientsCarousel.tsx`
+- `src/components/ContactForm.tsx`
+- `src/components/ValueProposition.tsx`
+- `src/components/CtaSection.tsx`
+- `src/components/DifferentialsSection.tsx`
+- `src/components/HeroSection.tsx`
+- `src/components/FooterSection.tsx`
 
