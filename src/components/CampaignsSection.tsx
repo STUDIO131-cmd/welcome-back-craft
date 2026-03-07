@@ -20,7 +20,7 @@ const campaigns = [
       "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
     tags: ["Direção Criativa", "Fotografia", "Vídeo"],
     gallery: [
-      { src: daniCimples, type: "image" as const, span: "col-span-2 row-span-2" },
+      { src: daniCimples, type: "image" as "image" | "video", span: "col-span-2 row-span-2" },
     ] satisfies GalleryItem[],
   },
   {
@@ -31,7 +31,7 @@ const campaigns = [
       "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
     tags: ["Branding", "Campanha", "Vídeo & Foto"],
     gallery: [
-      { src: daniGallery, type: "image" as const, span: "col-span-2 row-span-2" },
+      { src: daniGallery, type: "image" as "image" | "video", span: "col-span-2 row-span-2" },
     ] satisfies GalleryItem[],
   },
   {
@@ -42,7 +42,7 @@ const campaigns = [
       "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
     tags: ["Promoção", "Direção Criativa"],
     gallery: [
-      { src: pinkFriday, type: "image" as const, span: "col-span-2 row-span-2" },
+      { src: pinkFriday, type: "image" as "image" | "video", span: "col-span-2 row-span-2" },
     ] satisfies GalleryItem[],
   },
 ];
