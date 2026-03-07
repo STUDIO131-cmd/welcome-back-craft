@@ -4,6 +4,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Sora:wght@100..800&family=Roboto+Slab:wght@100..900&display=swap');
 
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/fonts/TikTokSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 30 5% 90%;

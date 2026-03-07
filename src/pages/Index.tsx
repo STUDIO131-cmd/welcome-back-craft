@@ -1,4 +1,5 @@
 import HeroSection from "@/components/HeroSection";
+import PortfolioDivider from "@/components/PortfolioDivider";
 import ClientsCarousel from "@/components/ClientsCarousel";
 import CampaignsSection from "@/components/CampaignsSection";
 import GalleryScroll from "@/components/GalleryScroll";
