@@ -329,25 +329,40 @@ const CampaignsSection = () => {
                 {campaigns[openGallery].description}
               </p>
 
-              {/* Organic CSS Grid */}
+              {/* Organic Bento Grid */}
               <div className="max-w-2xl mx-auto px-2">
                 <div className="grid grid-cols-2 gap-2">
-                  {campaigns[openGallery].gallery.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={item.span === "full" ? "col-span-2" : "col-span-1"}>
-                      {item.type === "video" ? (
-                        <VideoPlayer
-                          src={item.src}
-                          alt={`${campaigns[openGallery].title} - ${idx + 1}`} />
-                      ) : (
-                        <img
-                          src={item.src}
-                          alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                          className="w-full h-auto rounded-lg" />
-                      )}
-                    </div>
-                  ))}
+                  {(() => {
+                    const gallery = campaigns[openGallery].gallery;
+                    // Check if last item would be orphaned (half after even number of halfs consumed)
+                    let halfCount = 0;
+                    const resolvedSpans = gallery.map((item, idx) => {
+                      const isLast = idx === gallery.length - 1;
+                      let span = item.span || "half";
+                      if (span === "half") halfCount++;
+                      // If last item is half and would be alone (odd half count), force full
+                      if (isLast && span === "half" && halfCount % 2 === 1) {
+                        span = "full";
+                      }
+                      return { ...item, resolvedSpan: span };
+                    });
+                    return resolvedSpans.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className={item.resolvedSpan === "full" ? "col-span-2" : "col-span-1"}>
+                        {item.type === "video" ? (
+                          <VideoPlayer
+                            src={item.src}
+                            alt={`${campaigns[openGallery].title} - ${idx + 1}`} />
+                        ) : (
+                          <img
+                            src={item.src}
+                            alt={`${campaigns[openGallery].title} - ${idx + 1}`}
+                            className="w-full h-auto rounded-lg object-cover" />
+                        )}
+                      </div>
+                    ));
+                  })()}
                 </div>
               </div>
             </motion.div>
