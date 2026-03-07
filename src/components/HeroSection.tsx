@@ -3,15 +3,15 @@ import logoCampanhas from "@/assets/logo-campanhas.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[55vh] py-12 px-6 text-center">
+    <section className="relative flex flex-col items-center justify-center min-h-[70vh] py-20 px-6 text-center">
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #4a4375, transparent)' }} />
-      <motion.img
-        src={logoCampanhas}
-        alt="Studio 131 - Campanhas"
-        className="relative z-10 w-64 md:w-80 lg:w-96 mb-8 opacity-90"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 0.9, y: 0 }}
-        transition={{ duration: 1 }} />
+      
+
+
+
+
+
+      
       
       
       
@@ -29,7 +29,7 @@ const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}>
         
-        <p className="text-lg md:text-xl text-white/80 leading-relaxed">
+        <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
           Projetos sob medida para vender mais
           <br />
           em momentos decisivos de negócio.
