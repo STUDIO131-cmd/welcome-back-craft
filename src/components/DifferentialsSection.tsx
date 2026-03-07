@@ -51,7 +51,7 @@ const DifferentialsSection = () => {
           {differentials.map((diff, i) => (
             <motion.div
               key={i}
-              className="rounded-xl overflow-hidden bg-card border border-border"
+              className="rounded-xl overflow-hidden backdrop-blur-xl bg-white/[0.08] border border-white/[0.15]"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

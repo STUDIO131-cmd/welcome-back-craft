@@ -32,14 +32,13 @@ const ScrollRow = ({ items }: { items: string[] }) => (
 const ClientsCarousel = () => {
   return (
     <div
-      className="w-full py-12 backdrop-blur-xl border-y border-white/10"
+      className="w-full py-12 backdrop-blur-xl border-y border-white/[0.15]"
       style={{
-        background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.08) 100%)",
-        boxShadow: "0 0 40px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(255,255,255,0.05)",
+        background: "rgba(255,255,255,0.12)",
       }}
     >
       <div className="section-container">
-        <h2 className="font-display text-2xl md:text-3xl text-center text-white/70 mb-8">
+        <h2 className="font-display text-2xl md:text-3xl text-center text-foreground mb-8">
           Algumas marcas que já atendemos:
         </h2>
 
