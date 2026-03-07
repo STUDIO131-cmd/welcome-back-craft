@@ -17,6 +17,12 @@ const CampaignCTA = () => {
           <span className="text-foreground font-semibold"> "marcar presença"</span>.
         </p>
 
+        <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          Conforme a necessidade e complexidade da campanha, entramos com o plano necessário:
+          <br /><br />
+          Pesquisamos fornecedores, desenhamos a estratégia, criamos os roteiros e organizamos os conteúdos que sustentam aquela brecha comercial.
+        </p>
+
         {/* Liquid glass button */}
         <motion.a
           href="#orcamento"
