@@ -44,6 +44,14 @@ import crImg3 from "@/assets/campaigns/cravates/IMG_0455.jpg";
 import crImg4 from "@/assets/campaigns/cravates/IMG_0276.jpg";
 import crImg5 from "@/assets/campaigns/cravates/IMG_0190.jpg";
 import crImg6 from "@/assets/campaigns/cravates/IMG_0143.jpg";
+import vcVid1 from "@/assets/campaigns/velvetcherry/video.mp4";
+import vcImg1 from "@/assets/campaigns/velvetcherry/img1.jpg";
+import vcImg2 from "@/assets/campaigns/velvetcherry/img2.jpg";
+import vcImg3 from "@/assets/campaigns/velvetcherry/img3.jpg";
+import vcImg4 from "@/assets/campaigns/velvetcherry/img4.jpg";
+import vcImg5 from "@/assets/campaigns/velvetcherry/img5.jpg";
+import vcImg6 from "@/assets/campaigns/velvetcherry/img6.jpg";
+import vcImg7 from "@/assets/campaigns/velvetcherry/img7.jpg";
 
 type GalleryItem = {
   src: string;
@@ -137,6 +145,24 @@ const campaigns = [
   { src: crImg4, type: "image" as const },
   { src: crImg5, type: "image" as const },
   { src: crImg6, type: "image" as const }] satisfies
+  GalleryItem[]
+},
+{
+  image: null,
+  title: "Velvet Cherry by Dani Fernandes",
+  subtitle: "Nova coleção | Lançamento",
+  description:
+  "O aroma que se tornou sucesso em vendas carrega uma identidade que foi construída em um material de fotos e vídeos para a rede social:\n\nTextura leve, maciez, feminilidade e doçura.\n\nNosso time entregou fotografia ambientada, still e direção criativa em estúdio.",
+  tags: ["Direção Criativa", "Fotografia", "Vídeo"],
+  gallery: [
+  { src: vcVid1, type: "video" as const },
+  { src: vcImg1, type: "image" as const },
+  { src: vcImg2, type: "image" as const },
+  { src: vcImg3, type: "image" as const },
+  { src: vcImg4, type: "image" as const },
+  { src: vcImg5, type: "image" as const },
+  { src: vcImg6, type: "image" as const },
+  { src: vcImg7, type: "image" as const }] satisfies
   GalleryItem[]
 }];
 
