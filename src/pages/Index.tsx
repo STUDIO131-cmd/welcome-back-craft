@@ -2,7 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import PortfolioDivider from "@/components/PortfolioDivider";
 import ClientsCarousel from "@/components/ClientsCarousel";
 import CampaignsSection from "@/components/CampaignsSection";
-import GalleryScroll from "@/components/GalleryScroll";
+
 import ValueProposition from "@/components/ValueProposition";
 import DifferentialsSection from "@/components/DifferentialsSection";
 import CtaSection from "@/components/CtaSection";
@@ -16,7 +16,7 @@ const Index = () => {
       <PortfolioDivider />
       <CampaignsSection />
       <ClientsCarousel />
-      <GalleryScroll />
+      
       <ValueProposition />
       <DifferentialsSection />
       <CtaSection />
