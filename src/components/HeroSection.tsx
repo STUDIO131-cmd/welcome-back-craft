@@ -24,7 +24,7 @@ const HeroSection = () => {
       
 
       <motion.div
-        className="mt-8 max-w-xl space-y-4"
+        className="relative z-10 mt-8 max-w-xl space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}>
