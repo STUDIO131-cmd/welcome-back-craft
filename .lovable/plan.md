@@ -1,21 +1,40 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+## Plano: Padronizar galerias das campanhas para receber arquivos diferentes
 
-### Changes to `src/components/ClientsCarousel.tsx`
+Atualmente, apenas a campanha "CIMPLES" tem uma galeria completa com 8 itens (4 fotos + 4 vídeos). As outras duas campanhas ("The National Gallery" e "PINK Friday") têm apenas 1 item cada, reutilizando a imagem de capa.
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+### O que fazer
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+1. **Criar pastas de assets para cada campanha** — assim como existe `src/assets/campaigns/cimples/`, criar:
+   - `src/assets/campaigns/gallery/` (para "The National Gallery")
+   - `src/assets/campaigns/pink-friday/` (para "PINK Friday")
 
-### Implementation details
+2. **Adicionar arquivos placeholder** — para cada campanha, adicionar imagens e/ou vídeos nessas pastas. Você precisará enviar os arquivos reais para cada pasta.
 
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
+3. **Atualizar os imports e arrays `gallery`** em `CampaignsSection.tsx` — importar os novos arquivos e preencher os arrays `gallery` das campanhas 2 e 3 com a mesma estrutura de `GalleryItem[]` que a primeira campanha já usa.
 
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+### Estrutura resultante
+
+```text
+src/assets/campaigns/
+├── cimples/          (já existe — 4 imgs + 4 vídeos)
+│   ├── img1.jpg ... img4.jpg
+│   └── video1.mp4 ... video4.mp4
+├── gallery/          (nova pasta)
+│   ├── img1.jpg ... (seus arquivos)
+│   └── video1.mp4 ... (seus arquivos)
+├── pink-friday/      (nova pasta)
+│   ├── img1.jpg ... (seus arquivos)
+│   └── video1.mp4 ... (seus arquivos)
+```
+
+### Alteração em `CampaignsSection.tsx`
+
+- Adicionar imports dos novos arquivos de cada pasta
+- Preencher o array `gallery` de cada campanha com os novos items, seguindo o mesmo padrão `{ src: arquivo, type: "image" | "video" }`
+
+### Próximo passo
+
+Envie os arquivos (fotos e vídeos) que quer usar para cada campanha, e eu monto os imports e arrays automaticamente.
 
