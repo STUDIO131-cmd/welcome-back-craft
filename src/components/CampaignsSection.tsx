@@ -71,8 +71,8 @@ const campaigns = [
   { src: cVid1, type: "video", span: "full" },
   { src: cImg1, type: "image", span: "half" },
   { src: cImg2, type: "image", span: "half" },
-  { src: cVid2, type: "video", span: "full" },
-  { src: cVid3, type: "video", span: "full" },
+  { src: cVid2, type: "video", span: "half" },
+  { src: cVid3, type: "video", span: "half" },
   { src: cImg3, type: "image", span: "half" },
   { src: cImg4, type: "image", span: "half" },
   { src: cVid4, type: "video", span: "full" }] satisfies
@@ -89,8 +89,8 @@ const campaigns = [
   { src: tngVid1, type: "video", span: "full" },
   { src: tngImg1, type: "image", span: "half" },
   { src: tngImg2, type: "image", span: "half" },
-  { src: tngVid2, type: "video", span: "full" },
-  { src: tngVid3, type: "video", span: "full" },
+  { src: tngVid2, type: "video", span: "half" },
+  { src: tngVid3, type: "video", span: "half" },
   { src: tngImg3, type: "image", span: "half" },
   { src: tngImg4, type: "image", span: "half" },
   { src: tngImg5, type: "image", span: "full" }] satisfies
@@ -107,11 +107,11 @@ const campaigns = [
   { src: pfVid1, type: "video", span: "full" },
   { src: pfImg1, type: "image", span: "half" },
   { src: pfImg2, type: "image", span: "full" },
-  { src: pfVid2, type: "video", span: "full" },
+  { src: pfVid2, type: "video", span: "half" },
   { src: pfImg3, type: "image", span: "half" },
   { src: pfImg4, type: "image", span: "half" },
   { src: pfImg5, type: "image", span: "half" },
-  { src: pfImg6, type: "image", span: "half" }] satisfies
+  { src: pfImg6, type: "image", span: "full" }] satisfies
   GalleryItem[]
 },
 {
@@ -125,9 +125,9 @@ const campaigns = [
   { src: aVid1, type: "video", span: "full" },
   { src: aImg1, type: "image", span: "half" },
   { src: aImg2, type: "image", span: "half" },
-  { src: aVid2, type: "video", span: "full" },
-  { src: aVid3, type: "video", span: "full" },
+  { src: aVid2, type: "video", span: "half" },
   { src: aImg3, type: "image", span: "half" },
+  { src: aVid3, type: "video", span: "half" },
   { src: aImg4, type: "image", span: "half" }] satisfies
   GalleryItem[]
 },
@@ -329,25 +329,40 @@ const CampaignsSection = () => {
                 {campaigns[openGallery].description}
               </p>
 
-              {/* Organic CSS Grid */}
+              {/* Organic Bento Grid */}
               <div className="max-w-2xl mx-auto px-2">
                 <div className="grid grid-cols-2 gap-2">
-                  {campaigns[openGallery].gallery.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={item.span === "full" ? "col-span-2" : "col-span-1"}>
-                      {item.type === "video" ? (
-                        <VideoPlayer
-                          src={item.src}
-                          alt={`${campaigns[openGallery].title} - ${idx + 1}`} />
-                      ) : (
-                        <img
-                          src={item.src}
-                          alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                          className="w-full h-auto rounded-lg" />
-                      )}
-                    </div>
-                  ))}
+                  {(() => {
+                    const gallery = campaigns[openGallery].gallery;
+                    // Check if last item would be orphaned (half after even number of halfs consumed)
+                    let halfCount = 0;
+                    const resolvedSpans = gallery.map((item, idx) => {
+                      const isLast = idx === gallery.length - 1;
+                      let span = item.span || "half";
+                      if (span === "half") halfCount++;
+                      // If last item is half and would be alone (odd half count), force full
+                      if (isLast && span === "half" && halfCount % 2 === 1) {
+                        span = "full";
+                      }
+                      return { ...item, resolvedSpan: span };
+                    });
+                    return resolvedSpans.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className={item.resolvedSpan === "full" ? "col-span-2" : "col-span-1"}>
+                        {item.type === "video" ? (
+                          <VideoPlayer
+                            src={item.src}
+                            alt={`${campaigns[openGallery].title} - ${idx + 1}`} />
+                        ) : (
+                          <img
+                            src={item.src}
+                            alt={`${campaigns[openGallery].title} - ${idx + 1}`}
+                            className="w-full h-auto rounded-lg object-cover" />
+                        )}
+                      </div>
+                    ));
+                  })()}
                 </div>
               </div>
             </motion.div>
