@@ -20,7 +20,7 @@ const ScrollRow = ({ items }: { items: string[] }) => (
           <img
             src={src}
             alt="Cliente"
-            className="w-[117px] h-[117px] md:w-[153px] md:h-[153px] lg:w-[165px] lg:h-[165px] rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+            className="w-[117px] h-[117px] md:w-[153px] md:h-[153px] lg:w-[165px] lg:h-[165px] rounded-full object-cover transition-all duration-500"
             loading="lazy"
           />
         </div>
@@ -37,28 +37,10 @@ const ClientsCarousel = () => {
           Algumas marcas que já atendemos:
         </h2>
 
-        <div className="relative">
-          {/* White background with fade on all edges */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "#FFFFFF",
-              maskImage: "radial-gradient(ellipse 90% 80% at center, black 40%, transparent 100%)",
-              WebkitMaskImage: "radial-gradient(ellipse 90% 80% at center, black 40%, transparent 100%)",
-            }}
-          />
-
-          <div
-            className="relative overflow-hidden"
-            style={{
-              maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-            }}
-          >
-            <div className="flex flex-col gap-2">
-              <ScrollRow items={row1} />
-              <ScrollRow items={row2} />
-            </div>
+        <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl px-6 md:px-10 py-6 overflow-hidden">
+          <div className="flex flex-col gap-2">
+            <ScrollRow items={row1} />
+            <ScrollRow items={row2} />
           </div>
         </div>
       </div>
