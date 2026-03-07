@@ -32,13 +32,18 @@ const ScrollRow = ({ items }: { items: string[] }) => (
 const ClientsCarousel = () => {
   return (
     <div
-      className="w-full py-12 backdrop-blur-xl border-y border-white/[0.15]"
+      className="w-full py-12 relative"
       style={{
-        background: "rgba(255,255,255,0.12)",
+        background: "#FFFFFF",
+        boxShadow: "0 -30px 40px -20px rgba(255,255,255,0.5), 0 30px 40px -20px rgba(255,255,255,0.5)",
       }}
     >
+      {/* Top fade */}
+      <div className="absolute top-0 left-0 right-0 h-8 pointer-events-none" style={{ background: "linear-gradient(to bottom, hsl(0 0% 10% / 0.15), transparent)" }} />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(0 0% 10% / 0.15), transparent)" }} />
       <div className="section-container">
-        <h2 className="font-display text-2xl md:text-3xl text-center text-foreground mb-8">
+        <h2 className="font-display text-2xl md:text-3xl text-center text-gray-900 mb-8">
           Algumas marcas que já atendemos:
         </h2>
 
