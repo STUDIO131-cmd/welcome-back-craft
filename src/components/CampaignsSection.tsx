@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Camera } from "lucide-react";
+import { X } from "lucide-react";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
+import cImg1 from "@/assets/campaigns/cimples/img1.jpg";
+import cImg2 from "@/assets/campaigns/cimples/img2.jpg";
+import cImg3 from "@/assets/campaigns/cimples/img3.jpg";
+import cImg4 from "@/assets/campaigns/cimples/img4.jpg";
+import cVid1 from "@/assets/campaigns/cimples/video1.mp4";
 
 type GalleryItem = {
   src: string;
@@ -20,7 +25,12 @@ const campaigns = [
       "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
     tags: ["Direção Criativa", "Fotografia", "Vídeo"],
     gallery: [
-      { src: daniCimples, type: "image" as "image" | "video", span: "col-span-2 row-span-2" },
+      { src: cImg1, type: "image" as const, span: "col-span-2 row-span-2" },
+      { src: cVid1, type: "video" as const, span: "col-span-2 row-span-2" },
+      { src: cImg3, type: "image" as const },
+      { src: cImg2, type: "image" as const, span: "col-span-2 row-span-1" },
+      { src: cImg4, type: "image" as const },
+      { src: daniCimples, type: "image" as const, span: "col-span-2 row-span-1" },
     ] satisfies GalleryItem[],
   },
   {
@@ -147,26 +157,19 @@ const CampaignsSection = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 border border-white/20 text-foreground/70 hover:text-foreground transition-colors"
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 border border-white/20 text-white/70 hover:text-white transition-colors"
                 onClick={() => setOpenGallery(null)}
               >
                 <X size={20} />
               </button>
 
-              {/* Icon */}
-              <div className="flex justify-center mb-4">
-                <div className="w-14 h-14 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/[0.15] flex items-center justify-center">
-                  <Camera size={24} className="text-white/80" />
-                </div>
-              </div>
-
               {/* Title */}
-              <h3 className="font-heading text-xl font-semibold text-foreground/90 text-center mb-3">
+              <h3 className="font-heading text-xl font-semibold text-white text-center mb-3">
                 {campaigns[openGallery].title}
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-foreground/70 text-center leading-relaxed line-clamp-4 max-w-2xl mx-auto mb-6">
+              <p className="text-sm text-white/70 text-center leading-relaxed line-clamp-4 max-w-2xl mx-auto mb-6">
                 {campaigns[openGallery].description}
               </p>
 
