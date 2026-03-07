@@ -1,5 +1,5 @@
 import HeroSection from "@/components/HeroSection";
-import PortfolioDivider from "@/components/PortfolioDivider";
+
 import ClientsCarousel from "@/components/ClientsCarousel";
 import CampaignsSection from "@/components/CampaignsSection";
 
@@ -13,7 +13,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <HeroSection />
-      <PortfolioDivider />
+      
       <CampaignsSection />
       <ClientsCarousel />
       
