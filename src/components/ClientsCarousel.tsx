@@ -31,32 +31,34 @@ const ScrollRow = ({ items }: { items: string[] }) => (
 
 const ClientsCarousel = () => {
   return (
-    <div
-      className="w-full py-12 relative"
-      style={{
-        background: "#FFFFFF",
-        boxShadow: "0 -30px 40px -20px rgba(255,255,255,0.5), 0 30px 40px -20px rgba(255,255,255,0.5)",
-      }}
-    >
-      {/* Top fade */}
-      <div className="absolute top-0 left-0 right-0 h-8 pointer-events-none" style={{ background: "linear-gradient(to bottom, hsl(0 0% 10% / 0.15), transparent)" }} />
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(0 0% 10% / 0.15), transparent)" }} />
+    <div className="w-full py-12 relative">
       <div className="section-container">
-        <h2 className="font-display text-2xl md:text-3xl text-center text-gray-900 mb-8">
+        <h2 className="font-display text-2xl md:text-3xl text-center text-foreground mb-8">
           Algumas marcas que já atendemos:
         </h2>
 
-        <div
-          className="overflow-hidden"
-          style={{
-            maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          }}
-        >
-          <div className="flex flex-col gap-2">
-            <ScrollRow items={row1} />
-            <ScrollRow items={row2} />
+        <div className="relative">
+          {/* White background with fade on all edges */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "#FFFFFF",
+              maskImage: "radial-gradient(ellipse 90% 80% at center, black 40%, transparent 100%)",
+              WebkitMaskImage: "radial-gradient(ellipse 90% 80% at center, black 40%, transparent 100%)",
+            }}
+          />
+
+          <div
+            className="relative overflow-hidden"
+            style={{
+              maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+              WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            }}
+          >
+            <div className="flex flex-col gap-2">
+              <ScrollRow items={row1} />
+              <ScrollRow items={row2} />
+            </div>
           </div>
         </div>
       </div>
