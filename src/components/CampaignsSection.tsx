@@ -223,7 +223,7 @@ const VideoPlayer = ({ src, alt, className }: { src: string; alt: string; classN
         playsInline
         onPause={handlePause}
         onEnded={handlePause}
-        className="w-full h-full object-cover rounded-xl"
+        className="w-full h-full object-contain rounded-xl"
         aria-label={alt}
       />
       {!playing && (
@@ -246,14 +246,14 @@ const BentoGallery = ({ items, campaignTitle }: { items: GalleryItem[]; campaign
       const colSpan = item.cols === 3 ? "col-span-3" : item.cols === 2 ? "col-span-2" : "col-span-1";
       const rowSpan = item.rows === 2 ? "row-span-2" : "row-span-1";
       return (
-        <div key={idx} className={`${colSpan} ${rowSpan} overflow-hidden rounded-xl`}>
+        <div key={idx} className={`${colSpan} ${rowSpan} overflow-hidden rounded-xl bg-black/40`}>
           {item.type === "video" ? (
             <VideoPlayer src={item.src} alt={`${campaignTitle} - ${idx + 1}`} />
           ) : (
             <img
               src={item.src}
               alt={`${campaignTitle} - ${idx + 1}`}
-              className="w-full h-full object-cover rounded-xl"
+              className="w-full h-full object-contain rounded-xl"
               loading="lazy"
             />
           )}
