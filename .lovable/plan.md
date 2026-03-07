@@ -9,7 +9,8 @@ Criar componente entre `CampaignsSection` e `ClientsCarousel` com:
   - Estilo: `backdrop-blur-xl bg-white/[0.08] border border-white/[0.15]` com hover glow/scale animation
 - **Subtítulo**: "Como funciona a nossa atuação"
 - **Barra liquid glass animada** com ícone de relógio (Clock do lucide-react): "Assista ao vídeo 2 min."  
-Adicionar um placeholder de vídeo com capa layer blur e um icon de play centralizado
+  
+Inclua um placeholder 1080x1920 mas com tamanho menor, apenas respeitando a proporção
 
 Tudo centralizado, com `section-container`, espaçamento `py-12`.
 
@@ -25,13 +26,10 @@ Importar e inserir `CampaignCTA` entre `CampaignsSection` e `ClientsCarousel`.
 - Atualizar cor do título para escuro (`text-gray-900`)
 - Bordas superior e inferior com fade-out sutil para o fundo da página (usar `box-shadow` ou gradientes nas bordas)
 - Ícones mantêm grayscale com hover colorido
-- A glassbar se mantem "abraçando" todo conteúdo 
+- Mantemos a glass bar que deve "abraçar" todo conteúdo
 
 ### Arquivos
 
 - **Criar**: `src/components/CampaignCTA.tsx`
 - **Editar**: `src/pages/Index.tsx` (adicionar import + componente)
-- **Editar**: `src/components/ClientsCarousel.tsx` (background branco sólido + fade borders)  
-  
-  
-Confirme seu entendimento antes de executar
+- **Editar**: `src/components/ClientsCarousel.tsx` (background branco sólido + fade borders)
