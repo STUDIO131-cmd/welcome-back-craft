@@ -37,6 +37,13 @@ import aImg1 from "@/assets/campaigns/auramia/5D4A0703_1.jpg";
 import aImg2 from "@/assets/campaigns/auramia/5D4A0768_1.jpg";
 import aImg3 from "@/assets/campaigns/auramia/5D4A0750_1.jpg";
 import aImg4 from "@/assets/campaigns/auramia/5D4A0834_1.jpg";
+import crVid1 from "@/assets/campaigns/cravates/cravates1.mp4";
+import crImg1 from "@/assets/campaigns/cravates/IMG_0423.jpg";
+import crImg2 from "@/assets/campaigns/cravates/IMG_0706.jpg";
+import crImg3 from "@/assets/campaigns/cravates/IMG_0455.jpg";
+import crImg4 from "@/assets/campaigns/cravates/IMG_0276.jpg";
+import crImg5 from "@/assets/campaigns/cravates/IMG_0190.jpg";
+import crImg6 from "@/assets/campaigns/cravates/IMG_0143.jpg";
 
 type GalleryItem = {
   src: string;
@@ -113,6 +120,23 @@ const campaigns = [
   { src: aVid3, type: "video" as const },
   { src: aImg3, type: "image" as const },
   { src: aImg4, type: "image" as const }] satisfies
+  GalleryItem[]
+},
+{
+  image: null,
+  title: "Coleção Cravates by Corpo De Ballet",
+  subtitle: "Lançamento | Moda Ballet",
+  description:
+  "Campos do Jordão foi o lugar escolhido para dar vida ao universo criado no lançamento da coleção de ballet Cravates.\n\nToda a ideia da campanha partiu de duas personagens que já faziam parte da história da marca: Cher e Etoiles.\n\nCada uma delas carrega um estilo e uma personalidade própria, e isso foi usado como base para construir a identidade visual da nova coleção.\n\nCher traz leveza, delicadeza e suavidade. Etoiles representa um lado mais refinado, elegante e sofisticado. A coleção Cravates nasceu justamente da união dessas duas essências.",
+  tags: ["Fotografia", "Lookbook", "Direção Criativa", "Vídeo"],
+  gallery: [
+  { src: crVid1, type: "video" as const },
+  { src: crImg1, type: "image" as const },
+  { src: crImg2, type: "image" as const },
+  { src: crImg3, type: "image" as const },
+  { src: crImg4, type: "image" as const },
+  { src: crImg5, type: "image" as const },
+  { src: crImg6, type: "image" as const }] satisfies
   GalleryItem[]
 }];
 
