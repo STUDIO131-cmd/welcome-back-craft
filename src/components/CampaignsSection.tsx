@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Play } from "lucide-react";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
@@ -9,11 +9,13 @@ import cImg2 from "@/assets/campaigns/cimples/img2.jpg";
 import cImg3 from "@/assets/campaigns/cimples/img3.jpg";
 import cImg4 from "@/assets/campaigns/cimples/img4.jpg";
 import cVid1 from "@/assets/campaigns/cimples/video1.mp4";
+import cVid2 from "@/assets/campaigns/cimples/video2.mp4";
+import cVid3 from "@/assets/campaigns/cimples/video3.mp4";
+import cVid4 from "@/assets/campaigns/cimples/video4.mp4";
 
 type GalleryItem = {
   src: string;
   type: "image" | "video";
-  span?: string;
 };
 
 const campaigns = [
@@ -25,12 +27,15 @@ const campaigns = [
       "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
     tags: ["Direção Criativa", "Fotografia", "Vídeo"],
     gallery: [
-      { src: cImg1, type: "image" as const, span: "col-span-2 row-span-2" },
-      { src: cVid1, type: "video" as const, span: "col-span-2 row-span-2" },
+      { src: cImg1, type: "image" as const },
+      { src: cVid1, type: "video" as const },
       { src: cImg3, type: "image" as const },
-      { src: cImg2, type: "image" as const, span: "col-span-2 row-span-1" },
+      { src: cVid2, type: "video" as const },
+      { src: cImg2, type: "image" as const },
+      { src: cVid3, type: "video" as const },
       { src: cImg4, type: "image" as const },
-      { src: daniCimples, type: "image" as const, span: "col-span-2 row-span-1" },
+      { src: cVid4, type: "video" as const },
+      { src: daniCimples, type: "image" as const },
     ] satisfies GalleryItem[],
   },
   {
@@ -41,7 +46,7 @@ const campaigns = [
       "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
     tags: ["Branding", "Campanha", "Vídeo & Foto"],
     gallery: [
-      { src: daniGallery, type: "image" as "image" | "video", span: "col-span-2 row-span-2" },
+      { src: daniGallery, type: "image" as const },
     ] satisfies GalleryItem[],
   },
   {
@@ -52,7 +57,7 @@ const campaigns = [
       "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
     tags: ["Promoção", "Direção Criativa"],
     gallery: [
-      { src: pinkFriday, type: "image" as "image" | "video", span: "col-span-2 row-span-2" },
+      { src: pinkFriday, type: "image" as const },
     ] satisfies GalleryItem[],
   },
 ];
@@ -64,6 +69,48 @@ const fadeUp = {
     y: 0,
     transition: { duration: 0.8, delay: i * 0.2, ease: "easeOut" as const },
   }),
+};
+
+const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const handlePlay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    video.play();
+    setPlaying(true);
+  }, []);
+
+  const handlePause = useCallback(() => {
+    setPlaying(false);
+  }, []);
+
+  return (
+    <div className="relative">
+      <video
+        ref={videoRef}
+        src={src}
+        controls={playing}
+        playsInline
+        onPause={handlePause}
+        onEnded={handlePause}
+        className="w-full h-auto rounded-lg"
+        aria-label={alt}
+      />
+      {!playing && (
+        <button
+          onClick={handlePlay}
+          className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg transition-colors hover:bg-black/40"
+        >
+          <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+            <Play size={28} className="text-gray-900 ml-1" fill="currentColor" />
+          </div>
+        </button>
+      )}
+    </div>
+  );
 };
 
 const CampaignsSection = () => {
@@ -84,7 +131,6 @@ const CampaignsSection = () => {
               custom={i}
               onClick={() => setOpenGallery(i)}
             >
-              {/* Hover overlay with glass bar */}
               <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="px-6 py-3 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/[0.15]">
                   <span
@@ -138,7 +184,6 @@ const CampaignsSection = () => {
         </div>
       </section>
 
-      {/* Gallery Popup */}
       <AnimatePresence>
         {openGallery !== null && (
           <motion.div
@@ -163,35 +208,28 @@ const CampaignsSection = () => {
                 <X size={20} />
               </button>
 
-              {/* Title */}
               <h3 className="font-heading text-xl font-semibold text-white text-center mb-3">
                 {campaigns[openGallery].title}
               </h3>
 
-              {/* Description */}
               <p className="text-sm text-white/70 text-center leading-relaxed line-clamp-4 max-w-2xl mx-auto mb-6">
                 {campaigns[openGallery].description}
               </p>
 
-              {/* Bento Grid Gallery */}
-              <div className="grid grid-cols-4 auto-rows-[200px] gap-2">
+              {/* Masonry columns layout */}
+              <div className="columns-1 sm:columns-2 md:columns-3 gap-2">
                 {campaigns[openGallery].gallery.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className={`rounded-lg overflow-hidden ${item.span || "col-span-1 row-span-1"}`}
-                  >
+                  <div key={idx} className="mb-2 break-inside-avoid">
                     {item.type === "video" ? (
-                      <video
+                      <VideoPlayer
                         src={item.src}
-                        controls
-                        muted
-                        className="w-full h-full object-cover rounded-lg"
+                        alt={`${campaigns[openGallery].title} - ${idx + 1}`}
                       />
                     ) : (
                       <img
                         src={item.src}
                         alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="w-full h-auto rounded-lg"
                       />
                     )}
                   </div>
