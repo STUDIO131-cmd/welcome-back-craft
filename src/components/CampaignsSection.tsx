@@ -67,7 +67,7 @@ const CampaignsSection = () => {
               onClick={() => setOpenGallery(i)}
             >
               {/* Hover blink overlay */}
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span
                   className="text-white/90 text-sm md:text-base tracking-[0.3em] uppercase animate-pulse"
                   style={{
