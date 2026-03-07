@@ -219,21 +219,30 @@ const CampaignsSection = () => {
 
               {/* Grid 2-col layout */}
               <div className="max-w-2xl mx-auto px-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {campaigns[openGallery].gallery.map((item, idx) => (
-                    <div key={idx}>
-                      {item.type === "video" ? (
-                        <VideoPlayer
-                          src={item.src}
-                          alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                        />
-                      ) : (
-                        <img
-                          src={item.src}
-                          alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                          className="w-full h-auto rounded-lg"
-                        />
-                      )}
+                <div className="flex gap-2">
+                  {[0, 1].map((col) => (
+                    <div key={col} className="flex-1 flex flex-col gap-2">
+                      {campaigns[openGallery].gallery
+                        .filter((_, idx) => idx % 2 === col)
+                        .map((item, idx) => {
+                          const originalIdx = idx * 2 + col;
+                          return (
+                            <div key={originalIdx}>
+                              {item.type === "video" ? (
+                                <VideoPlayer
+                                  src={item.src}
+                                  alt={`${campaigns[openGallery].title} - ${originalIdx + 1}`}
+                                />
+                              ) : (
+                                <img
+                                  src={item.src}
+                                  alt={`${campaigns[openGallery].title} - ${originalIdx + 1}`}
+                                  className="w-full h-auto rounded-lg"
+                                />
+                              )}
+                            </div>
+                          );
+                        })}
                     </div>
                   ))}
                 </div>
