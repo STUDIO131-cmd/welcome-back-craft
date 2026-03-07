@@ -61,9 +61,14 @@ const CampaignCTA = () => {
             className="w-[200px] md:w-[240px] rounded-2xl overflow-hidden border border-white/[0.1] bg-white/[0.05] backdrop-blur-sm"
             style={{ aspectRatio: "9/16" }}
           >
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-              Vídeo em breve
-            </div>
+            <video
+              src={campanhasVideo}
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
           </div>
         </motion.div>
       </motion.div>
