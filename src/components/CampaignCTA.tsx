@@ -8,8 +8,12 @@ const CampaignCTA = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.controls = true;
+      videoRef.current.play();
+    }
     setIsPlaying(true);
-    videoRef.current?.play();
   };
 
   return (
