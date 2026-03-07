@@ -146,6 +146,24 @@ const campaigns = [
   { src: crImg5, type: "image" as const },
   { src: crImg6, type: "image" as const }] satisfies
   GalleryItem[]
+},
+{
+  image: null,
+  title: "Velvet Cherry by Dani Fernandes",
+  subtitle: "Nova coleção | Lançamento",
+  description:
+  "O aroma que se tornou sucesso em vendas carrega uma identidade que foi construída em um material de fotos e vídeos para a rede social:\n\nTextura leve, maciez, feminilidade e doçura.\n\nNosso time entregou fotografia ambientada, still e direção criativa em estúdio.",
+  tags: ["Direção Criativa", "Fotografia", "Vídeo"],
+  gallery: [
+  { src: vcVid1, type: "video" as const },
+  { src: vcImg1, type: "image" as const },
+  { src: vcImg2, type: "image" as const },
+  { src: vcImg3, type: "image" as const },
+  { src: vcImg4, type: "image" as const },
+  { src: vcImg5, type: "image" as const },
+  { src: vcImg6, type: "image" as const },
+  { src: vcImg7, type: "image" as const }] satisfies
+  GalleryItem[]
 }];
 
 
