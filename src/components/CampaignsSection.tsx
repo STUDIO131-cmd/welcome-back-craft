@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Camera } from "lucide-react";
+import { X } from "lucide-react";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
+import cImg1 from "@/assets/campaigns/cimples/img1.jpg";
+import cImg2 from "@/assets/campaigns/cimples/img2.jpg";
+import cImg3 from "@/assets/campaigns/cimples/img3.jpg";
+import cImg4 from "@/assets/campaigns/cimples/img4.jpg";
+import cVid1 from "@/assets/campaigns/cimples/video1.mp4";
 
 type GalleryItem = {
   src: string;
