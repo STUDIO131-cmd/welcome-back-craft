@@ -71,8 +71,8 @@ const campaigns = [
   { src: cVid1, type: "video", span: "full" },
   { src: cImg1, type: "image", span: "half" },
   { src: cImg2, type: "image", span: "half" },
-  { src: cVid2, type: "video", span: "full" },
-  { src: cVid3, type: "video", span: "full" },
+  { src: cVid2, type: "video", span: "half" },
+  { src: cVid3, type: "video", span: "half" },
   { src: cImg3, type: "image", span: "half" },
   { src: cImg4, type: "image", span: "half" },
   { src: cVid4, type: "video", span: "full" }] satisfies
@@ -89,8 +89,8 @@ const campaigns = [
   { src: tngVid1, type: "video", span: "full" },
   { src: tngImg1, type: "image", span: "half" },
   { src: tngImg2, type: "image", span: "half" },
-  { src: tngVid2, type: "video", span: "full" },
-  { src: tngVid3, type: "video", span: "full" },
+  { src: tngVid2, type: "video", span: "half" },
+  { src: tngVid3, type: "video", span: "half" },
   { src: tngImg3, type: "image", span: "half" },
   { src: tngImg4, type: "image", span: "half" },
   { src: tngImg5, type: "image", span: "full" }] satisfies
@@ -125,9 +125,9 @@ const campaigns = [
   { src: aVid1, type: "video", span: "full" },
   { src: aImg1, type: "image", span: "half" },
   { src: aImg2, type: "image", span: "half" },
-  { src: aVid2, type: "video", span: "full" },
-  { src: aVid3, type: "video", span: "full" },
+  { src: aVid2, type: "video", span: "half" },
   { src: aImg3, type: "image", span: "half" },
+  { src: aVid3, type: "video", span: "half" },
   { src: aImg4, type: "image", span: "half" }] satisfies
   GalleryItem[]
 },
