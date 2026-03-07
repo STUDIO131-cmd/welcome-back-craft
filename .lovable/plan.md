@@ -1,21 +1,17 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+## Plano: Galeria estilo bento grid sem barras — imagens preenchem os blocos
 
-### Changes to `src/components/ClientsCarousel.tsx`
+### Problema
+As fotos e vídeos usam `object-contain` que mostra barras laterais. Precisam usar `object-cover` para preencher cada célula, como na referência (bento grid com imagens cortadas para preencher).
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+### Alterações em `src/components/CampaignsSection.tsx`
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+1. **Trocar `object-contain` por `object-cover`** nas imagens e vídeos da galeria (linhas 188 e 194) — remove as barras laterais
+2. **Remover `bg-black/20`** — não precisa mais de fundo pois a mídia preenche tudo
+3. **Aumentar o tamanho do grid** — mudar `auto-rows-[150px]` para `auto-rows-[200px]` e o modal de `max-w-4xl` para `max-w-5xl` para itens maiores
+4. **Aumentar o gap** de `gap-3` para `gap-2` (mais junto, como na referência)
 
-### Implementation details
-
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
-
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+### Resultado esperado
+Grid estilo bento como na imagem de referência: fotos preenchendo cada célula inteira sem barras, com tamanhos variados via spans.
 
