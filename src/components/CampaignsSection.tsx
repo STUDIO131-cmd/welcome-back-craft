@@ -5,6 +5,14 @@ import pageBg from "@/assets/page-bg.jpg";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFriday from "@/assets/campaigns/pink-friday.png";
+import pfVid1 from "@/assets/campaigns/pinkfriday/PF_1_2.mp4";
+import pfImg1 from "@/assets/campaigns/pinkfriday/5D4A6291.jpg";
+import pfImg2 from "@/assets/campaigns/pinkfriday/A4_2.jpg";
+import pfVid2 from "@/assets/campaigns/pinkfriday/PF_5.mp4";
+import pfImg3 from "@/assets/campaigns/pinkfriday/5D4A6298_1.jpg";
+import pfImg4 from "@/assets/campaigns/pinkfriday/DSC05583.jpg";
+import pfImg5 from "@/assets/campaigns/pinkfriday/5D4A6295_1.jpg";
+import pfImg6 from "@/assets/campaigns/pinkfriday/DSC05586_1.jpg";
 import tngVid1 from "@/assets/campaigns/tng/TNG-Campaing01.mp4";
 import tngImg1 from "@/assets/campaigns/tng/5D4A5594.jpg";
 import tngImg2 from "@/assets/campaigns/tng/5D4A5611.jpg";
@@ -72,7 +80,14 @@ const campaigns = [
   "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
   tags: ["Promoção", "Direção Criativa"],
   gallery: [
-  { src: pinkFriday, type: "image" as const }] satisfies
+  { src: pfVid1, type: "video" as const },
+  { src: pfImg1, type: "image" as const },
+  { src: pfImg2, type: "image" as const },
+  { src: pfVid2, type: "video" as const },
+  { src: pfImg3, type: "image" as const },
+  { src: pfImg4, type: "image" as const },
+  { src: pfImg5, type: "image" as const },
+  { src: pfImg6, type: "image" as const }] satisfies
   GalleryItem[]
 }];
 
