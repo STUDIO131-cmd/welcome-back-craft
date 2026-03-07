@@ -4,7 +4,6 @@ import { X, Play } from "lucide-react";
 import pageBg from "@/assets/page-bg.jpg";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
-import pinkFriday from "@/assets/campaigns/pink-friday.png";
 import pinkFridayCover from "@/assets/campaigns/pink-friday-cover.png";
 import pfVid1 from "@/assets/campaigns/pinkfriday/PF_1_2.mp4";
 import pfImg1 from "@/assets/campaigns/pinkfriday/5D4A6291.jpg";
@@ -56,128 +55,150 @@ import vcImg7 from "@/assets/campaigns/velvetcherry/img7.jpg";
 type GalleryItem = {
   src: string;
   type: "image" | "video";
-  span?: "full" | "half";
+  cols: 1 | 2 | 3;
+  rows?: 1 | 2;
 };
 
 const campaigns = [
-{
-  image: daniCimples,
-  title: "Dani Fernandes × CIMPLES (by Carolina Ferraz)",
-  subtitle: "Campanha de Dia das Mães",
-  description:
-  "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
-  tags: ["Direção Criativa", "Fotografia", "Vídeo"],
-  gallery: [
-  { src: cVid1, type: "video", span: "full" },
-  { src: cImg1, type: "image", span: "half" },
-  { src: cImg2, type: "image", span: "half" },
-  { src: cVid2, type: "video", span: "half" },
-  { src: cVid3, type: "video", span: "half" },
-  { src: cImg3, type: "image", span: "half" },
-  { src: cImg4, type: "image", span: "half" },
-  { src: cVid4, type: "video", span: "full" }] satisfies
-  GalleryItem[]
-},
-{
-  image: daniGallery,
-  title: "Dani Fernandes × The National Gallery",
-  subtitle: "Lançamento de novas fragrâncias",
-  description:
-  "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
-  tags: ["Branding", "Campanha", "Vídeo & Foto"],
-  gallery: [
-  { src: tngVid1, type: "video", span: "full" },
-  { src: tngImg1, type: "image", span: "half" },
-  { src: tngImg2, type: "image", span: "half" },
-  { src: tngVid2, type: "video", span: "half" },
-  { src: tngVid3, type: "video", span: "half" },
-  { src: tngImg3, type: "image", span: "half" },
-  { src: tngImg4, type: "image", span: "half" },
-  { src: tngImg5, type: "image", span: "full" }] satisfies
-  GalleryItem[]
-},
-{
-  image: pinkFridayCover,
-  title: "PINK Friday × Marina Fraga",
-  subtitle: "Black Friday — Pink Shine",
-  description:
-  "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
-  tags: ["Promoção", "Direção Criativa"],
-  gallery: [
-  { src: pfVid1, type: "video", span: "full" },
-  { src: pfImg1, type: "image", span: "half" },
-  { src: pfImg2, type: "image", span: "full" },
-  { src: pfVid2, type: "video", span: "half" },
-  { src: pfImg3, type: "image", span: "half" },
-  { src: pfImg4, type: "image", span: "half" },
-  { src: pfImg5, type: "image", span: "half" },
-  { src: pfImg6, type: "image", span: "full" }] satisfies
-  GalleryItem[]
-},
-{
-  image: null,
-  title: "Auramia by Beatriz Manganelli",
-  subtitle: "Lançamento | Moda Fitness",
-  description:
-  "Estivemos em Aracaju (SE) para o lançamento da Auramia. A coleção Brisa trouxe sensação: calmaria, leveza e um tecido que abraça o corpo na rotina da mulher brasileira.\n\nPara este projeto fizemos estudo de público, calendário de publicações com fases de antecipação e lançamento, foto e vídeo, tudo alinhado para gerar intenção de compra.\n\nCom a repercussão organizada, causamos o efeito empilhamento de demanda: quando o site abriu, vários modelos esgotaram em 24h.",
-  tags: ["Calendário de Conteúdo", "Audiovisual", "Direção"],
-  gallery: [
-  { src: aVid1, type: "video", span: "full" },
-  { src: aImg1, type: "image", span: "half" },
-  { src: aImg2, type: "image", span: "half" },
-  { src: aVid2, type: "video", span: "half" },
-  { src: aImg3, type: "image", span: "half" },
-  { src: aVid3, type: "video", span: "half" },
-  { src: aImg4, type: "image", span: "half" }] satisfies
-  GalleryItem[]
-},
-{
-  image: null,
-  title: "Coleção Cravates by Corpo De Ballet",
-  subtitle: "Lançamento | Moda Ballet",
-  description:
-  "Campos do Jordão foi o lugar escolhido para dar vida ao universo criado no lançamento da coleção de ballet Cravates.\n\nToda a ideia da campanha partiu de duas personagens que já faziam parte da história da marca: Cher e Etoiles.\n\nCada uma delas carrega um estilo e uma personalidade própria, e isso foi usado como base para construir a identidade visual da nova coleção.\n\nCher traz leveza, delicadeza e suavidade. Etoiles representa um lado mais refinado, elegante e sofisticado. A coleção Cravates nasceu justamente da união dessas duas essências.",
-  tags: ["Fotografia", "Lookbook", "Direção Criativa", "Vídeo"],
-  gallery: [
-  { src: crVid1, type: "video", span: "full" },
-  { src: crImg1, type: "image", span: "half" },
-  { src: crImg2, type: "image", span: "half" },
-  { src: crImg3, type: "image", span: "half" },
-  { src: crImg4, type: "image", span: "half" },
-  { src: crImg5, type: "image", span: "half" },
-  { src: crImg6, type: "image", span: "half" }] satisfies
-  GalleryItem[]
-},
-{
-  image: null,
-  title: "Velvet Cherry by Dani Fernandes",
-  subtitle: "Nova coleção | Lançamento",
-  description:
-  "O aroma que se tornou sucesso em vendas carrega uma identidade que foi construída em um material de fotos e vídeos para a rede social:\n\nTextura leve, maciez, feminilidade e doçura.\n\nNosso time entregou fotografia ambientada, still e direção criativa em estúdio.",
-  tags: ["Direção Criativa", "Fotografia", "Vídeo"],
-  gallery: [
-  { src: vcVid1, type: "video", span: "full" },
-  { src: vcImg1, type: "image", span: "half" },
-  { src: vcImg2, type: "image", span: "half" },
-  { src: vcImg3, type: "image", span: "half" },
-  { src: vcImg4, type: "image", span: "half" },
-  { src: vcImg5, type: "image", span: "half" },
-  { src: vcImg6, type: "image", span: "half" },
-  { src: vcImg7, type: "image", span: "full" }] satisfies
-  GalleryItem[]
-}];
-
+  {
+    image: daniCimples,
+    title: "Dani Fernandes × CIMPLES (by Carolina Ferraz)",
+    subtitle: "Campanha de Dia das Mães",
+    description:
+      "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
+    tags: ["Direção Criativa", "Fotografia", "Vídeo"],
+    gallery: [
+      // Row 1: video 2x2 + 2 photos stacked
+      { src: cVid1, type: "video", cols: 2, rows: 2 },
+      { src: cImg1, type: "image", cols: 1, rows: 1 },
+      { src: cImg2, type: "image", cols: 1, rows: 1 },
+      // Row 3: 2 videos side by side + photo
+      { src: cVid2, type: "video", cols: 1, rows: 1 },
+      { src: cVid3, type: "video", cols: 1, rows: 1 },
+      { src: cImg3, type: "image", cols: 1, rows: 1 },
+      // Row 4: photo + video wide
+      { src: cImg4, type: "image", cols: 1, rows: 1 },
+      { src: cVid4, type: "video", cols: 2, rows: 1 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: daniGallery,
+    title: "Dani Fernandes × The National Gallery",
+    subtitle: "Lançamento de novas fragrâncias",
+    description:
+      "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
+    tags: ["Branding", "Campanha", "Vídeo & Foto"],
+    gallery: [
+      // Row 1: video 2x2 + 2 photos stacked
+      { src: tngVid1, type: "video", cols: 2, rows: 2 },
+      { src: tngImg1, type: "image", cols: 1, rows: 1 },
+      { src: tngImg2, type: "image", cols: 1, rows: 1 },
+      // Row 3: photo + video 2x1
+      { src: tngImg3, type: "image", cols: 1, rows: 1 },
+      { src: tngVid2, type: "video", cols: 2, rows: 1 },
+      // Row 4: video + photo + photo
+      { src: tngVid3, type: "video", cols: 1, rows: 1 },
+      { src: tngImg4, type: "image", cols: 1, rows: 1 },
+      { src: tngImg5, type: "image", cols: 1, rows: 1 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: pinkFridayCover,
+    title: "PINK Friday × Marina Fraga",
+    subtitle: "Black Friday — Pink Shine",
+    description:
+      "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
+    tags: ["Promoção", "Direção Criativa"],
+    gallery: [
+      // Row 1: video 2x1 + photo
+      { src: pfVid1, type: "video", cols: 2, rows: 1 },
+      { src: pfImg1, type: "image", cols: 1, rows: 1 },
+      // Row 2: photo wide + video
+      { src: pfImg2, type: "image", cols: 2, rows: 1 },
+      { src: pfVid2, type: "video", cols: 1, rows: 2 },
+      // Row 3: 2 photos
+      { src: pfImg3, type: "image", cols: 1, rows: 1 },
+      { src: pfImg4, type: "image", cols: 1, rows: 1 },
+      // Row 4: 2 photos wide
+      { src: pfImg5, type: "image", cols: 1, rows: 1 },
+      { src: pfImg6, type: "image", cols: 2, rows: 1 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: null,
+    title: "Auramia by Beatriz Manganelli",
+    subtitle: "Lançamento | Moda Fitness",
+    description:
+      "Estivemos em Aracaju (SE) para o lançamento da Auramia. A coleção Brisa trouxe sensação: calmaria, leveza e um tecido que abraça o corpo na rotina da mulher brasileira.\n\nPara este projeto fizemos estudo de público, calendário de publicações com fases de antecipação e lançamento, foto e vídeo, tudo alinhado para gerar intenção de compra.\n\nCom a repercussão organizada, causamos o efeito empilhamento de demanda: quando o site abriu, vários modelos esgotaram em 24h.",
+    tags: ["Calendário de Conteúdo", "Audiovisual", "Direção"],
+    gallery: [
+      // Row 1: video 2x2 + photo tall
+      { src: aVid1, type: "video", cols: 2, rows: 2 },
+      { src: aImg1, type: "image", cols: 1, rows: 2 },
+      // Row 3: photo + video
+      { src: aImg2, type: "image", cols: 1, rows: 1 },
+      { src: aVid2, type: "video", cols: 2, rows: 1 },
+      // Row 4: video + photo wide
+      { src: aVid3, type: "video", cols: 1, rows: 1 },
+      { src: aImg3, type: "image", cols: 1, rows: 1 },
+      { src: aImg4, type: "image", cols: 1, rows: 1 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: null,
+    title: "Coleção Cravates by Corpo De Ballet",
+    subtitle: "Lançamento | Moda Ballet",
+    description:
+      "Campos do Jordão foi o lugar escolhido para dar vida ao universo criado no lançamento da coleção de ballet Cravates.\n\nToda a ideia da campanha partiu de duas personagens que já faziam parte da história da marca: Cher e Etoiles.\n\nCada uma delas carrega um estilo e uma personalidade própria, e isso foi usado como base para construir a identidade visual da nova coleção.\n\nCher traz leveza, delicadeza e suavidade. Etoiles representa um lado mais refinado, elegante e sofisticado. A coleção Cravates nasceu justamente da união dessas duas essências.",
+    tags: ["Fotografia", "Lookbook", "Direção Criativa", "Vídeo"],
+    gallery: [
+      // Row 1: video 2x1 + photo tall
+      { src: crVid1, type: "video", cols: 2, rows: 2 },
+      { src: crImg1, type: "image", cols: 1, rows: 1 },
+      // Row 2: photo under video
+      { src: crImg2, type: "image", cols: 1, rows: 1 },
+      // Row 3: 3 photos
+      { src: crImg3, type: "image", cols: 1, rows: 1 },
+      { src: crImg4, type: "image", cols: 1, rows: 1 },
+      { src: crImg5, type: "image", cols: 1, rows: 1 },
+      // Row 4: photo wide
+      { src: crImg6, type: "image", cols: 2, rows: 1 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: null,
+    title: "Velvet Cherry by Dani Fernandes",
+    subtitle: "Nova coleção | Lançamento",
+    description:
+      "O aroma que se tornou sucesso em vendas carrega uma identidade que foi construída em um material de fotos e vídeos para a rede social:\n\nTextura leve, maciez, feminilidade e doçura.\n\nNosso time entregou fotografia ambientada, still e direção criativa em estúdio.",
+    tags: ["Direção Criativa", "Fotografia", "Vídeo"],
+    gallery: [
+      // Row 1: photo + video 2x2
+      { src: vcImg1, type: "image", cols: 1, rows: 1 },
+      { src: vcVid1, type: "video", cols: 2, rows: 2 },
+      // Row 2: photo under first
+      { src: vcImg2, type: "image", cols: 1, rows: 1 },
+      // Row 3: 3 photos
+      { src: vcImg3, type: "image", cols: 1, rows: 1 },
+      { src: vcImg4, type: "image", cols: 1, rows: 1 },
+      { src: vcImg5, type: "image", cols: 1, rows: 1 },
+      // Row 4: photo wide + photo
+      { src: vcImg6, type: "image", cols: 2, rows: 1 },
+      { src: vcImg7, type: "image", cols: 1, rows: 1 },
+    ] satisfies GalleryItem[],
+  },
+];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 60 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, delay: i * 0.2, ease: "easeOut" as const }
-  })
+    transition: { duration: 0.8, delay: i * 0.2, ease: "easeOut" as const },
+  }),
 };
 
-const VideoPlayer = ({ src, alt }: {src: string;alt: string;}) => {
+const VideoPlayer = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -194,7 +215,7 @@ const VideoPlayer = ({ src, alt }: {src: string;alt: string;}) => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className={`relative w-full h-full ${className ?? ""}`}>
       <video
         ref={videoRef}
         src={src}
@@ -202,22 +223,45 @@ const VideoPlayer = ({ src, alt }: {src: string;alt: string;}) => {
         playsInline
         onPause={handlePause}
         onEnded={handlePause}
-        className="w-full h-auto rounded-lg"
-        aria-label={alt} />
-      
-      {!playing &&
-      <button
-        onClick={handlePlay}
-        className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg transition-colors hover:bg-black/40">
-        
-          <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-            <Play size={28} className="text-gray-900 ml-1" fill="currentColor" />
+        className="w-full h-full object-cover rounded-xl"
+        aria-label={alt}
+      />
+      {!playing && (
+        <button
+          onClick={handlePlay}
+          className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl transition-colors hover:bg-black/40"
+        >
+          <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+            <Play size={22} className="text-gray-900 ml-0.5" fill="currentColor" />
           </div>
         </button>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 };
+
+const BentoGallery = ({ items, campaignTitle }: { items: GalleryItem[]; campaignTitle: string }) => (
+  <div className="grid grid-cols-3 auto-rows-[180px] gap-2">
+    {items.map((item, idx) => {
+      const colSpan = item.cols === 3 ? "col-span-3" : item.cols === 2 ? "col-span-2" : "col-span-1";
+      const rowSpan = item.rows === 2 ? "row-span-2" : "row-span-1";
+      return (
+        <div key={idx} className={`${colSpan} ${rowSpan} overflow-hidden rounded-xl`}>
+          {item.type === "video" ? (
+            <VideoPlayer src={item.src} alt={`${campaignTitle} - ${idx + 1}`} />
+          ) : (
+            <img
+              src={item.src}
+              alt={`${campaignTitle} - ${idx + 1}`}
+              className="w-full h-full object-cover rounded-xl"
+              loading="lazy"
+            />
+          )}
+        </div>
+      );
+    })}
+  </div>
+);
 
 const CampaignsSection = () => {
   const [openGallery, setOpenGallery] = useState<number | null>(null);
@@ -226,26 +270,26 @@ const CampaignsSection = () => {
     <>
       <section className="py-8 section-container">
         <div className="space-y-6">
-          {campaigns.map((campaign, i) =>
-          <motion.div
-            key={i}
-            className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            custom={i}
-            onClick={() => setOpenGallery(i)}>
-            
+          {campaigns.map((campaign, i) => (
+            <motion.div
+              key={i}
+              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              custom={i}
+              onClick={() => setOpenGallery(i)}
+            >
               <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="px-6 py-3 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/[0.15]">
                   <span
-                  className="text-white/90 text-sm md:text-base tracking-[0.3em] uppercase"
-                  style={{
-                    textShadow:
-                    "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3)"
-                  }}>
-                  
+                    className="text-white/90 text-sm md:text-base tracking-[0.3em] uppercase"
+                    style={{
+                      textShadow:
+                        "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3)",
+                    }}
+                  >
                     VEJA A GALERIA
                   </span>
                 </div>
@@ -258,66 +302,62 @@ const CampaignsSection = () => {
                       src={campaign.image}
                       alt={campaign.title}
                       className="w-full h-48 md:h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                      loading="lazy" />
+                      loading="lazy"
+                    />
                   ) : (
                     <div className="w-full h-48 md:h-full flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
-                
                 </div>
                 <div className="p-6 md:p-8 md:w-3/5 space-y-3 flex flex-col justify-center">
-                  <p className="text-xs tracking-[0.2em] uppercase text-white/50">
-                    {campaign.subtitle}
-                  </p>
+                  <p className="text-xs tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
                   <h3
-                  className="font-heading text-lg md:text-xl font-semibold"
-                  style={{ color: "#FFFFFF", textShadow: "0 0 12px rgba(255,255,255,0.3)" }}>
-                  
+                    className="font-heading text-lg md:text-xl font-semibold"
+                    style={{ color: "#FFFFFF", textShadow: "0 0 12px rgba(255,255,255,0.3)" }}
+                  >
                     {campaign.title}
                   </h3>
-                  <p className="text-sm text-white/70 leading-relaxed">
-                    {campaign.description}
-                  </p>
+                  <p className="text-sm text-white/70 leading-relaxed">{campaign.description}</p>
                   <div className="flex flex-wrap gap-2 pt-2">
-                    {campaign.tags.map((tag) =>
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-[10px] tracking-wider uppercase rounded-full bg-white/10 border border-white/20 text-white/60">
-                    
+                    {campaign.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-[10px] tracking-wider uppercase rounded-full bg-white/10 border border-white/20 text-white/60"
+                      >
                         {tag}
                       </span>
-                  )}
+                    ))}
                   </div>
                 </div>
               </div>
             </motion.div>
-          )}
+          ))}
         </div>
       </section>
 
       <AnimatePresence>
-        {openGallery !== null &&
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: `url(${pageBg})` }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setOpenGallery(null)}>
-          
+        {openGallery !== null && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-cover bg-center bg-fixed"
+            style={{ backgroundImage: `url(${pageBg})` }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpenGallery(null)}
+          >
             <motion.div
-            className="relative max-w-5xl w-full max-h-[85vh] overflow-y-auto rounded-2xl backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] p-6 shadow-[0_16px_64px_rgba(0,0,0,0.3)]"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={(e) => e.stopPropagation()}>
-            
+              className="relative max-w-4xl w-full max-h-[85vh] overflow-y-auto rounded-2xl backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] p-6 shadow-[0_16px_64px_rgba(0,0,0,0.3)]"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
               <button
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 border border-white/20 text-white/70 hover:text-white transition-colors"
-              onClick={() => setOpenGallery(null)}>
-              
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 border border-white/20 text-white/70 hover:text-white transition-colors"
+                onClick={() => setOpenGallery(null)}
+              >
                 <X size={20} />
               </button>
 
@@ -329,48 +369,18 @@ const CampaignsSection = () => {
                 {campaigns[openGallery].description}
               </p>
 
-              {/* Organic Bento Grid */}
-              <div className="max-w-2xl mx-auto px-2">
-                <div className="grid grid-cols-2 gap-2">
-                  {(() => {
-                    const gallery = campaigns[openGallery].gallery;
-                    // Check if last item would be orphaned (half after even number of halfs consumed)
-                    let halfCount = 0;
-                    const resolvedSpans = gallery.map((item, idx) => {
-                      const isLast = idx === gallery.length - 1;
-                      let span = item.span || "half";
-                      if (span === "half") halfCount++;
-                      // If last item is half and would be alone (odd half count), force full
-                      if (isLast && span === "half" && halfCount % 2 === 1) {
-                        span = "full";
-                      }
-                      return { ...item, resolvedSpan: span };
-                    });
-                    return resolvedSpans.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className={item.resolvedSpan === "full" ? "col-span-2" : "col-span-1"}>
-                        {item.type === "video" ? (
-                          <VideoPlayer
-                            src={item.src}
-                            alt={`${campaigns[openGallery].title} - ${idx + 1}`} />
-                        ) : (
-                          <img
-                            src={item.src}
-                            alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                            className="w-full h-auto rounded-lg object-cover" />
-                        )}
-                      </div>
-                    ));
-                  })()}
-                </div>
+              <div className="max-w-3xl mx-auto">
+                <BentoGallery
+                  items={campaigns[openGallery].gallery}
+                  campaignTitle={campaigns[openGallery].title}
+                />
               </div>
             </motion.div>
           </motion.div>
-        }
+        )}
       </AnimatePresence>
-    </>);
-
+    </>
+  );
 };
 
 export default CampaignsSection;
