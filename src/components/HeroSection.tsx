@@ -6,6 +6,7 @@ const HeroSection = () => {
     <section className="relative flex flex-col items-center justify-center min-h-[70vh] py-20 px-6 text-center">
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to top, #4a4375, transparent)' }} />
       <motion.img
+        className="relative z-10"
         src={logoCampanhas}
         alt="Studio 131 - Campanhas"
         className="w-64 md:w-80 lg:w-96 mb-8 opacity-90"
