@@ -202,11 +202,17 @@ const CampaignsSection = () => {
 
               <div className="flex flex-col md:flex-row gap-0">
                 <div className="md:w-2/5 flex-shrink-0">
-                  <img
-                  src={campaign.image}
-                  alt={campaign.title}
-                  className="w-full h-48 md:h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                  loading="lazy" />
+                  {campaign.image ? (
+                    <img
+                      src={campaign.image}
+                      alt={campaign.title}
+                      className="w-full h-48 md:h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      loading="lazy" />
+                  ) : (
+                    <div className="w-full h-48 md:h-full flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
+                      <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
+                    </div>
+                  )}
                 
                 </div>
                 <div className="p-6 md:p-8 md:w-3/5 space-y-3 flex flex-col justify-center">
