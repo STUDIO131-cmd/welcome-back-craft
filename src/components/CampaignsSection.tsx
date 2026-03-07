@@ -37,6 +37,13 @@ import aImg1 from "@/assets/campaigns/auramia/5D4A0703_1.jpg";
 import aImg2 from "@/assets/campaigns/auramia/5D4A0768_1.jpg";
 import aImg3 from "@/assets/campaigns/auramia/5D4A0750_1.jpg";
 import aImg4 from "@/assets/campaigns/auramia/5D4A0834_1.jpg";
+import crVid1 from "@/assets/campaigns/cravates/cravates1.mp4";
+import crImg1 from "@/assets/campaigns/cravates/IMG_0423.jpg";
+import crImg2 from "@/assets/campaigns/cravates/IMG_0706.jpg";
+import crImg3 from "@/assets/campaigns/cravates/IMG_0455.jpg";
+import crImg4 from "@/assets/campaigns/cravates/IMG_0276.jpg";
+import crImg5 from "@/assets/campaigns/cravates/IMG_0190.jpg";
+import crImg6 from "@/assets/campaigns/cravates/IMG_0143.jpg";
 
 type GalleryItem = {
   src: string;
