@@ -88,7 +88,7 @@ const CampaignCTA = () => {
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="absolute inset-0 flex items-center justify-center cursor-pointer backdrop-blur-md bg-black/30"
+                  className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer backdrop-blur-md bg-black/30"
                   onClick={handlePlay}
                 >
                   <motion.div
