@@ -35,7 +35,6 @@ const campaigns = [
       { src: cVid3, type: "video" as const },
       { src: cImg4, type: "image" as const },
       { src: cVid4, type: "video" as const },
-      { src: daniCimples, type: "image" as const },
     ] satisfies GalleryItem[],
   },
   {
