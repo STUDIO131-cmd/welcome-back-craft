@@ -3,11 +3,12 @@ import logoCampanhas from "@/assets/logo-campanhas.png";
 
 const HeroSection = () => {
   return (
-    <section className="flex flex-col items-center justify-center min-h-[70vh] py-20 px-6 text-center">
+    <section className="relative flex flex-col items-center justify-center min-h-[70vh] py-20 px-6 text-center">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to top, #4a4375, transparent)' }} />
       <motion.img
         src={logoCampanhas}
         alt="Studio 131 - Campanhas"
-        className="w-64 md:w-80 lg:w-96 mb-8 opacity-90"
+        className="relative z-10 w-64 md:w-80 lg:w-96 mb-8 opacity-90"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 0.9, y: 0 }}
         transition={{ duration: 1 }} />
@@ -23,7 +24,7 @@ const HeroSection = () => {
       
 
       <motion.div
-        className="mt-8 max-w-xl space-y-4"
+        className="relative z-10 mt-8 max-w-xl space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}>
