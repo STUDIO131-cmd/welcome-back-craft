@@ -1,11 +1,21 @@
 
 
-## Plano: Adicionar logo na header
+## Plan: Blur edges + faster scroll on clients carousel
 
-**Arquivo:** `src/components/HeroSection.tsx`
+### Changes to `src/components/ClientsCarousel.tsx`
 
-1. Copiar `user-uploads://LogoCampanhas_4.png` para `src/assets/logo-campanhas-header.png`
-2. Importar a nova imagem no componente
-3. Adicionar um `motion.img` acima do bloco de texto existente (antes da linha 26), com animação de entrada
-4. A largura da imagem deve corresponder à largura da glass bar — a glass bar usa `inline-flex` com `px-6`, então vou definir a imagem com uma largura fixa similar (~`w-[420px]` ou `max-w-xl`) e ajustar responsivamente para alinhar visualmente com a bar abaixo
+1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+
+2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+
+### Implementation details
+
+- On the `section-container overflow-hidden` div, add inline style:
+  ```
+  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  ```
+- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
+
+Two files edited: `ClientsCarousel.tsx` and `index.css`.
 
