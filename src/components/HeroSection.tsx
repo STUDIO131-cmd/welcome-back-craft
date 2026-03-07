@@ -4,7 +4,7 @@ import logoCampanhas from "@/assets/logo-campanhas.png";
 const HeroSection = () => {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[70vh] py-20 px-6 text-center">
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to top, #4a4375, transparent)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #4a4375, transparent)' }} />
       <motion.img
         src={logoCampanhas}
         alt="Studio 131 - Campanhas"
