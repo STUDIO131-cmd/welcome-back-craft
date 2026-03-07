@@ -1,14 +1,21 @@
 
 
-## Plano: Ajustar grid de mídia do popup para largura do parágrafo com espaçamento
+## Plan: Blur edges + faster scroll on clients carousel
 
-O parágrafo (`p`) tem `max-w-2xl mx-auto` (~672px). O grid de mídia atual usa `columns-1 sm:columns-2` sem restrição de largura, ocupando todo o `max-w-5xl` (~1024px).
+### Changes to `src/components/ClientsCarousel.tsx`
 
-### Alteração em `src/components/CampaignsSection.tsx`
+1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
 
-- Envolver o grid de mídia (linha 221) com `max-w-2xl mx-auto` para alinhar com a largura do parágrafo
-- Aumentar o `gap` e `mb` dos itens para criar espaçamento visual (ex: `gap-4`, `mb-4`)
-- Adicionar `px-2` ou `p-2` no container para margem interna, fazendo as mídias ficarem visualmente menores dentro do espaço
+2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
 
-Resultado: mídias mantêm proporção original mas ficam contidas na mesma largura do texto, com espaçamento respirado entre elas.
+### Implementation details
+
+- On the `section-container overflow-hidden` div, add inline style:
+  ```
+  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  ```
+- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
+
+Two files edited: `ClientsCarousel.tsx` and `index.css`.
 

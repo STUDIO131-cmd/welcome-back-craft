@@ -218,23 +218,25 @@ const CampaignsSection = () => {
               </p>
 
               {/* Masonry columns layout */}
-              <div className="columns-1 sm:columns-2 gap-2">
-                {campaigns[openGallery].gallery.map((item, idx) => (
-                  <div key={idx} className="mb-2 break-inside-avoid">
-                    {item.type === "video" ? (
-                      <VideoPlayer
-                        src={item.src}
-                        alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                      />
-                    ) : (
-                      <img
-                        src={item.src}
-                        alt={`${campaigns[openGallery].title} - ${idx + 1}`}
-                        className="w-full h-auto rounded-lg"
-                      />
-                    )}
-                  </div>
-                ))}
+              <div className="max-w-2xl mx-auto px-2">
+                <div className="columns-1 sm:columns-2 gap-4">
+                  {campaigns[openGallery].gallery.map((item, idx) => (
+                    <div key={idx} className="mb-4 break-inside-avoid">
+                      {item.type === "video" ? (
+                        <VideoPlayer
+                          src={item.src}
+                          alt={`${campaigns[openGallery].title} - ${idx + 1}`}
+                        />
+                      ) : (
+                        <img
+                          src={item.src}
+                          alt={`${campaigns[openGallery].title} - ${idx + 1}`}
+                          className="w-full h-auto rounded-lg"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>
