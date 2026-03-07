@@ -30,6 +30,13 @@ import cVid1 from "@/assets/campaigns/cimples/video1.mp4";
 import cVid2 from "@/assets/campaigns/cimples/video2.mp4";
 import cVid3 from "@/assets/campaigns/cimples/video3.mp4";
 import cVid4 from "@/assets/campaigns/cimples/video4.mp4";
+import aVid1 from "@/assets/campaigns/auramia/teaser2.mp4";
+import aVid2 from "@/assets/campaigns/auramia/teaser3.mp4";
+import aVid3 from "@/assets/campaigns/auramia/entrevista.mp4";
+import aImg1 from "@/assets/campaigns/auramia/5D4A0703_1.jpg";
+import aImg2 from "@/assets/campaigns/auramia/5D4A0768_1.jpg";
+import aImg3 from "@/assets/campaigns/auramia/5D4A0750_1.jpg";
+import aImg4 from "@/assets/campaigns/auramia/5D4A0834_1.jpg";
 
 type GalleryItem = {
   src: string;
@@ -89,6 +96,23 @@ const campaigns = [
   { src: pfImg4, type: "image" as const },
   { src: pfImg5, type: "image" as const },
   { src: pfImg6, type: "image" as const }] satisfies
+  GalleryItem[]
+},
+{
+  image: null,
+  title: "Auramia by Beatriz Manganelli",
+  subtitle: "Lançamento | Moda Fitness",
+  description:
+  "Estivemos em Aracaju (SE) para o lançamento da Auramia. A coleção Brisa trouxe sensação: calmaria, leveza e um tecido que abraça o corpo na rotina da mulher brasileira.\n\nPara este projeto fizemos estudo de público, calendário de publicações com fases de antecipação e lançamento, foto e vídeo, tudo alinhado para gerar intenção de compra.\n\nCom a repercussão organizada, causamos o efeito empilhamento de demanda: quando o site abriu, vários modelos esgotaram em 24h.",
+  tags: ["Calendário de Conteúdo", "Audiovisual", "Direção"],
+  gallery: [
+  { src: aVid1, type: "video" as const },
+  { src: aImg1, type: "image" as const },
+  { src: aImg2, type: "image" as const },
+  { src: aVid2, type: "video" as const },
+  { src: aVid3, type: "video" as const },
+  { src: aImg3, type: "image" as const },
+  { src: aImg4, type: "image" as const }] satisfies
   GalleryItem[]
 }];
 
@@ -178,11 +202,17 @@ const CampaignsSection = () => {
 
               <div className="flex flex-col md:flex-row gap-0">
                 <div className="md:w-2/5 flex-shrink-0">
-                  <img
-                  src={campaign.image}
-                  alt={campaign.title}
-                  className="w-full h-48 md:h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                  loading="lazy" />
+                  {campaign.image ? (
+                    <img
+                      src={campaign.image}
+                      alt={campaign.title}
+                      className="w-full h-48 md:h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      loading="lazy" />
+                  ) : (
+                    <div className="w-full h-48 md:h-full flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
+                      <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
+                    </div>
+                  )}
                 
                 </div>
                 <div className="p-6 md:p-8 md:w-3/5 space-y-3 flex flex-col justify-center">
