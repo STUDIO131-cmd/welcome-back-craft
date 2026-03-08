@@ -355,7 +355,7 @@ const CampaignsSection = () => {
               </p>
 
               <div className="max-w-3xl mx-auto">
-                <MasonryGallery
+                <CuratedGrid
                   items={campaigns[openGallery].gallery}
                   campaignTitle={campaigns[openGallery].title}
                 />
