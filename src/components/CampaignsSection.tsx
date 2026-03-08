@@ -69,6 +69,16 @@ import lvImg6 from "@/assets/campaigns/lavie/img6.png";
 import dnVid1 from "@/assets/campaigns/daninatal/video1.mp4";
 import dnVid2 from "@/assets/campaigns/daninatal/video2.mp4";
 import dnVid3 from "@/assets/campaigns/daninatal/video3.mp4";
+import etVid1 from "@/assets/campaigns/etoiles/video1.mp4";
+import etImg1 from "@/assets/campaigns/etoiles/img1.jpg";
+import etImg2 from "@/assets/campaigns/etoiles/img2.jpg";
+import etImg3 from "@/assets/campaigns/etoiles/img3.jpg";
+import etImg4 from "@/assets/campaigns/etoiles/img4.jpg";
+import etImg5 from "@/assets/campaigns/etoiles/img5.jpg";
+import etImg6 from "@/assets/campaigns/etoiles/img6.jpg";
+import etImg7 from "@/assets/campaigns/etoiles/img7.jpg";
+import etImg8 from "@/assets/campaigns/etoiles/img8.jpg";
+import etImg9 from "@/assets/campaigns/etoiles/img9.jpg";
 
 type GalleryItem = {
   src: string;
