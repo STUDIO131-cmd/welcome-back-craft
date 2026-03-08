@@ -218,28 +218,30 @@ const VideoPlayer = ({ src, alt, className }: { src: string; alt: string; classN
   );
 };
 
-const MasonryGallery = ({ items, campaignTitle }: { items: GalleryItem[]; campaignTitle: string }) => {
-  const columns: GalleryItem[][] = [[], [], []];
-  items.forEach((item, i) => columns[i % 3].push(item));
+const CuratedGrid = ({ items, campaignTitle }: { items: GalleryItem[]; campaignTitle: string }) => {
+  const spanClass = (span: number) => {
+    if (span === 3) return "col-span-3";
+    if (span === 2) return "col-span-2";
+    return "col-span-1";
+  };
 
   return (
-    <div className="flex gap-2">
-      {columns.map((col, ci) => (
-        <div key={ci} className="flex-1 flex flex-col gap-2">
-          {col.map((item, idx) => (
-            <div key={idx} className="overflow-hidden rounded-xl bg-black/40">
-              {item.type === "video" ? (
-                <VideoPlayer src={item.src} alt={`${campaignTitle} - ${ci * columns[0].length + idx + 1}`} />
-              ) : (
-                <img
-                  src={item.src}
-                  alt={`${campaignTitle} - ${ci * columns[0].length + idx + 1}`}
-                  className="w-full h-auto rounded-xl"
-                  loading="lazy"
-                />
-              )}
-            </div>
-          ))}
+    <div className="grid grid-cols-3 gap-2">
+      {items.map((item, idx) => (
+        <div
+          key={idx}
+          className={`${spanClass(item.colSpan ?? 1)} overflow-hidden rounded-xl bg-black/40`}
+        >
+          {item.type === "video" ? (
+            <VideoPlayer src={item.src} alt={`${campaignTitle} - ${idx + 1}`} />
+          ) : (
+            <img
+              src={item.src}
+              alt={`${campaignTitle} - ${idx + 1}`}
+              className="w-full h-auto object-cover rounded-xl"
+              loading="lazy"
+            />
+          )}
         </div>
       ))}
     </div>
