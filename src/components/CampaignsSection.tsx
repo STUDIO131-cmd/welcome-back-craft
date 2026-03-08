@@ -241,6 +241,26 @@ const campaigns = [
       { src: dnVid3, type: "video", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
+  {
+    image: null,
+    title: "Etoiles by Corpo de Ballet Shop",
+    subtitle: "Nova coleção | Lançamento",
+    description:
+      "Na segunda coleção da Corpo de Ballet Shop, a marca firmou presença ao apresentar com mais clareza o seu universo.\n\nAtravés da personagem Etoiles, a campanha mostrou ao público o sonho de viver uma rotina elegante, com estética europeia e os looks como plano de fundo.",
+    tags: ["Roteiro e vídeo", "Produção visual", "Fotografia + look book"],
+    gallery: [
+      { src: etVid1, type: "video", colSpan: 2 },
+      { src: etImg1, type: "image", colSpan: 1 },
+      { src: etImg2, type: "image", colSpan: 1 },
+      { src: etImg3, type: "image", colSpan: 1 },
+      { src: etImg4, type: "image", colSpan: 1 },
+      { src: etImg5, type: "image", colSpan: 2 },
+      { src: etImg6, type: "image", colSpan: 1 },
+      { src: etImg7, type: "image", colSpan: 1 },
+      { src: etImg8, type: "image", colSpan: 1 },
+      { src: etImg9, type: "image", colSpan: 1 },
+    ] satisfies GalleryItem[],
+  },
 ];
 
 const fadeUp = {
