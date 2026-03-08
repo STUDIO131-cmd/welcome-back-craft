@@ -79,6 +79,16 @@ import etImg6 from "@/assets/campaigns/etoiles/img6.jpg";
 import etImg7 from "@/assets/campaigns/etoiles/img7.jpg";
 import etImg8 from "@/assets/campaigns/etoiles/img8.jpg";
 import etImg9 from "@/assets/campaigns/etoiles/img9.jpg";
+import adImg1 from "@/assets/campaigns/adriano/img1.jpg";
+import adImg2 from "@/assets/campaigns/adriano/img2.jpg";
+import adImg3 from "@/assets/campaigns/adriano/img3.jpg";
+import adImg4 from "@/assets/campaigns/adriano/img4.jpg";
+import adImg5 from "@/assets/campaigns/adriano/img5.jpg";
+import adImg6 from "@/assets/campaigns/adriano/img6.jpg";
+import adImg7 from "@/assets/campaigns/adriano/img7.jpg";
+import adImg8 from "@/assets/campaigns/adriano/img8.jpg";
+import adImg9 from "@/assets/campaigns/adriano/img9.jpg";
+import adImg10 from "@/assets/campaigns/adriano/img10.jpg";
 
 type GalleryItem = {
   src: string;
@@ -259,6 +269,26 @@ const campaigns = [
       { src: etImg7, type: "image", colSpan: 1 },
       { src: etImg8, type: "image", colSpan: 1 },
       { src: etImg9, type: "image", colSpan: 1 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: null,
+    title: "Adriano Martins Estilista",
+    subtitle: "Moda Noiva & Festa | Lançamento de Coleção",
+    description:
+      "A proposta de criar um lookbook irreverente agrega valor à marca e direciona a comunicação ao público certo.\nIsso diminui os ruídos no caminho até o cliente e ajuda a qualificar melhor a venda, tudo por meio de imagens que impactam.",
+    tags: ["Produção visual", "Fotografia", "Lookbook"],
+    gallery: [
+      { src: adImg1, type: "image", colSpan: 1 },
+      { src: adImg2, type: "image", colSpan: 1 },
+      { src: adImg3, type: "image", colSpan: 1 },
+      { src: adImg4, type: "image", colSpan: 1 },
+      { src: adImg5, type: "image", colSpan: 1 },
+      { src: adImg6, type: "image", colSpan: 1 },
+      { src: adImg7, type: "image", colSpan: 1 },
+      { src: adImg8, type: "image", colSpan: 2 },
+      { src: adImg9, type: "image", colSpan: 1 },
+      { src: adImg10, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
 ];
