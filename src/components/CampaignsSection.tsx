@@ -29,6 +29,11 @@ import cVid1 from "@/assets/campaigns/cimples/video1.mp4";
 import cVid2 from "@/assets/campaigns/cimples/video2.mp4";
 import cVid3 from "@/assets/campaigns/cimples/video3.mp4";
 import cVid4 from "@/assets/campaigns/cimples/video4.mp4";
+import cVid5 from "@/assets/campaigns/cimples/video5.mp4";
+import cImg5 from "@/assets/campaigns/cimples/img5.jpg";
+import cImg6 from "@/assets/campaigns/cimples/img6.jpg";
+import cImg7 from "@/assets/campaigns/cimples/img7.jpg";
+import cImg8 from "@/assets/campaigns/cimples/img8.jpg";
 import aVid1 from "@/assets/campaigns/auramia/teaser2.mp4";
 import aVid2 from "@/assets/campaigns/auramia/teaser3.mp4";
 import aVid3 from "@/assets/campaigns/auramia/entrevista.mp4";
@@ -114,6 +119,11 @@ const campaigns = [
       { src: cImg3, type: "image", colSpan: 1 },
       { src: cImg4, type: "image", colSpan: 1 },
       { src: cVid4, type: "video", colSpan: 2 },
+      { src: cVid5, type: "video", colSpan: 2 },
+      { src: cImg5, type: "image", colSpan: 1 },
+      { src: cImg6, type: "image", colSpan: 1 },
+      { src: cImg7, type: "image", colSpan: 1 },
+      { src: cImg8, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
   // 2 - Pink Friday
