@@ -97,13 +97,14 @@ type GalleryItem = {
 };
 
 const campaigns = [
+  // 1 - Cimples e Dani Fernandes
   {
     image: daniCimples,
     title: "Dani Fernandes × CIMPLES (by Carolina Ferraz)",
     subtitle: "Campanha de Dia das Mães",
     description:
-      "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
-    tags: ["Direção Criativa", "Fotografia", "Vídeo"],
+      "Uma campanha criada para transformar uma fragrância em um presente desejado. A construção visual buscou leveza, intimidade e beleza cotidiana para conectar duas marcas de forma natural. E isso apareceu no que mais importa no fim: mais visibilidade, mais compartilhamento e mais força de venda.",
+    tags: ["Direção criativa da campanha", "Ambientação + roteiro de captação", "Foto e vídeo"],
     gallery: [
       { src: cVid1, type: "video", colSpan: 2 },
       { src: cImg1, type: "image", colSpan: 1 },
@@ -115,31 +116,14 @@ const campaigns = [
       { src: cVid4, type: "video", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
-  {
-    image: daniGallery,
-    title: "Dani Fernandes × The National Gallery",
-    subtitle: "Lançamento de novas fragrâncias",
-    description:
-      "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
-    tags: ["Branding", "Campanha", "Vídeo & Foto"],
-    gallery: [
-      { src: tngVid1, type: "video", colSpan: 2 },
-      { src: tngImg1, type: "image", colSpan: 1 },
-      { src: tngImg2, type: "image", colSpan: 1 },
-      { src: tngImg3, type: "image", colSpan: 1 },
-      { src: tngVid2, type: "video", colSpan: 1 },
-      { src: tngVid3, type: "video", colSpan: 2 },
-      { src: tngImg4, type: "image", colSpan: 1 },
-      { src: tngImg5, type: "image", colSpan: 3 },
-    ] satisfies GalleryItem[],
-  },
+  // 2 - Pink Friday
   {
     image: pinkFridayCover,
     title: "PINK Friday × Marina Fraga",
     subtitle: "Black Friday — Pink Shine",
     description:
-      "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
-    tags: ["Promoção", "Direção Criativa"],
+      "A Pink Friday foi construída com calendário de publicações, estratégia de oferta e antecipação para criar expectativa antes da abertura.\nCom uma estrutura enxuta de lançamento, a campanha ganhou força rápido e acelerou a decisão de compra.\nO que era para durar uma semana esgotou em 2 dias.",
+    tags: ["Black Friday", "Estratégia de oferta", "Calendário de publicações"],
     gallery: [
       { src: pfVid1, type: "video", colSpan: 2 },
       { src: pfImg1, type: "image", colSpan: 1 },
@@ -151,93 +135,7 @@ const campaigns = [
       { src: pfImg6, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
-  {
-    image: null,
-    title: "Auramia by Beatriz Manganelli",
-    subtitle: "Lançamento | Moda Fitness",
-    description:
-      "Estivemos em Aracaju (SE) para o lançamento da Auramia. A coleção Brisa trouxe sensação: calmaria, leveza e um tecido que abraça o corpo na rotina da mulher brasileira.\n\nPara este projeto fizemos estudo de público, calendário de publicações com fases de antecipação e lançamento, foto e vídeo, tudo alinhado para gerar intenção de compra.\n\nCom a repercussão organizada, causamos o efeito empilhamento de demanda: quando o site abriu, vários modelos esgotaram em 24h.",
-    tags: ["Calendário de Conteúdo", "Audiovisual", "Direção"],
-    gallery: [
-      { src: aVid1, type: "video", colSpan: 2 },
-      { src: aImg1, type: "image", colSpan: 1 },
-      { src: aImg2, type: "image", colSpan: 1 },
-      { src: aVid2, type: "video", colSpan: 2 },
-      { src: aVid3, type: "video", colSpan: 2 },
-      { src: aImg3, type: "image", colSpan: 1 },
-      { src: aImg4, type: "image", colSpan: 3 },
-    ] satisfies GalleryItem[],
-  },
-  {
-    image: null,
-    title: "Coleção Cravates by Corpo De Ballet",
-    subtitle: "Lançamento | Moda Ballet",
-    description:
-      "Campos do Jordão foi o lugar escolhido para dar vida ao universo criado no lançamento da coleção de ballet Cravates.\n\nToda a ideia da campanha partiu de duas personagens que já faziam parte da história da marca: Cher e Etoiles.\n\nCada uma delas carrega um estilo e uma personalidade própria, e isso foi usado como base para construir a identidade visual da nova coleção.\n\nCher traz leveza, delicadeza e suavidade. Etoiles representa um lado mais refinado, elegante e sofisticado. A coleção Cravates nasceu justamente da união dessas duas essências.",
-    tags: ["Fotografia", "Lookbook", "Direção Criativa", "Vídeo"],
-    gallery: [
-      { src: crVid1, type: "video", colSpan: 2 },
-      { src: crImg1, type: "image", colSpan: 1 },
-      { src: crImg2, type: "image", colSpan: 1 },
-      { src: crImg3, type: "image", colSpan: 1 },
-      { src: crImg4, type: "image", colSpan: 1 },
-      { src: crImg5, type: "image", colSpan: 1 },
-      { src: crImg6, type: "image", colSpan: 2 },
-    ] satisfies GalleryItem[],
-  },
-  {
-    image: null,
-    title: "Velvet Cherry by Dani Fernandes",
-    subtitle: "Nova coleção | Lançamento",
-    description:
-      "O aroma que se tornou sucesso em vendas carrega uma identidade que foi construída em um material de fotos e vídeos para a rede social:\n\nTextura leve, maciez, feminilidade e doçura.\n\nNosso time entregou fotografia ambientada, still e direção criativa em estúdio.",
-    tags: ["Direção Criativa", "Fotografia", "Vídeo"],
-    gallery: [
-      { src: vcImg1, type: "image", colSpan: 1 },
-      { src: vcVid1, type: "video", colSpan: 2 },
-      { src: vcImg2, type: "image", colSpan: 1 },
-      { src: vcImg3, type: "image", colSpan: 1 },
-      { src: vcImg4, type: "image", colSpan: 1 },
-      { src: vcImg5, type: "image", colSpan: 1 },
-      { src: vcImg6, type: "image", colSpan: 2 },
-      { src: vcImg7, type: "image", colSpan: 3 },
-    ] satisfies GalleryItem[],
-  },
-  {
-    image: null,
-    title: "Nova Trida | Tecnologia & Suprimentos para Empresas",
-    subtitle: "Reposicionamento | Institucional",
-    description:
-      "A Nova Trida já era uma empresa tradicional em Catanduva, mas decidiu se comunicar com uma nova parcela do público para expandir o negócio.\n\nO rebranding foi institucional, mas com humanidade, para deixar claro esse novo momento da marca.\n\nTambém renovamos o vídeo institucional, alinhamos a comunicação com os clientes e criamos um calendário estratégico para o Instagram.",
-    tags: ["Foto e vídeo", "Estratégia de comunicação", "Calendário de publicações"],
-    gallery: [
-      { src: ntVid1, type: "video", colSpan: 2 },
-      { src: ntImg1, type: "image", colSpan: 1 },
-      { src: ntImg2, type: "image", colSpan: 1 },
-      { src: ntVid2, type: "video", colSpan: 2 },
-      { src: ntVid3, type: "video", colSpan: 3 },
-    ] satisfies GalleryItem[],
-  },
-  {
-    image: null,
-    title: "La Vie - Moda Feminina",
-    subtitle: "Reposicionamento | Ação Comercial | Inauguração",
-    description:
-      "A loja precisava comunicar uma nova identidade visual, a reinauguração do espaço e aproveitar esse momento para aquecer as vendas para o Rodeio de Catanduva.\nO resultado foi um alto alcance orgânico, seguido de um movimento maior de vendas.",
-    tags: ["Produção visual", "Calendário de conteúdo", "Fotografia e audiovisual"],
-    gallery: [
-      { src: lvVid1, type: "video", colSpan: 2 },
-      { src: lvImg1, type: "image", colSpan: 1 },
-      { src: lvImg2, type: "image", colSpan: 1 },
-      { src: lvImg3, type: "image", colSpan: 1 },
-      { src: lvImg4, type: "image", colSpan: 1 },
-      { src: lvVid2, type: "video", colSpan: 2 },
-      { src: lvImg5, type: "image", colSpan: 1 },
-      { src: lvImg6, type: "image", colSpan: 1 },
-      { src: lvVid3, type: "video", colSpan: 2 },
-      { src: lvVid4, type: "video", colSpan: 3 },
-    ] satisfies GalleryItem[],
-  },
+  // 3 - Dani Fernandes Campanha de Natal
   {
     image: null,
     title: "Dani Fernandes | Campanha de Natal",
@@ -251,6 +149,26 @@ const campaigns = [
       { src: dnVid3, type: "video", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
+  // 4 - The National Gallery
+  {
+    image: daniGallery,
+    title: "Dani Fernandes × The National Gallery",
+    subtitle: "Lançamento de novas fragrâncias",
+    description:
+      "No encontro entre a marca Dani Fernandes e o tradicional museu de Londres, criamos uma campanha para aproximar a arte do cotidiano, transformando a fragrância em um objeto de desejo dentro de casa.\n\nIsso fortalece a narrativa da marca e facilita a decisão de compra.",
+    tags: ["Direção criativa da campanha", "Ambientação e produção visual", "Foto + vídeo de lançamento"],
+    gallery: [
+      { src: tngVid1, type: "video", colSpan: 2 },
+      { src: tngImg1, type: "image", colSpan: 1 },
+      { src: tngImg2, type: "image", colSpan: 1 },
+      { src: tngImg3, type: "image", colSpan: 1 },
+      { src: tngVid2, type: "video", colSpan: 1 },
+      { src: tngVid3, type: "video", colSpan: 2 },
+      { src: tngImg4, type: "image", colSpan: 1 },
+      { src: tngImg5, type: "image", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
+  // 5 - Etoiles
   {
     image: null,
     title: "Etoiles by Corpo de Ballet Shop",
@@ -271,6 +189,47 @@ const campaigns = [
       { src: etImg9, type: "image", colSpan: 1 },
     ] satisfies GalleryItem[],
   },
+  // 6 - La Vie
+  {
+    image: null,
+    title: "La Vie - Moda Feminina",
+    subtitle: "Reposicionamento | Ação Comercial | Inauguração",
+    description:
+      "A loja precisava comunicar uma nova identidade visual, a reinauguração do espaço e aproveitar esse momento para aquecer as vendas para o Rodeio de Catanduva.\nO resultado foi um alto alcance orgânico, seguido de um movimento maior de vendas.",
+    tags: ["Produção visual", "Calendário de conteúdo", "Fotografia e audiovisual"],
+    gallery: [
+      { src: lvVid1, type: "video", colSpan: 2 },
+      { src: lvImg1, type: "image", colSpan: 1 },
+      { src: lvImg2, type: "image", colSpan: 1 },
+      { src: lvImg3, type: "image", colSpan: 1 },
+      { src: lvImg4, type: "image", colSpan: 1 },
+      { src: lvVid2, type: "video", colSpan: 2 },
+      { src: lvImg5, type: "image", colSpan: 1 },
+      { src: lvImg6, type: "image", colSpan: 1 },
+      { src: lvVid3, type: "video", colSpan: 2 },
+      { src: lvVid4, type: "video", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
+  // 7 - Velvet Cherry
+  {
+    image: null,
+    title: "Velvet Cherry by Dani Fernandes",
+    subtitle: "Nova coleção | Lançamento",
+    description:
+      "O aroma que se tornou sucesso em vendas carrega uma identidade que foi construída em um material de fotos e vídeos para a rede social:\n\nTextura leve, maciez, feminilidade e doçura.\n\nNosso time entregou fotografia ambientada, still e direção criativa em estúdio.",
+    tags: ["Direção Criativa", "Fotografia", "Vídeo"],
+    gallery: [
+      { src: vcImg1, type: "image", colSpan: 1 },
+      { src: vcVid1, type: "video", colSpan: 2 },
+      { src: vcImg2, type: "image", colSpan: 1 },
+      { src: vcImg3, type: "image", colSpan: 1 },
+      { src: vcImg4, type: "image", colSpan: 1 },
+      { src: vcImg5, type: "image", colSpan: 1 },
+      { src: vcImg6, type: "image", colSpan: 2 },
+      { src: vcImg7, type: "image", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
+  // 8 - Adriano Martins
   {
     image: null,
     title: "Adriano Martins Estilista",
@@ -289,6 +248,58 @@ const campaigns = [
       { src: adImg8, type: "image", colSpan: 2 },
       { src: adImg9, type: "image", colSpan: 1 },
       { src: adImg10, type: "image", colSpan: 2 },
+    ] satisfies GalleryItem[],
+  },
+  // 9 - AuraMia
+  {
+    image: null,
+    title: "Auramia by Beatriz Manganelli",
+    subtitle: "Lançamento | Moda Fitness",
+    description:
+      "Em Aracaju (SE), criamos a campanha de lançamento da Auramia para apresentar a coleção Brisa com leveza, desejo e intenção de compra.\nA comunicação foi pensada para aquecer o público antes da abertura e transformar expectativa em movimento real.\nQuando o site abriu, vários modelos esgotaram em 24 horas.",
+    tags: ["Estudo de público", "Calendário de lançamento", "Foto + vídeo de campanha"],
+    gallery: [
+      { src: aVid1, type: "video", colSpan: 2 },
+      { src: aImg1, type: "image", colSpan: 1 },
+      { src: aImg2, type: "image", colSpan: 1 },
+      { src: aVid2, type: "video", colSpan: 2 },
+      { src: aVid3, type: "video", colSpan: 2 },
+      { src: aImg3, type: "image", colSpan: 1 },
+      { src: aImg4, type: "image", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
+  // 10 - Nova Trida
+  {
+    image: null,
+    title: "Nova Trida | Tecnologia & Suprimentos para Empresas",
+    subtitle: "Reposicionamento | Institucional",
+    description:
+      "A Nova Trida já era uma empresa tradicional em Catanduva, mas decidiu se comunicar com uma nova parcela do público para expandir o negócio.\n\nO rebranding foi institucional, mas com humanidade, para deixar claro esse novo momento da marca.\n\nTambém renovamos o vídeo institucional, alinhamos a comunicação com os clientes e criamos um calendário estratégico para o Instagram.",
+    tags: ["Foto e vídeo", "Estratégia de comunicação", "Calendário de publicações"],
+    gallery: [
+      { src: ntVid1, type: "video", colSpan: 2 },
+      { src: ntImg1, type: "image", colSpan: 1 },
+      { src: ntImg2, type: "image", colSpan: 1 },
+      { src: ntVid2, type: "video", colSpan: 2 },
+      { src: ntVid3, type: "video", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
+  // 11 - Cravates
+  {
+    image: null,
+    title: "Coleção Cravates by Corpo De Ballet",
+    subtitle: "Lançamento | Moda Ballet",
+    description:
+      "Campos do Jordão foi o cenário perfeito para uma campanha extremamente elegante.\nPara apresentar a coleção, unimos duas personagens já conhecidas da marca: Cher, delicada e americana, e Etoiles, fina e europeia.\nEssa construção de imagem e narrativa fez o público responder — Cravates se tornou a coleção mais vendida da CB Shop.",
+    tags: ["Produção visual", "Fotografia de campanha", "Roteiro + captação de vídeo"],
+    gallery: [
+      { src: crVid1, type: "video", colSpan: 2 },
+      { src: crImg1, type: "image", colSpan: 1 },
+      { src: crImg2, type: "image", colSpan: 1 },
+      { src: crImg3, type: "image", colSpan: 1 },
+      { src: crImg4, type: "image", colSpan: 1 },
+      { src: crImg5, type: "image", colSpan: 1 },
+      { src: crImg6, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
 ];
@@ -384,7 +395,7 @@ const CampaignsSection = () => {
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
-              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg"
+              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg md:min-h-[280px]"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -406,17 +417,17 @@ const CampaignsSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-0">
+              <div className="flex flex-col md:flex-row gap-0 h-full">
                 <div className="md:w-2/5 flex-shrink-0">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full h-48 md:h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      className="w-full h-48 md:h-full md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-48 md:h-full flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
+                    <div className="w-full h-48 md:h-full md:min-h-[280px] flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
@@ -472,13 +483,20 @@ const CampaignsSection = () => {
                 <X size={20} />
               </button>
 
-              <h3 className="font-heading text-xl font-semibold text-white text-center mb-3">
+              <h3 className="font-heading text-xl font-semibold text-white text-center mb-4">
                 {campaigns[openGallery].title}
               </h3>
 
-              <p className="text-sm text-white/70 text-center leading-relaxed line-clamp-4 max-w-2xl mx-auto mb-6">
-                {campaigns[openGallery].description}
-              </p>
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                {campaigns[openGallery].tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 text-[10px] tracking-wider uppercase rounded-full bg-white/10 border border-white/20 text-white/60"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
               <div className="max-w-3xl mx-auto">
                 <CuratedGrid
