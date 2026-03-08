@@ -170,6 +170,21 @@ const campaigns = [
       { src: vcImg7, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
+  {
+    image: null,
+    title: "Nova Trida | Tecnologia & Suprimentos para Empresas",
+    subtitle: "Reposicionamento | Institucional",
+    description:
+      "A Nova Trida já era uma empresa tradicional em Catanduva, mas decidiu se comunicar com uma nova parcela do público para expandir o negócio.\n\nO rebranding foi institucional, mas com humanidade, para deixar claro esse novo momento da marca.\n\nTambém renovamos o vídeo institucional, alinhamos a comunicação com os clientes e criamos um calendário estratégico para o Instagram.",
+    tags: ["Foto e vídeo", "Estratégia de comunicação", "Calendário de publicações"],
+    gallery: [
+      { src: ntVid1, type: "video", colSpan: 2 },
+      { src: ntImg1, type: "image", colSpan: 1 },
+      { src: ntImg2, type: "image", colSpan: 1 },
+      { src: ntVid2, type: "video", colSpan: 2 },
+      { src: ntVid3, type: "video", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
 ];
 
 const fadeUp = {
