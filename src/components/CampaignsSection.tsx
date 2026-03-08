@@ -55,6 +55,7 @@ import vcImg7 from "@/assets/campaigns/velvetcherry/img7.jpg";
 type GalleryItem = {
   src: string;
   type: "image" | "video";
+  colSpan?: 1 | 2 | 3;
 };
 
 const campaigns = [
@@ -66,14 +67,14 @@ const campaigns = [
       "Direção criativa, produção e captação em Alphaville (SP). O briefing do projeto foi pensado pra transmitir a leveza do momento de presentear em uma fragrância.",
     tags: ["Direção Criativa", "Fotografia", "Vídeo"],
     gallery: [
-      { src: cVid1, type: "video" },
-      { src: cImg1, type: "image" },
-      { src: cImg2, type: "image" },
-      { src: cVid2, type: "video" },
-      { src: cVid3, type: "video" },
-      { src: cImg3, type: "image" },
-      { src: cImg4, type: "image" },
-      { src: cVid4, type: "video" },
+      { src: cVid1, type: "video", colSpan: 2 },
+      { src: cImg1, type: "image", colSpan: 1 },
+      { src: cImg2, type: "image", colSpan: 1 },
+      { src: cVid2, type: "video", colSpan: 2 },
+      { src: cVid3, type: "video", colSpan: 2 },
+      { src: cImg3, type: "image", colSpan: 1 },
+      { src: cImg4, type: "image", colSpan: 1 },
+      { src: cVid4, type: "video", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
   {
@@ -84,14 +85,14 @@ const campaigns = [
       "A estética da campanha pedia uma proposta de galeria de arte para posicionar a fragrância como objeto de desejo. Nossa equipe ficou responsável pela escolha dos modelos, ambientação, direção da campanha, vídeo e foto.",
     tags: ["Branding", "Campanha", "Vídeo & Foto"],
     gallery: [
-      { src: tngVid1, type: "video" },
-      { src: tngImg1, type: "image" },
-      { src: tngImg2, type: "image" },
-      { src: tngImg3, type: "image" },
-      { src: tngVid2, type: "video" },
-      { src: tngVid3, type: "video" },
-      { src: tngImg4, type: "image" },
-      { src: tngImg5, type: "image" },
+      { src: tngVid1, type: "video", colSpan: 2 },
+      { src: tngImg1, type: "image", colSpan: 1 },
+      { src: tngImg2, type: "image", colSpan: 1 },
+      { src: tngImg3, type: "image", colSpan: 1 },
+      { src: tngVid2, type: "video", colSpan: 1 },
+      { src: tngVid3, type: "video", colSpan: 2 },
+      { src: tngImg4, type: "image", colSpan: 1 },
+      { src: tngImg5, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
   {
@@ -102,14 +103,14 @@ const campaigns = [
       "Campanha de Black Friday para a loja de acessórios Pink Shine, com direção criativa e produção completa.",
     tags: ["Promoção", "Direção Criativa"],
     gallery: [
-      { src: pfVid1, type: "video" },
-      { src: pfImg1, type: "image" },
-      { src: pfImg2, type: "image" },
-      { src: pfVid2, type: "video" },
-      { src: pfImg3, type: "image" },
-      { src: pfImg4, type: "image" },
-      { src: pfImg5, type: "image" },
-      { src: pfImg6, type: "image" },
+      { src: pfVid1, type: "video", colSpan: 2 },
+      { src: pfImg1, type: "image", colSpan: 1 },
+      { src: pfImg2, type: "image", colSpan: 1 },
+      { src: pfVid2, type: "video", colSpan: 2 },
+      { src: pfImg3, type: "image", colSpan: 1 },
+      { src: pfImg4, type: "image", colSpan: 1 },
+      { src: pfImg5, type: "image", colSpan: 1 },
+      { src: pfImg6, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
   {
@@ -120,13 +121,13 @@ const campaigns = [
       "Estivemos em Aracaju (SE) para o lançamento da Auramia. A coleção Brisa trouxe sensação: calmaria, leveza e um tecido que abraça o corpo na rotina da mulher brasileira.\n\nPara este projeto fizemos estudo de público, calendário de publicações com fases de antecipação e lançamento, foto e vídeo, tudo alinhado para gerar intenção de compra.\n\nCom a repercussão organizada, causamos o efeito empilhamento de demanda: quando o site abriu, vários modelos esgotaram em 24h.",
     tags: ["Calendário de Conteúdo", "Audiovisual", "Direção"],
     gallery: [
-      { src: aVid1, type: "video" },
-      { src: aImg1, type: "image" },
-      { src: aImg2, type: "image" },
-      { src: aVid2, type: "video" },
-      { src: aVid3, type: "video" },
-      { src: aImg3, type: "image" },
-      { src: aImg4, type: "image" },
+      { src: aVid1, type: "video", colSpan: 2 },
+      { src: aImg1, type: "image", colSpan: 1 },
+      { src: aImg2, type: "image", colSpan: 1 },
+      { src: aVid2, type: "video", colSpan: 2 },
+      { src: aVid3, type: "video", colSpan: 2 },
+      { src: aImg3, type: "image", colSpan: 1 },
+      { src: aImg4, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
   {
@@ -137,13 +138,13 @@ const campaigns = [
       "Campos do Jordão foi o lugar escolhido para dar vida ao universo criado no lançamento da coleção de ballet Cravates.\n\nToda a ideia da campanha partiu de duas personagens que já faziam parte da história da marca: Cher e Etoiles.\n\nCada uma delas carrega um estilo e uma personalidade própria, e isso foi usado como base para construir a identidade visual da nova coleção.\n\nCher traz leveza, delicadeza e suavidade. Etoiles representa um lado mais refinado, elegante e sofisticado. A coleção Cravates nasceu justamente da união dessas duas essências.",
     tags: ["Fotografia", "Lookbook", "Direção Criativa", "Vídeo"],
     gallery: [
-      { src: crVid1, type: "video" },
-      { src: crImg1, type: "image" },
-      { src: crImg2, type: "image" },
-      { src: crImg3, type: "image" },
-      { src: crImg4, type: "image" },
-      { src: crImg5, type: "image" },
-      { src: crImg6, type: "image" },
+      { src: crVid1, type: "video", colSpan: 2 },
+      { src: crImg1, type: "image", colSpan: 1 },
+      { src: crImg2, type: "image", colSpan: 1 },
+      { src: crImg3, type: "image", colSpan: 1 },
+      { src: crImg4, type: "image", colSpan: 1 },
+      { src: crImg5, type: "image", colSpan: 1 },
+      { src: crImg6, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
   {
@@ -154,14 +155,14 @@ const campaigns = [
       "O aroma que se tornou sucesso em vendas carrega uma identidade que foi construída em um material de fotos e vídeos para a rede social:\n\nTextura leve, maciez, feminilidade e doçura.\n\nNosso time entregou fotografia ambientada, still e direção criativa em estúdio.",
     tags: ["Direção Criativa", "Fotografia", "Vídeo"],
     gallery: [
-      { src: vcImg1, type: "image" },
-      { src: vcVid1, type: "video" },
-      { src: vcImg2, type: "image" },
-      { src: vcImg3, type: "image" },
-      { src: vcImg4, type: "image" },
-      { src: vcImg5, type: "image" },
-      { src: vcImg6, type: "image" },
-      { src: vcImg7, type: "image" },
+      { src: vcImg1, type: "image", colSpan: 1 },
+      { src: vcVid1, type: "video", colSpan: 2 },
+      { src: vcImg2, type: "image", colSpan: 1 },
+      { src: vcImg3, type: "image", colSpan: 1 },
+      { src: vcImg4, type: "image", colSpan: 1 },
+      { src: vcImg5, type: "image", colSpan: 1 },
+      { src: vcImg6, type: "image", colSpan: 2 },
+      { src: vcImg7, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
 ];
@@ -217,28 +218,30 @@ const VideoPlayer = ({ src, alt, className }: { src: string; alt: string; classN
   );
 };
 
-const MasonryGallery = ({ items, campaignTitle }: { items: GalleryItem[]; campaignTitle: string }) => {
-  const columns: GalleryItem[][] = [[], [], []];
-  items.forEach((item, i) => columns[i % 3].push(item));
+const CuratedGrid = ({ items, campaignTitle }: { items: GalleryItem[]; campaignTitle: string }) => {
+  const spanClass = (span: number) => {
+    if (span === 3) return "col-span-3";
+    if (span === 2) return "col-span-2";
+    return "col-span-1";
+  };
 
   return (
-    <div className="flex gap-2">
-      {columns.map((col, ci) => (
-        <div key={ci} className="flex-1 flex flex-col gap-2">
-          {col.map((item, idx) => (
-            <div key={idx} className="overflow-hidden rounded-xl bg-black/40">
-              {item.type === "video" ? (
-                <VideoPlayer src={item.src} alt={`${campaignTitle} - ${ci * columns[0].length + idx + 1}`} />
-              ) : (
-                <img
-                  src={item.src}
-                  alt={`${campaignTitle} - ${ci * columns[0].length + idx + 1}`}
-                  className="w-full h-auto rounded-xl"
-                  loading="lazy"
-                />
-              )}
-            </div>
-          ))}
+    <div className="grid grid-cols-3 gap-2">
+      {items.map((item, idx) => (
+        <div
+          key={idx}
+          className={`${spanClass(item.colSpan ?? 1)} overflow-hidden rounded-xl bg-black/40`}
+        >
+          {item.type === "video" ? (
+            <VideoPlayer src={item.src} alt={`${campaignTitle} - ${idx + 1}`} />
+          ) : (
+            <img
+              src={item.src}
+              alt={`${campaignTitle} - ${idx + 1}`}
+              className="w-full h-auto object-cover rounded-xl"
+              loading="lazy"
+            />
+          )}
         </div>
       ))}
     </div>
@@ -352,7 +355,7 @@ const CampaignsSection = () => {
               </p>
 
               <div className="max-w-3xl mx-auto">
-                <MasonryGallery
+                <CuratedGrid
                   items={campaigns[openGallery].gallery}
                   campaignTitle={campaigns[openGallery].title}
                 />
