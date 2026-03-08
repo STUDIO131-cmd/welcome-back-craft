@@ -69,6 +69,16 @@ import lvImg6 from "@/assets/campaigns/lavie/img6.png";
 import dnVid1 from "@/assets/campaigns/daninatal/video1.mp4";
 import dnVid2 from "@/assets/campaigns/daninatal/video2.mp4";
 import dnVid3 from "@/assets/campaigns/daninatal/video3.mp4";
+import etVid1 from "@/assets/campaigns/etoiles/video1.mp4";
+import etImg1 from "@/assets/campaigns/etoiles/img1.jpg";
+import etImg2 from "@/assets/campaigns/etoiles/img2.jpg";
+import etImg3 from "@/assets/campaigns/etoiles/img3.jpg";
+import etImg4 from "@/assets/campaigns/etoiles/img4.jpg";
+import etImg5 from "@/assets/campaigns/etoiles/img5.jpg";
+import etImg6 from "@/assets/campaigns/etoiles/img6.jpg";
+import etImg7 from "@/assets/campaigns/etoiles/img7.jpg";
+import etImg8 from "@/assets/campaigns/etoiles/img8.jpg";
+import etImg9 from "@/assets/campaigns/etoiles/img9.jpg";
 
 type GalleryItem = {
   src: string;
@@ -229,6 +239,26 @@ const campaigns = [
       { src: dnVid1, type: "video", colSpan: 2 },
       { src: dnVid2, type: "video", colSpan: 1 },
       { src: dnVid3, type: "video", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: null,
+    title: "Etoiles by Corpo de Ballet Shop",
+    subtitle: "Nova coleção | Lançamento",
+    description:
+      "Na segunda coleção da Corpo de Ballet Shop, a marca firmou presença ao apresentar com mais clareza o seu universo.\n\nAtravés da personagem Etoiles, a campanha mostrou ao público o sonho de viver uma rotina elegante, com estética europeia e os looks como plano de fundo.",
+    tags: ["Roteiro e vídeo", "Produção visual", "Fotografia + look book"],
+    gallery: [
+      { src: etVid1, type: "video", colSpan: 2 },
+      { src: etImg1, type: "image", colSpan: 1 },
+      { src: etImg2, type: "image", colSpan: 1 },
+      { src: etImg3, type: "image", colSpan: 1 },
+      { src: etImg4, type: "image", colSpan: 1 },
+      { src: etImg5, type: "image", colSpan: 2 },
+      { src: etImg6, type: "image", colSpan: 1 },
+      { src: etImg7, type: "image", colSpan: 1 },
+      { src: etImg8, type: "image", colSpan: 1 },
+      { src: etImg9, type: "image", colSpan: 1 },
     ] satisfies GalleryItem[],
   },
 ];
