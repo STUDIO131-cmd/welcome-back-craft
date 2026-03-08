@@ -51,6 +51,11 @@ import vcImg4 from "@/assets/campaigns/velvetcherry/img4.jpg";
 import vcImg5 from "@/assets/campaigns/velvetcherry/img5.jpg";
 import vcImg6 from "@/assets/campaigns/velvetcherry/img6.jpg";
 import vcImg7 from "@/assets/campaigns/velvetcherry/img7.jpg";
+import ntVid1 from "@/assets/campaigns/novatrida/video1.mp4";
+import ntVid2 from "@/assets/campaigns/novatrida/video2.mp4";
+import ntVid3 from "@/assets/campaigns/novatrida/video3.mp4";
+import ntImg1 from "@/assets/campaigns/novatrida/img1.jpg";
+import ntImg2 from "@/assets/campaigns/novatrida/img2.jpg";
 
 type GalleryItem = {
   src: string;
