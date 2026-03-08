@@ -1,6 +1,7 @@
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Play } from "lucide-react";
+import { X } from "lucide-react";
+import AdaptiveGallery from "./AdaptiveGallery";
 import pageBg from "@/assets/page-bg.jpg";
 import daniCimples from "@/assets/campaigns/dani-cimples.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
@@ -323,77 +324,6 @@ const fadeUp = {
   }),
 };
 
-const VideoPlayer = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
-
-  const handlePlay = useCallback(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = false;
-    video.play();
-    setPlaying(true);
-  }, []);
-
-  const handlePause = useCallback(() => {
-    setPlaying(false);
-  }, []);
-
-  return (
-    <div className={`relative w-full h-full ${className ?? ""}`}>
-      <video
-        ref={videoRef}
-        src={src}
-        controls={playing}
-        playsInline
-        onPause={handlePause}
-        onEnded={handlePause}
-        className="w-full h-auto rounded-xl"
-        aria-label={alt}
-      />
-      {!playing && (
-        <button
-          onClick={handlePlay}
-          className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl transition-colors hover:bg-black/40"
-        >
-          <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-            <Play size={22} className="text-gray-900 ml-0.5" fill="currentColor" />
-          </div>
-        </button>
-      )}
-    </div>
-  );
-};
-
-const CuratedGrid = ({ items, campaignTitle }: { items: GalleryItem[]; campaignTitle: string }) => {
-  const spanClass = (span: number) => {
-    if (span === 3) return "col-span-3";
-    if (span === 2) return "col-span-2";
-    return "col-span-1";
-  };
-
-  return (
-    <div className="grid grid-cols-3 gap-2">
-      {items.map((item, idx) => (
-        <div
-          key={idx}
-          className={`${spanClass(item.colSpan ?? 1)} overflow-hidden rounded-xl bg-black/40`}
-        >
-          {item.type === "video" ? (
-            <VideoPlayer src={item.src} alt={`${campaignTitle} - ${idx + 1}`} />
-          ) : (
-            <img
-              src={item.src}
-              alt={`${campaignTitle} - ${idx + 1}`}
-              className="w-full h-auto object-cover rounded-xl"
-              loading="lazy"
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 const CampaignsSection = () => {
   const [openGallery, setOpenGallery] = useState<number | null>(null);
@@ -509,7 +439,7 @@ const CampaignsSection = () => {
               </div>
 
               <div className="max-w-3xl mx-auto">
-                <CuratedGrid
+                <AdaptiveGallery
                   items={campaigns[openGallery].gallery}
                   campaignTitle={campaigns[openGallery].title}
                 />
