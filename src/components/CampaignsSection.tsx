@@ -119,6 +119,11 @@ const campaigns = [
       { src: cImg3, type: "image", colSpan: 1 },
       { src: cImg4, type: "image", colSpan: 1 },
       { src: cVid4, type: "video", colSpan: 2 },
+      { src: cVid5, type: "video", colSpan: 2 },
+      { src: cImg5, type: "image", colSpan: 1 },
+      { src: cImg6, type: "image", colSpan: 1 },
+      { src: cImg7, type: "image", colSpan: 1 },
+      { src: cImg8, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
   // 2 - Pink Friday
