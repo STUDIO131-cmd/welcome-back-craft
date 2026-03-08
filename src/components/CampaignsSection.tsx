@@ -79,6 +79,16 @@ import etImg6 from "@/assets/campaigns/etoiles/img6.jpg";
 import etImg7 from "@/assets/campaigns/etoiles/img7.jpg";
 import etImg8 from "@/assets/campaigns/etoiles/img8.jpg";
 import etImg9 from "@/assets/campaigns/etoiles/img9.jpg";
+import adImg1 from "@/assets/campaigns/adriano/img1.jpg";
+import adImg2 from "@/assets/campaigns/adriano/img2.jpg";
+import adImg3 from "@/assets/campaigns/adriano/img3.jpg";
+import adImg4 from "@/assets/campaigns/adriano/img4.jpg";
+import adImg5 from "@/assets/campaigns/adriano/img5.jpg";
+import adImg6 from "@/assets/campaigns/adriano/img6.jpg";
+import adImg7 from "@/assets/campaigns/adriano/img7.jpg";
+import adImg8 from "@/assets/campaigns/adriano/img8.jpg";
+import adImg9 from "@/assets/campaigns/adriano/img9.jpg";
+import adImg10 from "@/assets/campaigns/adriano/img10.jpg";
 
 type GalleryItem = {
   src: string;
