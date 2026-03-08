@@ -66,6 +66,9 @@ import lvImg3 from "@/assets/campaigns/lavie/img3.jpg";
 import lvImg4 from "@/assets/campaigns/lavie/img4.jpg";
 import lvImg5 from "@/assets/campaigns/lavie/img5.png";
 import lvImg6 from "@/assets/campaigns/lavie/img6.png";
+import dnVid1 from "@/assets/campaigns/daninatal/video1.mp4";
+import dnVid2 from "@/assets/campaigns/daninatal/video2.mp4";
+import dnVid3 from "@/assets/campaigns/daninatal/video3.mp4";
 
 type GalleryItem = {
   src: string;
@@ -213,6 +216,19 @@ const campaigns = [
       { src: lvImg6, type: "image", colSpan: 1 },
       { src: lvVid3, type: "video", colSpan: 2 },
       { src: lvVid4, type: "video", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
+  {
+    image: null,
+    title: "Dani Fernandes | Campanha de Natal",
+    subtitle: "Ação Comercial | Lançamento",
+    description:
+      "Dani Fernandes precisava de alguns conteúdos para potencializar a campanha de Natal. Fizemos melhor: levamos o comprador para um universo de sensações natalinas e familiares por meio do aroma.",
+    tags: ["Produção visual", "Ambientação", "Vídeo"],
+    gallery: [
+      { src: dnVid1, type: "video", colSpan: 2 },
+      { src: dnVid2, type: "video", colSpan: 1 },
+      { src: dnVid3, type: "video", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
 ];
