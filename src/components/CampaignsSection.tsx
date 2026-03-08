@@ -439,7 +439,7 @@ const CampaignsSection = () => {
               </div>
 
               <div className="max-w-3xl mx-auto">
-                <CuratedGrid
+                <AdaptiveGallery
                   items={campaigns[openGallery].gallery}
                   campaignTitle={campaigns[openGallery].title}
                 />
