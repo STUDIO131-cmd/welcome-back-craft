@@ -218,6 +218,19 @@ const campaigns = [
       { src: lvVid4, type: "video", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
+  {
+    image: null,
+    title: "Dani Fernandes | Campanha de Natal",
+    subtitle: "Ação Comercial | Lançamento",
+    description:
+      "Dani Fernandes precisava de alguns conteúdos para potencializar a campanha de Natal. Fizemos melhor: levamos o comprador para um universo de sensações natalinas e familiares por meio do aroma.",
+    tags: ["Produção visual", "Ambientação", "Vídeo"],
+    gallery: [
+      { src: dnVid1, type: "video", colSpan: 2 },
+      { src: dnVid2, type: "video", colSpan: 1 },
+      { src: dnVid3, type: "video", colSpan: 3 },
+    ] satisfies GalleryItem[],
+  },
 ];
 
 const fadeUp = {
