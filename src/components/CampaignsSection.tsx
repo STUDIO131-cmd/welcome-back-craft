@@ -55,6 +55,7 @@ import vcImg7 from "@/assets/campaigns/velvetcherry/img7.jpg";
 type GalleryItem = {
   src: string;
   type: "image" | "video";
+  colSpan?: 1 | 2 | 3;
 };
 
 const campaigns = [
