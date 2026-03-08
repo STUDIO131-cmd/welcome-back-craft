@@ -56,6 +56,16 @@ import ntVid2 from "@/assets/campaigns/novatrida/video2.mp4";
 import ntVid3 from "@/assets/campaigns/novatrida/video3.mp4";
 import ntImg1 from "@/assets/campaigns/novatrida/img1.jpg";
 import ntImg2 from "@/assets/campaigns/novatrida/img2.jpg";
+import lvVid1 from "@/assets/campaigns/lavie/video1.mp4";
+import lvVid2 from "@/assets/campaigns/lavie/video2.mp4";
+import lvVid3 from "@/assets/campaigns/lavie/video3.mp4";
+import lvVid4 from "@/assets/campaigns/lavie/video4.mp4";
+import lvImg1 from "@/assets/campaigns/lavie/img1.jpg";
+import lvImg2 from "@/assets/campaigns/lavie/img2.jpg";
+import lvImg3 from "@/assets/campaigns/lavie/img3.jpg";
+import lvImg4 from "@/assets/campaigns/lavie/img4.jpg";
+import lvImg5 from "@/assets/campaigns/lavie/img5.png";
+import lvImg6 from "@/assets/campaigns/lavie/img6.png";
 
 type GalleryItem = {
   src: string;
