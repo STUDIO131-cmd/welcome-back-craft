@@ -104,21 +104,31 @@ function scoreRow(items: ClassifiedItem[], isLastRow: boolean, totalRows: number
   if (n === 1 && !isLastRow) s -= 8;
   if (n === 1 && isLastRow) s += 5; // single full-width closing is acceptable
 
-  // Video prominence: bonus when videos get enough visual weight
-  const hasVideo = items.some((it) => it.type === "video");
+  // Video prominence: STRONG bias for videos to dominate their row
+  const videoItems = items.filter((it) => it.type === "video");
+  const hasVideo = videoItems.length > 0;
   if (hasVideo) {
-    const videoRatioShare = items
-      .filter((it) => it.type === "video")
-      .reduce((sum, it) => sum + it.ratio, 0) / items.reduce((sum, it) => sum + it.ratio, 0);
-    // Videos should get at least fair share or more
-    if (videoRatioShare >= 0.4) s += 10;
-    // Penalise video crammed with too many items
-    if (n >= 4 && hasVideo) s -= 8;
+    const videoRatioShare = videoItems.reduce((sum, it) => sum + it.ratio, 0) / items.reduce((sum, it) => sum + it.ratio, 0);
+    
+    // Video solo or with 1 companion = ideal editorial
+    if (videoItems.length === 1 && n === 1) s += 30; // full-width video = maximum impact
+    if (videoItems.length === 1 && n === 2) s += 22; // video + 1 support = strong
+    if (videoItems.length >= 2 && n === 2) s += 18; // two videos side by side = cinematic
+    
+    // Video getting good share of width
+    if (videoRatioShare >= 0.5) s += 15;
+    else if (videoRatioShare >= 0.35) s += 8;
+    else s -= 12; // video squeezed = bad
+    
+    // Heavy penalty for video crammed with many items
+    if (n >= 3 && hasVideo) s -= 18;
+    if (n >= 4 && hasVideo) s -= 25;
   }
 
   // Hero items alone or with 1 support = good editorial
   const heroes = items.filter((it) => it.weight === "hero");
-  if (heroes.length === 1 && n <= 2) s += 12;
+  if (heroes.length === 1 && n <= 2) s += 18;
+  if (heroes.length === 1 && n === 1) s += 12; // stacks with video solo bonus
 
   // Landscape items getting full space
   const landscapes = items.filter((it) => it.orientation === "landscape");
