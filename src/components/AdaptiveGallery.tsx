@@ -76,10 +76,10 @@ function computeRow(items: ClassifiedItem[]): Row {
 
 /* ───────── Step 2 & 3: DP planner with editorial scoring ───────── */
 
-const TARGET_H = 0.36;
+const TARGET_H = 0.38;
 const MIN_H = 0.14;
-const MAX_H = 0.72;
-const MAX_PER_ROW = 5;
+const MAX_H = 0.85;
+const MAX_PER_ROW = 4;
 
 function scoreRow(items: ClassifiedItem[], isLastRow: boolean, totalRows: number): number {
   const row = computeRow(items);
