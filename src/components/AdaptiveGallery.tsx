@@ -1,118 +1,166 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
+
+/* ═══════════════════════════════════════════════════════
+   EDITORIAL LAYOUT ENGINE v3
+   classify → compose → score → select → fix ending
+   ═══════════════════════════════════════════════════════ */
 
 /* ───────── Types ───────── */
 
-type GalleryItem = {
-  src: string;
-  type: "image" | "video";
-  colSpan?: number;
-};
+type GalleryItem = { src: string; type: "image" | "video"; colSpan?: number };
+
+type Orientation = "portrait" | "square" | "landscape";
+type VisualWeight = "hero" | "primary" | "secondary";
 
 type ClassifiedItem = GalleryItem & {
-  ratio: number; // width / height
+  ratio: number;
   index: number;
+  orientation: Orientation;
+  weight: VisualWeight;
 };
 
 type Row = {
   items: ClassifiedItem[];
-  fractions: number[]; // CSS fr values per item
-  height: number; // normalised row height (relative to container width=1)
+  fractions: number[];
+  height: number; // normalised (containerWidth = 1)
+};
+
+type Candidate = {
+  rows: Row[];
+  score: number;
 };
 
 /* ───────── Dimension detection ───────── */
 
-function detectDimensions(item: GalleryItem): Promise<{ width: number; height: number }> {
-  return new Promise((resolve) => {
+function detectDimensions(item: GalleryItem): Promise<{ w: number; h: number }> {
+  return new Promise((res) => {
     if (item.type === "video") {
       const v = document.createElement("video");
       v.preload = "metadata";
-      v.onloadedmetadata = () => resolve({ width: v.videoWidth || 16, height: v.videoHeight || 9 });
-      v.onerror = () => resolve({ width: 16, height: 9 });
+      v.onloadedmetadata = () => res({ w: v.videoWidth || 16, h: v.videoHeight || 9 });
+      v.onerror = () => res({ w: 16, h: 9 });
       v.src = item.src;
     } else {
       const img = new Image();
-      img.onload = () => resolve({ width: img.naturalWidth || 1, height: img.naturalHeight || 1 });
-      img.onerror = () => resolve({ width: 1, height: 1 });
+      img.onload = () => res({ w: img.naturalWidth || 1, h: img.naturalHeight || 1 });
+      img.onerror = () => res({ w: 1, h: 1 });
       img.src = item.src;
     }
   });
 }
 
-/* ───────── Row math ───────── */
+/* ───────── Step 1: Classify ───────── */
 
-// Given items in a row, compute the normalised row height and fr values.
-// All items share the same height h. For item i with ratio r_i and fraction f_i:
-//   width_i = f_i * totalWidth, height = width_i / r_i
-//   Since all heights are equal: f_i / r_i = constant = h
-//   Sum(f_i) = 1, so h = 1 / Sum(r_i)  ... wait, with gap we adjust.
-// Simpler: let S = sum of all ratios. Each fraction = r_i / S. Height = 1/S (normalised).
-// Gap adjustment: with (n-1) gaps of gapPx in containerWidth, effective width = 1 - (n-1)*gap/containerWidth
-// We ignore gap for scoring (tiny impact) but could refine later.
+function classify(item: GalleryItem, ratio: number, index: number, totalVideos: number): ClassifiedItem {
+  const orientation: Orientation =
+    ratio > 1.15 ? "landscape" : ratio < 0.85 ? "portrait" : "square";
 
-function computeRow(items: ClassifiedItem[], gapFraction: number = 0): Row {
-  const n = items.length;
-  const totalGap = (n - 1) * gapFraction;
-  const availableWidth = 1 - totalGap;
-  const sumRatios = items.reduce((s, it) => s + it.ratio, 0);
-  const height = availableWidth / sumRatios;
-  const fractions = items.map((it) => it.ratio); // raw ratios as fr units
-  return { items, fractions, height };
+  let weight: VisualWeight = "secondary";
+  if (item.type === "video") {
+    weight = totalVideos <= 3 ? "hero" : "primary";
+  } else if (orientation === "landscape") {
+    weight = "primary";
+  }
+
+  return { ...item, ratio, index, orientation, weight };
 }
 
-/* ───────── DP optimal row partitioning ───────── */
+/* ───────── Row math ───────── */
 
-// Target height as fraction of container width. 
-// For a container ~700px wide, targetH=0.38 → ~266px row height. Reasonable.
-const TARGET_H = 0.38;
-const MIN_H = 0.15;
-const MAX_H = 0.75;
-const MAX_ITEMS_PER_ROW = 5;
+function computeRow(items: ClassifiedItem[]): Row {
+  const sumRatios = items.reduce((s, it) => s + it.ratio, 0);
+  const height = 1 / sumRatios; // normalised
+  return { items, fractions: items.map((it) => it.ratio), height };
+}
 
-function scoreRow(items: ClassifiedItem[]): number {
+/* ───────── Step 2 & 3: DP planner with editorial scoring ───────── */
+
+const TARGET_H = 0.36;
+const MIN_H = 0.14;
+const MAX_H = 0.72;
+const MAX_PER_ROW = 5;
+
+function scoreRow(items: ClassifiedItem[], isLastRow: boolean, totalRows: number): number {
   const row = computeRow(items);
   const h = row.height;
 
-  // Out of bounds → heavy penalty
-  if (h < MIN_H * 0.5 || h > MAX_H * 1.5) return -1e6;
+  if (h < MIN_H * 0.4 || h > MAX_H * 1.6) return -1e6;
 
-  // Height deviation from target
-  const deviation = Math.abs(h - TARGET_H) / TARGET_H;
-  let score = 100 - deviation * 80;
+  // Base: closeness to target height
+  const dev = Math.abs(h - TARGET_H) / TARGET_H;
+  let s = 100 - dev * 70;
 
-  // Bonus for rows with 2-3 items (denser, more editorial)
-  if (items.length >= 2 && items.length <= 3) score += 10;
-  if (items.length === 1) score -= 5; // single item rows are fine but not ideal
+  // Height comfort zone
+  if (h >= 0.22 && h <= 0.50) s += 12;
+  if (h < MIN_H) s -= (MIN_H - h) * 250;
+  if (h > MAX_H) s -= (h - MAX_H) * 250;
 
-  // Penalty for very tall rows (single portrait items)
-  if (h > MAX_H) score -= (h - MAX_H) * 200;
-  if (h < MIN_H) score -= (MIN_H - h) * 200;
+  const n = items.length;
 
-  // Bonus if row height is comfortably in the sweet spot
-  if (h >= 0.25 && h <= 0.5) score += 15;
+  // Editorial density: prefer 2-3 items per row
+  if (n === 2 || n === 3) s += 14;
+  if (n === 4) s += 6;
+  if (n === 1 && !isLastRow) s -= 8;
+  if (n === 1 && isLastRow) s += 5; // single full-width closing is acceptable
 
-  return score;
+  // Video prominence: bonus when videos get enough visual weight
+  const hasVideo = items.some((it) => it.type === "video");
+  if (hasVideo) {
+    const videoRatioShare = items
+      .filter((it) => it.type === "video")
+      .reduce((sum, it) => sum + it.ratio, 0) / items.reduce((sum, it) => sum + it.ratio, 0);
+    // Videos should get at least fair share or more
+    if (videoRatioShare >= 0.4) s += 10;
+    // Penalise video crammed with too many items
+    if (n >= 4 && hasVideo) s -= 8;
+  }
+
+  // Hero items alone or with 1 support = good editorial
+  const heroes = items.filter((it) => it.weight === "hero");
+  if (heroes.length === 1 && n <= 2) s += 12;
+
+  // Landscape items getting full space
+  const landscapes = items.filter((it) => it.orientation === "landscape");
+  if (landscapes.length === 1 && n === 1) s += 8; // full-width landscape = strong
+
+  // Last row special: prefer solid endings
+  if (isLastRow) {
+    if (n === 1 && items[0].orientation === "landscape") s += 15;
+    if (n === 1 && items[0].type === "video") s += 12;
+    if (n === 2) s += 8;
+    if (n === 3) s += 5;
+    // Penalise lonely portrait at the end
+    if (n === 1 && items[0].orientation === "portrait") s -= 10;
+  }
+
+  // Monotony penalty: all same orientation
+  const orientations = new Set(items.map((it) => it.orientation));
+  if (n >= 3 && orientations.size === 1) s -= 6;
+
+  return s;
 }
-
-type DPResult = { score: number; split: number[] };
 
 function dpPlanRows(items: ClassifiedItem[]): Row[] {
   const n = items.length;
   if (n === 0) return [];
 
-  // memo[i] = best way to partition items[i..n-1] into rows
-  const memo: Map<number, DPResult> = new Map();
+  const memo: Map<number, { score: number; split: number[] }> = new Map();
 
-  function solve(start: number): DPResult {
+  function solve(start: number): { score: number; split: number[] } {
     if (start >= n) return { score: 0, split: [] };
     if (memo.has(start)) return memo.get(start)!;
 
-    let best: DPResult = { score: -Infinity, split: [] };
+    let best = { score: -Infinity, split: [] as number[] };
+    const maxEnd = Math.min(start + MAX_PER_ROW, n);
 
-    const maxEnd = Math.min(start + MAX_ITEMS_PER_ROW, n);
     for (let end = start + 1; end <= maxEnd; end++) {
       const rowItems = items.slice(start, end);
-      const rs = scoreRow(rowItems);
+      const isLast = end === n;
+      // Estimate total rows for context
+      const remainingItems = n - end;
+      const estRemaining = Math.ceil(remainingItems / 2.5);
+      const rs = scoreRow(rowItems, isLast, estRemaining + 1);
       const rest = solve(end);
       const total = rs + rest.score;
       if (total > best.score) {
@@ -125,66 +173,208 @@ function dpPlanRows(items: ClassifiedItem[]): Row[] {
   }
 
   const result = solve(0);
-
-  // Build rows from splits
   const rows: Row[] = [];
   let prev = 0;
   for (const s of result.split) {
-    const rowItems = items.slice(prev, s);
-    rows.push(computeRow(rowItems));
+    rows.push(computeRow(items.slice(prev, s)));
     prev = s;
+  }
+  return rows;
+}
+
+/* ───────── Step 2b: Generate candidate permutations ───────── */
+
+function generateCandidates(items: ClassifiedItem[]): ClassifiedItem[][] {
+  const candidates: ClassifiedItem[][] = [items];
+  const n = items.length;
+  if (n <= 2) return candidates;
+
+  // Strategy 1: Move best landscape to end (strong closing)
+  const bestLandscapeIdx = items.reduce(
+    (best, it, i) => (it.orientation === "landscape" && it.ratio > (items[best]?.ratio ?? 0) ? i : best),
+    -1
+  );
+  if (bestLandscapeIdx > 0 && bestLandscapeIdx < n - 1) {
+    const v = [...items];
+    const [moved] = v.splice(bestLandscapeIdx, 1);
+    v.push(moved);
+    candidates.push(v);
+  }
+
+  // Strategy 2: Move best landscape to start (strong opening)
+  if (bestLandscapeIdx > 0) {
+    const v = [...items];
+    const [moved] = v.splice(bestLandscapeIdx, 1);
+    v.unshift(moved);
+    candidates.push(v);
+  }
+
+  // Strategy 3: Move first hero video to position 0 if not already
+  const firstHeroIdx = items.findIndex((it) => it.weight === "hero");
+  if (firstHeroIdx > 0) {
+    const v = [...items];
+    const [moved] = v.splice(firstHeroIdx, 1);
+    v.unshift(moved);
+    candidates.push(v);
+  }
+
+  // Strategy 4: Swap last item with a stronger item if last is weak
+  const last = items[n - 1];
+  if (last.orientation === "portrait" && last.type === "image") {
+    // Find a landscape or video to swap with
+    for (let i = Math.max(0, n - 5); i < n - 1; i++) {
+      if (items[i].orientation === "landscape" || items[i].type === "video") {
+        const v = [...items];
+        [v[i], v[n - 1]] = [v[n - 1], v[i]];
+        candidates.push(v);
+        break;
+      }
+    }
+  }
+
+  // Strategy 5: Alternate video/image for editorial rhythm
+  const videos = items.filter((it) => it.type === "video");
+  const images = items.filter((it) => it.type === "image");
+  if (videos.length >= 2 && images.length >= 2) {
+    const interleaved: ClassifiedItem[] = [];
+    let vi = 0, ii = 0;
+    let useVideo = true;
+    while (vi < videos.length || ii < images.length) {
+      if (useVideo && vi < videos.length) {
+        interleaved.push(videos[vi++]);
+      } else if (ii < images.length) {
+        interleaved.push(images[ii++]);
+      } else if (vi < videos.length) {
+        interleaved.push(videos[vi++]);
+      }
+      useVideo = !useVideo;
+    }
+    candidates.push(interleaved);
+  }
+
+  // Strategy 6: Group portraits together in middle, landscapes at edges
+  const portraits = items.filter((it) => it.orientation === "portrait");
+  const nonPortraits = items.filter((it) => it.orientation !== "portrait");
+  if (portraits.length >= 2 && nonPortraits.length >= 2) {
+    const half = Math.ceil(nonPortraits.length / 2);
+    const arranged = [
+      ...nonPortraits.slice(0, half),
+      ...portraits,
+      ...nonPortraits.slice(half),
+    ];
+    candidates.push(arranged);
+  }
+
+  return candidates;
+}
+
+/* ───────── Step 3b: Score entire composition ───────── */
+
+function scoreComposition(rows: Row[]): number {
+  let total = 0;
+
+  // Sum row scores
+  rows.forEach((row, i) => {
+    total += scoreRow(row.items, i === rows.length - 1, rows.length);
+  });
+
+  // Editorial alternation bonus: check weight variety between consecutive rows
+  for (let i = 1; i < rows.length; i++) {
+    const prevHasHero = rows[i - 1].items.some((it) => it.weight === "hero" || it.weight === "primary");
+    const currHasHero = rows[i].items.some((it) => it.weight === "hero" || it.weight === "primary");
+    // Alternation between heavy and light rows
+    if (prevHasHero !== currHasHero) total += 6;
+    // Penalise two consecutive heavy rows
+    if (prevHasHero && currHasHero) total -= 3;
+
+    // Penalise same item count in consecutive rows (monotony)
+    if (rows[i].items.length === rows[i - 1].items.length && rows[i].items.length >= 3) {
+      total -= 4;
+    }
+  }
+
+  // Height variance penalty: rows should have somewhat similar heights
+  const heights = rows.map((r) => r.height);
+  const avgH = heights.reduce((a, b) => a + b, 0) / heights.length;
+  const variance = heights.reduce((s, h) => s + (h - avgH) ** 2, 0) / heights.length;
+  total -= variance * 300;
+
+  // Last row strength
+  const lastRow = rows[rows.length - 1];
+  if (lastRow) {
+    const lastH = lastRow.height;
+    // Penalise very thin last row
+    if (lastH < 0.18) total -= 20;
+    // Bonus for last row being a single landscape/video full-width
+    if (lastRow.items.length === 1 && (lastRow.items[0].orientation === "landscape" || lastRow.items[0].type === "video")) {
+      total += 10;
+    }
+  }
+
+  return total;
+}
+
+/* ───────── Step 5: Fix ending ───────── */
+
+function fixEnding(rows: Row[]): Row[] {
+  if (rows.length < 2) return rows;
+
+  const lastRow = rows[rows.length - 1];
+  const prevRow = rows[rows.length - 2];
+
+  // Case: last row has a single lonely portrait → try pulling an item from prev row
+  if (
+    lastRow.items.length === 1 &&
+    lastRow.items[0].orientation === "portrait" &&
+    prevRow.items.length >= 3
+  ) {
+    const combined = [...prevRow.items, ...lastRow.items];
+    // Try splitting combined as [n-1, rest]
+    const splitPoint = Math.ceil(combined.length / 2);
+    const newPrev = computeRow(combined.slice(0, splitPoint));
+    const newLast = computeRow(combined.slice(splitPoint));
+
+    const oldScore =
+      scoreRow(prevRow.items, false, rows.length) +
+      scoreRow(lastRow.items, true, rows.length);
+    const newScore =
+      scoreRow(newPrev.items, false, rows.length) +
+      scoreRow(newLast.items, true, rows.length);
+
+    if (newScore > oldScore) {
+      return [...rows.slice(0, -2), newPrev, newLast];
+    }
+  }
+
+  // Case: last row is very thin → merge with previous
+  if (lastRow.height < 0.15 && prevRow.items.length + lastRow.items.length <= MAX_PER_ROW) {
+    const merged = computeRow([...prevRow.items, ...lastRow.items]);
+    if (merged.height >= MIN_H && merged.height <= MAX_H) {
+      return [...rows.slice(0, -2), merged];
+    }
   }
 
   return rows;
 }
 
-/* ───────── Rebalancing: try permutations of last items ───────── */
+/* ───────── Step 4: Select best ───────── */
 
-function tryRebalance(items: ClassifiedItem[]): ClassifiedItem[] {
-  const n = items.length;
-  if (n <= 3) return items; // too few to rebalance
+function selectBestLayout(items: ClassifiedItem[]): Row[] {
+  const candidates = generateCandidates(items);
+  let bestRows: Row[] = [];
+  let bestScore = -Infinity;
 
-  // Try swapping last few items with earlier ones to see if we get better score
-  // Simple approach: try moving the best landscape item to the end
-  const best = dpPlanRows(items);
-  const bestScore = best.reduce((s, r) => s + scoreRow(r.items), 0);
-
-  let bestItems = items;
-  let bestTotal = bestScore;
-
-  // Try: move each landscape item to the end position
-  for (let i = 0; i < n - 1; i++) {
-    if (items[i].ratio > 1.2) {
-      const variant = [...items];
-      const [moved] = variant.splice(i, 1);
-      variant.push(moved);
-      const rows = dpPlanRows(variant);
-      const total = rows.reduce((s, r) => s + scoreRow(r.items), 0);
-      if (total > bestTotal + 5) {
-        bestTotal = total;
-        bestItems = variant;
-      }
+  for (const candidate of candidates) {
+    let rows = dpPlanRows(candidate);
+    rows = fixEnding(rows);
+    const score = scoreComposition(rows);
+    if (score > bestScore) {
+      bestScore = score;
+      bestRows = rows;
     }
   }
 
-  // Try: swap last portrait with an earlier landscape
-  const lastIdx = n - 1;
-  if (items[lastIdx].ratio < 0.85) {
-    for (let i = 0; i < lastIdx; i++) {
-      if (items[i].ratio > 1.15) {
-        const variant = [...items];
-        [variant[i], variant[lastIdx]] = [variant[lastIdx], variant[i]];
-        const rows = dpPlanRows(variant);
-        const total = rows.reduce((s, r) => s + scoreRow(r.items), 0);
-        if (total > bestTotal + 5) {
-          bestTotal = total;
-          bestItems = variant;
-        }
-      }
-    }
-  }
-
-  return bestItems;
+  return bestRows;
 }
 
 /* ───────── VideoPlayer ───────── */
@@ -194,15 +384,11 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
   const [playing, setPlaying] = useState(false);
 
   const handlePlay = useCallback(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = false;
-    video.play();
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.play();
     setPlaying(true);
-  }, []);
-
-  const handlePause = useCallback(() => {
-    setPlaying(false);
   }, []);
 
   return (
@@ -212,8 +398,8 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
         src={src}
         controls={playing}
         playsInline
-        onPause={handlePause}
-        onEnded={handlePause}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPlaying(false)}
         className="w-full h-full object-contain block"
         aria-label={alt}
       />
@@ -223,7 +409,7 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
           className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
         >
           <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-            <Play size={22} className="text-gray-900 ml-0.5" fill="currentColor" />
+            <Play size={22} className="text-foreground ml-0.5" fill="currentColor" />
           </div>
         </button>
       )}
@@ -233,40 +419,35 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
 
 /* ───────── Main component ───────── */
 
-type AdaptiveGalleryProps = {
-  items: GalleryItem[];
-  campaignTitle: string;
-};
+type Props = { items: GalleryItem[]; campaignTitle: string };
 
-const AdaptiveGallery = ({ items, campaignTitle }: AdaptiveGalleryProps) => {
+const AdaptiveGallery = ({ items, campaignTitle }: Props) => {
   const [rows, setRows] = useState<Row[] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
 
-    async function buildLayout() {
-      // 1. Detect dimensions for all items
+    (async () => {
+      // Count videos for weight classification
+      const totalVideos = items.filter((it) => it.type === "video").length;
+
+      // Step 1: classify
       const classified: ClassifiedItem[] = await Promise.all(
         items.map(async (item, index) => {
           const dims = await detectDimensions(item);
-          const ratio = dims.width / dims.height;
-          return { ...item, ratio, index };
+          return classify(item, dims.w / dims.h, index, totalVideos);
         })
       );
 
       if (cancelled) return;
 
-      // 2. Rebalance order for better composition
-      const rebalanced = tryRebalance(classified);
+      // Steps 2-5: generate candidates → DP plan → score → select best → fix ending
+      const best = selectBestLayout(classified);
 
-      // 3. DP optimal row partitioning
-      const optimalRows = dpPlanRows(rebalanced);
+      if (!cancelled) setRows(best);
+    })();
 
-      if (!cancelled) setRows(optimalRows);
-    }
-
-    buildLayout();
     return () => { cancelled = true; };
   }, [items]);
 
@@ -275,29 +456,23 @@ const AdaptiveGallery = ({ items, campaignTitle }: AdaptiveGalleryProps) => {
       {!rows ? (
         <div className="grid grid-cols-3 gap-2">
           {items.map((_, i) => (
-            <div key={i} className="animate-pulse rounded-xl bg-white/10 h-40" />
+            <div key={i} className="animate-pulse rounded-xl bg-muted/30 h-40" />
           ))}
         </div>
       ) : (
-        rows.map((row, rowIdx) => (
+        rows.map((row, ri) => (
           <div
-            key={rowIdx}
+            key={ri}
             style={{
               display: "grid",
               gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
               gap: "8px",
             }}
           >
-            {row.items.map((item, idx) => (
-              <div
-                key={`${rowIdx}-${idx}`}
-                className="overflow-hidden rounded-xl bg-black/40"
-              >
+            {row.items.map((item, ci) => (
+              <div key={`${ri}-${ci}`} className="overflow-hidden rounded-xl bg-black/40">
                 {item.type === "video" ? (
-                  <VideoPlayer
-                    src={item.src}
-                    alt={`${campaignTitle} - ${item.index + 1}`}
-                  />
+                  <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} />
                 ) : (
                   <img
                     src={item.src}
