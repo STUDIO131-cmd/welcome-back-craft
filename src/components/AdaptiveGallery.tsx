@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Play } from "lucide-react";
+
+/* ───────── Types ───────── */
 
 type GalleryItem = {
   src: string;
@@ -7,135 +9,186 @@ type GalleryItem = {
   colSpan?: number;
 };
 
-type Orientation = "landscape" | "portrait" | "square";
-
 type ClassifiedItem = GalleryItem & {
-  orientation: Orientation;
-  naturalWidth: number;
-  naturalHeight: number;
+  ratio: number; // width / height
   index: number;
 };
 
-type LayoutItem = ClassifiedItem & {
-  computedSpan: number;
-  fullWidth: boolean;
+type Row = {
+  items: ClassifiedItem[];
+  fractions: number[]; // CSS fr values per item
+  height: number; // normalised row height (relative to container width=1)
 };
 
-function classifyOrientation(w: number, h: number): Orientation {
-  const ratio = w / h;
-  if (ratio > 1.15) return "landscape";
-  if (ratio < 0.85) return "portrait";
-  return "square";
-}
+/* ───────── Dimension detection ───────── */
 
 function detectDimensions(item: GalleryItem): Promise<{ width: number; height: number }> {
   return new Promise((resolve) => {
     if (item.type === "video") {
-      const video = document.createElement("video");
-      video.preload = "metadata";
-      video.onloadedmetadata = () => {
-        resolve({ width: video.videoWidth, height: video.videoHeight });
-      };
-      video.onerror = () => resolve({ width: 16, height: 9 });
-      video.src = item.src;
+      const v = document.createElement("video");
+      v.preload = "metadata";
+      v.onloadedmetadata = () => resolve({ width: v.videoWidth || 16, height: v.videoHeight || 9 });
+      v.onerror = () => resolve({ width: 16, height: 9 });
+      v.src = item.src;
     } else {
       const img = new Image();
-      img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
+      img.onload = () => resolve({ width: img.naturalWidth || 1, height: img.naturalHeight || 1 });
       img.onerror = () => resolve({ width: 1, height: 1 });
       img.src = item.src;
     }
   });
 }
 
-function getDesktopCols(totalItems: number): number {
-  if (totalItems <= 3) return 2;
-  if (totalItems <= 6) return 3;
-  return 4;
+/* ───────── Row math ───────── */
+
+// Given items in a row, compute the normalised row height and fr values.
+// All items share the same height h. For item i with ratio r_i and fraction f_i:
+//   width_i = f_i * totalWidth, height = width_i / r_i
+//   Since all heights are equal: f_i / r_i = constant = h
+//   Sum(f_i) = 1, so h = 1 / Sum(r_i)  ... wait, with gap we adjust.
+// Simpler: let S = sum of all ratios. Each fraction = r_i / S. Height = 1/S (normalised).
+// Gap adjustment: with (n-1) gaps of gapPx in containerWidth, effective width = 1 - (n-1)*gap/containerWidth
+// We ignore gap for scoring (tiny impact) but could refine later.
+
+function computeRow(items: ClassifiedItem[], gapFraction: number = 0): Row {
+  const n = items.length;
+  const totalGap = (n - 1) * gapFraction;
+  const availableWidth = 1 - totalGap;
+  const sumRatios = items.reduce((s, it) => s + it.ratio, 0);
+  const height = availableWidth / sumRatios;
+  const fractions = items.map((it) => it.ratio); // raw ratios as fr units
+  return { items, fractions, height };
 }
 
-function buildGalleryLayout(items: ClassifiedItem[], cols: number): LayoutItem[] {
-  const layoutItems: LayoutItem[] = items.map((item) => ({
-    ...item,
-    computedSpan: 1,
-    fullWidth: false,
-  }));
+/* ───────── DP optimal row partitioning ───────── */
 
-  // Pass 1: Assign base spans
-  for (let i = 0; i < layoutItems.length; i++) {
-    const item = layoutItems[i];
-    if (item.orientation === "landscape") {
-      // Landscape gets span 2 by default, or full-width if it's at start/end
-      if (i === 0 || i === layoutItems.length - 1) {
-        item.fullWidth = true;
-        item.computedSpan = cols;
-      } else {
-        item.computedSpan = Math.min(2, cols);
+// Target height as fraction of container width. 
+// For a container ~700px wide, targetH=0.38 → ~266px row height. Reasonable.
+const TARGET_H = 0.38;
+const MIN_H = 0.15;
+const MAX_H = 0.75;
+const MAX_ITEMS_PER_ROW = 5;
+
+function scoreRow(items: ClassifiedItem[]): number {
+  const row = computeRow(items);
+  const h = row.height;
+
+  // Out of bounds → heavy penalty
+  if (h < MIN_H * 0.5 || h > MAX_H * 1.5) return -1e6;
+
+  // Height deviation from target
+  const deviation = Math.abs(h - TARGET_H) / TARGET_H;
+  let score = 100 - deviation * 80;
+
+  // Bonus for rows with 2-3 items (denser, more editorial)
+  if (items.length >= 2 && items.length <= 3) score += 10;
+  if (items.length === 1) score -= 5; // single item rows are fine but not ideal
+
+  // Penalty for very tall rows (single portrait items)
+  if (h > MAX_H) score -= (h - MAX_H) * 200;
+  if (h < MIN_H) score -= (MIN_H - h) * 200;
+
+  // Bonus if row height is comfortably in the sweet spot
+  if (h >= 0.25 && h <= 0.5) score += 15;
+
+  return score;
+}
+
+type DPResult = { score: number; split: number[] };
+
+function dpPlanRows(items: ClassifiedItem[]): Row[] {
+  const n = items.length;
+  if (n === 0) return [];
+
+  // memo[i] = best way to partition items[i..n-1] into rows
+  const memo: Map<number, DPResult> = new Map();
+
+  function solve(start: number): DPResult {
+    if (start >= n) return { score: 0, split: [] };
+    if (memo.has(start)) return memo.get(start)!;
+
+    let best: DPResult = { score: -Infinity, split: [] };
+
+    const maxEnd = Math.min(start + MAX_ITEMS_PER_ROW, n);
+    for (let end = start + 1; end <= maxEnd; end++) {
+      const rowItems = items.slice(start, end);
+      const rs = scoreRow(rowItems);
+      const rest = solve(end);
+      const total = rs + rest.score;
+      if (total > best.score) {
+        best = { score: total, split: [end, ...rest.split] };
       }
-    } else {
-      item.computedSpan = 1;
+    }
+
+    memo.set(start, best);
+    return best;
+  }
+
+  const result = solve(0);
+
+  // Build rows from splits
+  const rows: Row[] = [];
+  let prev = 0;
+  for (const s of result.split) {
+    const rowItems = items.slice(prev, s);
+    rows.push(computeRow(rowItems));
+    prev = s;
+  }
+
+  return rows;
+}
+
+/* ───────── Rebalancing: try permutations of last items ───────── */
+
+function tryRebalance(items: ClassifiedItem[]): ClassifiedItem[] {
+  const n = items.length;
+  if (n <= 3) return items; // too few to rebalance
+
+  // Try swapping last few items with earlier ones to see if we get better score
+  // Simple approach: try moving the best landscape item to the end
+  const best = dpPlanRows(items);
+  const bestScore = best.reduce((s, r) => s + scoreRow(r.items), 0);
+
+  let bestItems = items;
+  let bestTotal = bestScore;
+
+  // Try: move each landscape item to the end position
+  for (let i = 0; i < n - 1; i++) {
+    if (items[i].ratio > 1.2) {
+      const variant = [...items];
+      const [moved] = variant.splice(i, 1);
+      variant.push(moved);
+      const rows = dpPlanRows(variant);
+      const total = rows.reduce((s, r) => s + scoreRow(r.items), 0);
+      if (total > bestTotal + 5) {
+        bestTotal = total;
+        bestItems = variant;
+      }
     }
   }
 
-  // Pass 2: Simulate row filling and fix last row
-  const rows = simulateRows(layoutItems, cols);
-  const lastRow = rows[rows.length - 1];
-
-  if (lastRow) {
-    const lastRowSpanSum = lastRow.reduce((sum, item) => sum + item.computedSpan, 0);
-    const gap = cols - lastRowSpanSum;
-
-    if (gap > 0) {
-      // Strategy: if only 1 item in last row, make it full-width
-      if (lastRow.length === 1) {
-        lastRow[0].fullWidth = true;
-        lastRow[0].computedSpan = cols;
-      }
-      // If last item is landscape, make it full-width
-      else if (lastRow[lastRow.length - 1].orientation === "landscape") {
-        lastRow[lastRow.length - 1].fullWidth = true;
-        lastRow[lastRow.length - 1].computedSpan = cols - (lastRowSpanSum - lastRow[lastRow.length - 1].computedSpan);
-      }
-      // Distribute gap across last row items
-      else {
-        let remaining = gap;
-        for (let i = lastRow.length - 1; i >= 0 && remaining > 0; i--) {
-          const add = Math.min(remaining, cols - lastRow[i].computedSpan);
-          lastRow[i].computedSpan += add;
-          remaining -= add;
+  // Try: swap last portrait with an earlier landscape
+  const lastIdx = n - 1;
+  if (items[lastIdx].ratio < 0.85) {
+    for (let i = 0; i < lastIdx; i++) {
+      if (items[i].ratio > 1.15) {
+        const variant = [...items];
+        [variant[i], variant[lastIdx]] = [variant[lastIdx], variant[i]];
+        const rows = dpPlanRows(variant);
+        const total = rows.reduce((s, r) => s + scoreRow(r.items), 0);
+        if (total > bestTotal + 5) {
+          bestTotal = total;
+          bestItems = variant;
         }
       }
     }
   }
 
-  return layoutItems;
+  return bestItems;
 }
 
-function simulateRows(items: LayoutItem[], cols: number): LayoutItem[][] {
-  const rows: LayoutItem[][] = [];
-  let currentRow: LayoutItem[] = [];
-  let currentSpan = 0;
+/* ───────── VideoPlayer ───────── */
 
-  for (const item of items) {
-    const span = item.fullWidth ? cols : item.computedSpan;
-    if (item.fullWidth || currentSpan + span > cols) {
-      if (currentRow.length > 0) rows.push(currentRow);
-      currentRow = [item];
-      currentSpan = span;
-    } else {
-      currentRow.push(item);
-      currentSpan += span;
-    }
-    if (currentSpan >= cols) {
-      rows.push(currentRow);
-      currentRow = [];
-      currentSpan = 0;
-    }
-  }
-  if (currentRow.length > 0) rows.push(currentRow);
-  return rows;
-}
-
-// VideoPlayer - reused from CampaignsSection pattern
 const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -153,7 +206,7 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
   }, []);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full h-full">
       <video
         ref={videoRef}
         src={src}
@@ -161,13 +214,13 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
         playsInline
         onPause={handlePause}
         onEnded={handlePause}
-        className="w-full h-auto block rounded-xl"
+        className="w-full h-full object-contain block"
         aria-label={alt}
       />
       {!playing && (
         <button
           onClick={handlePlay}
-          className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl transition-colors hover:bg-black/40"
+          className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
         >
           <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
             <Play size={22} className="text-gray-900 ml-0.5" fill="currentColor" />
@@ -178,98 +231,85 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
   );
 };
 
+/* ───────── Main component ───────── */
+
 type AdaptiveGalleryProps = {
   items: GalleryItem[];
   campaignTitle: string;
 };
 
 const AdaptiveGallery = ({ items, campaignTitle }: AdaptiveGalleryProps) => {
-  const [layout, setLayout] = useState<LayoutItem[] | null>(null);
-  const [cols, setCols] = useState(3);
+  const [rows, setRows] = useState<Row[] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Responsive columns via ResizeObserver
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new ResizeObserver((entries) => {
-      const width = entries[0]?.contentRect.width ?? 0;
-      if (width < 640) {
-        setCols(1);
-      } else if (width < 1024) {
-        setCols(2);
-      } else {
-        setCols(getDesktopCols(items.length));
-      }
-    });
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [items.length]);
-
-  // Classify media and build layout
   useEffect(() => {
     let cancelled = false;
 
-    async function classify() {
+    async function buildLayout() {
+      // 1. Detect dimensions for all items
       const classified: ClassifiedItem[] = await Promise.all(
         items.map(async (item, index) => {
           const dims = await detectDimensions(item);
-          return {
-            ...item,
-            orientation: classifyOrientation(dims.width, dims.height),
-            naturalWidth: dims.width,
-            naturalHeight: dims.height,
-            index,
-          };
+          const ratio = dims.width / dims.height;
+          return { ...item, ratio, index };
         })
       );
 
-      if (!cancelled) {
-        const layoutResult = buildGalleryLayout(classified, cols);
-        setLayout(layoutResult);
-      }
+      if (cancelled) return;
+
+      // 2. Rebalance order for better composition
+      const rebalanced = tryRebalance(classified);
+
+      // 3. DP optimal row partitioning
+      const optimalRows = dpPlanRows(rebalanced);
+
+      if (!cancelled) setRows(optimalRows);
     }
 
-    classify();
+    buildLayout();
     return () => { cancelled = true; };
-  }, [items, cols]);
+  }, [items]);
 
   return (
-    <div ref={containerRef} className="w-full">
-      {!layout ? (
-        <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+    <div ref={containerRef} className="w-full space-y-2">
+      {!rows ? (
+        <div className="grid grid-cols-3 gap-2">
           {items.map((_, i) => (
             <div key={i} className="animate-pulse rounded-xl bg-white/10 h-40" />
           ))}
         </div>
       ) : (
-        <div
-          className="grid gap-2"
-          style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
-        >
-          {layout.map((item, idx) => (
-            <div
-              key={idx}
-              className="overflow-hidden rounded-xl bg-black/40"
-              style={{
-                gridColumn: item.fullWidth ? "1 / -1" : `span ${item.computedSpan}`,
-              }}
-            >
-              {item.type === "video" ? (
-                <VideoPlayer src={item.src} alt={`${campaignTitle} - ${idx + 1}`} />
-              ) : (
-                <img
-                  src={item.src}
-                  alt={`${campaignTitle} - ${idx + 1}`}
-                  className="w-full h-auto block rounded-xl"
-                  loading="lazy"
-                />
-              )}
-            </div>
-          ))}
-        </div>
+        rows.map((row, rowIdx) => (
+          <div
+            key={rowIdx}
+            style={{
+              display: "grid",
+              gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
+              gap: "8px",
+            }}
+          >
+            {row.items.map((item, idx) => (
+              <div
+                key={`${rowIdx}-${idx}`}
+                className="overflow-hidden rounded-xl bg-black/40"
+              >
+                {item.type === "video" ? (
+                  <VideoPlayer
+                    src={item.src}
+                    alt={`${campaignTitle} - ${item.index + 1}`}
+                  />
+                ) : (
+                  <img
+                    src={item.src}
+                    alt={`${campaignTitle} - ${item.index + 1}`}
+                    className="w-full h-auto block"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        ))
       )}
     </div>
   );
