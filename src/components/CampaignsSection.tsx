@@ -76,6 +76,7 @@ import ntVid2 from "@/assets/campaigns/novatrida/video2.mp4";
 import ntVid3 from "@/assets/campaigns/novatrida/video3.mp4";
 import ntImg1 from "@/assets/campaigns/novatrida/img1.jpg";
 import ntImg2 from "@/assets/campaigns/novatrida/img2.jpg";
+import ntCover from "@/assets/campaigns/novatrida/cover.png";
 import lvVid1 from "@/assets/campaigns/lavie/video1.mp4";
 import lvVid2 from "@/assets/campaigns/lavie/video2.mp4";
 import lvVid3 from "@/assets/campaigns/lavie/video3.mp4";
