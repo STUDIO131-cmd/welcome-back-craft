@@ -315,7 +315,7 @@ const campaigns = [
   },
   // 10 - Nova Trida
   {
-    image: null,
+    image: ntCover,
     title: "Nova Trida | Tecnologia & Suprimentos para Empresas",
     subtitle: "Reposicionamento | Institucional",
     description:
