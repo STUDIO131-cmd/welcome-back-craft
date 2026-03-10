@@ -346,13 +346,19 @@ const campaigns = [
       "Campos do Jordão foi o cenário perfeito para uma campanha extremamente elegante.\nPara apresentar a coleção, unimos duas personagens já conhecidas da marca: Cher, delicada e americana, e Etoiles, fina e europeia.\nEssa construção de imagem e narrativa fez o público responder — Cravates se tornou a coleção mais vendida da CB Shop.",
     tags: ["Produção visual", "Fotografia de campanha", "Roteiro + captação de vídeo"],
     gallery: [
-      { src: crVid1, type: "video", colSpan: 3 },
-      { src: crImg3, type: "image", colSpan: 1 },
+      // L1: Vídeo + foto (2 colunas)
+      { src: crVid1, type: "video", colSpan: 2 },
       { src: crImg2, type: "image", colSpan: 1 },
+      // L2: Foto sozinha full-width (3 colunas)
+      { src: crImg3, type: "image", colSpan: 3 },
+      // L3: Duas fotos lado a lado
       { src: crImg1, type: "image", colSpan: 1 },
       { src: crImg4, type: "image", colSpan: 1 },
-      { src: crImg5, type: "image", colSpan: 1 },
-      { src: crImg6, type: "image", colSpan: 2 },
+      // L4: Foto horizontal sozinha
+      { src: crImg5, type: "image", colSpan: 3 },
+      // L5: Vertical + horizontal
+      { src: crImg6, type: "image", colSpan: 1 },
+      { src: crImg1, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
 ];
