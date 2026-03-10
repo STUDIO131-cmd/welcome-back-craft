@@ -486,6 +486,8 @@ type Props = {
   campaignTitle: string;
   /** Optional manual layout: array of rows, each with item indices and optional fr fractions */
   manualLayout?: ManualRow[];
+  /** Callback when an image is clicked — receives the index within images-only array */
+  onImageClick?: (imageIndex: number) => void;
 };
 
 const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
