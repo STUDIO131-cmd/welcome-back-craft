@@ -49,7 +49,9 @@ import aImg1 from "@/assets/campaigns/auramia/5D4A0703_1.jpg";
 import aImg2 from "@/assets/campaigns/auramia/5D4A0768_1.jpg";
 import aImg3 from "@/assets/campaigns/auramia/5D4A0750_1.jpg";
 import aImg4 from "@/assets/campaigns/auramia/5D4A0834_1.jpg";
+import aCover from "@/assets/campaigns/auramia/cover.png";
 import crVid1 from "@/assets/campaigns/cravates/cravates1.mp4";
+import crCover from "@/assets/campaigns/cravates/cover.png";
 import crImg1 from "@/assets/campaigns/cravates/IMG_0423.jpg";
 import crImg2 from "@/assets/campaigns/cravates/IMG_0706.jpg";
 import crImg3 from "@/assets/campaigns/cravates/IMG_0455.jpg";
@@ -74,6 +76,7 @@ import ntVid2 from "@/assets/campaigns/novatrida/video2.mp4";
 import ntVid3 from "@/assets/campaigns/novatrida/video3.mp4";
 import ntImg1 from "@/assets/campaigns/novatrida/img1.jpg";
 import ntImg2 from "@/assets/campaigns/novatrida/img2.jpg";
+import ntCover from "@/assets/campaigns/novatrida/cover.png";
 import lvVid1 from "@/assets/campaigns/lavie/video1.mp4";
 import lvVid2 from "@/assets/campaigns/lavie/video2.mp4";
 import lvVid3 from "@/assets/campaigns/lavie/video3.mp4";
@@ -294,7 +297,7 @@ const campaigns = [
   },
   // 9 - AuraMia
   {
-    image: null,
+    image: aCover,
     title: "Auramia by Beatriz Manganelli",
     subtitle: "Lançamento | Moda Fitness",
     description:
@@ -312,7 +315,7 @@ const campaigns = [
   },
   // 10 - Nova Trida
   {
-    image: null,
+    image: ntCover,
     title: "Nova Trida | Tecnologia & Suprimentos para Empresas",
     subtitle: "Reposicionamento | Institucional",
     description:
@@ -328,7 +331,7 @@ const campaigns = [
   },
   // 11 - Cravates
   {
-    image: null,
+    image: crCover,
     title: "Coleção Cravates by Corpo De Ballet",
     subtitle: "Lançamento | Moda Ballet",
     description:
