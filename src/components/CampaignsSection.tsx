@@ -111,7 +111,7 @@ type GalleryItem = {
 const campaigns = [
   // 1 - Cimples e Dani Fernandes
   {
-    image: daniCimples,
+    image: cimplesCover,
     title: "Dani Fernandes × CIMPLES (by Carolina Ferraz)",
     subtitle: "Campanha de Dia das Mães",
     description:
