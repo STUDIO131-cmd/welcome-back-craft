@@ -567,7 +567,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
                 <div
                   key={`${ri}-${ci}`}
                   className="overflow-hidden rounded-xl bg-black/40"
-                  style={isManual && rowItemCount > 1 ? { aspectRatio: `${row.fractions[ci]} / ${row.fractions.reduce((a, b) => a + b, 0) / row.fractions.length}` } : undefined}
+                  style={isManual && rowItemCount > 1 ? { aspectRatio: `${item.ratio}` } : undefined}
                 >
                   {item.type === "video" ? (
                     <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />

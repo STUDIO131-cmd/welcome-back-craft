@@ -356,7 +356,7 @@ const campaigns = [
       { src: crImg6, type: "image" },
     ] satisfies GalleryItem[],
     manualLayout: [
-      { indices: [0, 1], fractions: [3, 2], height: "500px" },       // L1: Vídeo + foto
+      { indices: [0, 1], fractions: [3, 2] },       // L1: Vídeo + foto
       { indices: [2] },                               // L2: Foto sozinha full-width
       { indices: [3, 4] },                             // L3: Duas fotos
       { indices: [5] },                                // L4: Horizontal sozinha
