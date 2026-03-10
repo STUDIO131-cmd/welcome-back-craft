@@ -27,6 +27,7 @@ import tngImg4 from "@/assets/campaigns/tng/5D4A5613_1.jpg";
 import tngImg5 from "@/assets/campaigns/tng/5D4A6454.jpg";
 import tngVid4 from "@/assets/campaigns/tng/TNG-06.mp4";
 import tngVid5 from "@/assets/campaigns/tng/TNG-07.mp4";
+import tngVid5Poster from "@/assets/campaigns/tng/poster-vid5.png";
 import tngImg6 from "@/assets/campaigns/tng/5D4A6449.jpg";
 import cImg1 from "@/assets/campaigns/cimples/img1.jpg";
 import cImg2 from "@/assets/campaigns/cimples/img2.jpg";
@@ -109,6 +110,7 @@ type GalleryItem = {
   type: "image" | "video";
   colSpan?: 1 | 2 | 3;
   posterTime?: number;
+  poster?: string;
 };
 
 const campaigns = [
@@ -191,7 +193,7 @@ const campaigns = [
       { src: tngImg5, type: "image", colSpan: 1 },
       { src: tngImg6, type: "image", colSpan: 1 },
       { src: tngVid4, type: "video", colSpan: 2 },
-      { src: tngVid5, type: "video", colSpan: 2 },
+      { src: tngVid5, type: "video", colSpan: 2, poster: tngVid5Poster },
     ] satisfies GalleryItem[],
   },
   // 5 - Etoiles

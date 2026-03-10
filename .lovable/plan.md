@@ -1,20 +1,21 @@
 
 
-# Alterar thumbnail do vídeo 2 (última linha) — The National Gallery
+## Plan: Blur edges + faster scroll on clients carousel
 
-## Contexto
-A galeria TNG tem na última linha `tngVid4` + `tngVid5`. O vídeo 2 dessa linha é `tngVid5` (TNG-07.mp4). A imagem enviada mostra o frame desejado (produto Monet sendo manuseado).
+### Changes to `src/components/ClientsCarousel.tsx`
 
-## Alteração
-Adicionar `posterTime` ao item `tngVid5` na linha 194 de `CampaignsSection.tsx` para que o componente `VideoPlayer` busque automaticamente o frame correto como thumbnail. Valor inicial: `posterTime: 3` (ajustável se necessário).
+1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
 
-### Arquivo
-- `src/components/CampaignsSection.tsx` — linha 194: adicionar `posterTime: 3` ao item `tngVid5`
+2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
 
-```text
-Antes:  { src: tngVid5, type: "video", colSpan: 2 },
-Depois: { src: tngVid5, type: "video", colSpan: 2, posterTime: 3 },
-```
+### Implementation details
 
-O botão play permanece inalterado — é renderizado pelo componente `VideoPlayer` independentemente do posterTime.
+- On the `section-container overflow-hidden` div, add inline style:
+  ```
+  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  ```
+- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
+
+Two files edited: `ClientsCarousel.tsx` and `index.css`.
 
