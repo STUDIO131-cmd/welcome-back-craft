@@ -474,39 +474,63 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
   );
 };
 
+/* ───────── Manual layout types ───────── */
+
+type ManualRow = { indices: number[]; fractions?: number[] };
+
 /* ───────── Main component ───────── */
 
-type Props = { items: GalleryItem[]; campaignTitle: string };
+type Props = {
+  items: GalleryItem[];
+  campaignTitle: string;
+  /** Optional manual layout: array of rows, each with item indices and optional fr fractions */
+  manualLayout?: ManualRow[];
+};
 
-const AdaptiveGallery = ({ items, campaignTitle }: Props) => {
+const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
   const [rows, setRows] = useState<Row[] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (manualLayout) {
+      // Manual mode: build rows from provided layout
+      let cancelled = false;
+      (async () => {
+        const dims = await Promise.all(items.map((item) => detectDimensions(item)));
+        if (cancelled) return;
+        const totalVideos = items.filter((it) => it.type === "video").length;
+        const classified = items.map((item, i) =>
+          classify(item, dims[i].w / dims[i].h, i, totalVideos)
+        );
+
+        const manualRows: Row[] = manualLayout.map((mr) => {
+          const rowItems = mr.indices.map((idx) => classified[idx]);
+          const fractions = mr.fractions || rowItems.map((it) => it.ratio);
+          const sumRatios = fractions.reduce((s, f) => s + f, 0);
+          return { items: rowItems, fractions, height: 1 / sumRatios };
+        });
+
+        if (!cancelled) setRows(manualRows);
+      })();
+      return () => { cancelled = true; };
+    }
+
+    // Auto mode (existing logic)
     let cancelled = false;
-
     (async () => {
-      // Count videos for weight classification
       const totalVideos = items.filter((it) => it.type === "video").length;
-
-      // Step 1: classify
       const classified: ClassifiedItem[] = await Promise.all(
         items.map(async (item, index) => {
           const dims = await detectDimensions(item);
           return classify(item, dims.w / dims.h, index, totalVideos);
         })
       );
-
       if (cancelled) return;
-
-      // Steps 2-5: generate candidates → DP plan → score → select best → fix ending
       const best = selectBestLayout(classified);
-
       if (!cancelled) setRows(best);
     })();
-
     return () => { cancelled = true; };
-  }, [items]);
+  }, [items, manualLayout]);
 
   return (
     <div ref={containerRef} className="w-full space-y-2">
