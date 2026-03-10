@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import AdaptiveGallery from "./AdaptiveGallery";
+import PhotoLightbox from "./PhotoLightbox";
 import pageBg from "@/assets/page-bg.jpg";
 import cimplesCover from "@/assets/campaigns/cimples/cover.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
