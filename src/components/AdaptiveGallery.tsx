@@ -546,6 +546,8 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
           const isManual = !!manualLayout;
           const rowItemCount = row.items.length;
           
+          const manualRow = manualLayout?.[ri];
+          const rowHeight = manualRow?.height;
           return (
             <div
               key={ri}
@@ -553,10 +555,11 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
                 display: "grid",
                 gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
                 gap: "8px",
-                ...(isManual && rowItemCount === 1
-                  ? {} // single item rows use natural height
+                ...(rowHeight ? { height: rowHeight } : {}),
+                ...(isManual && rowItemCount === 1 && !rowHeight
+                  ? {}
                   : isManual
-                  ? { gridAutoRows: "1fr" } // multi-item rows: equal height
+                  ? { gridAutoRows: "1fr" }
                   : {}),
               }}
             >
