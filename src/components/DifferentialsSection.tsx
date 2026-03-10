@@ -26,7 +26,7 @@ const differentials = [
 
 const DifferentialsSection = () => {
   return (
-    <section className="py-12 md:py-20" id="conteudo">
+    <section className="py-12 sm:py-16 md:py-20" id="conteudo">
       <div className="section-container">
         <h2 className="font-heading text-xl md:text-2xl text-center text-foreground/80 mb-8 md:mb-12">
           Como funciona na prática:

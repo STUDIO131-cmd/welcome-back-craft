@@ -39,7 +39,7 @@ const BastidoresSection = () => {
   // We'll render all and use CSS transforms
 
   return (
-    <section className="py-12 md:py-20 section-container text-center">
+    <section className="py-12 sm:py-16 md:py-20 section-container text-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
