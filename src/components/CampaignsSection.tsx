@@ -378,6 +378,8 @@ const fadeUp = {
 
 const CampaignsSection = () => {
   const [openGallery, setOpenGallery] = useState<number | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxStartIdx, setLightboxStartIdx] = useState(0);
 
   return (
     <>
