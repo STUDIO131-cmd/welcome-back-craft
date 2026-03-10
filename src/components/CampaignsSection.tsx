@@ -496,8 +496,20 @@ const CampaignsSection = () => {
                   items={campaigns[openGallery].gallery}
                   campaignTitle={campaigns[openGallery].title}
                   manualLayout={(campaigns[openGallery] as any).manualLayout}
+                  onImageClick={(imgIdx) => {
+                    setLightboxStartIdx(imgIdx);
+                    setLightboxOpen(true);
+                  }}
                 />
               </div>
+
+              {lightboxOpen && openGallery !== null && (
+                <PhotoLightbox
+                  images={campaigns[openGallery].gallery.filter(g => g.type === "image").map(g => g.src)}
+                  startIndex={lightboxStartIdx}
+                  onClose={() => setLightboxOpen(false)}
+                />
+              )}
             </motion.div>
           </motion.div>
         )}

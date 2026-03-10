@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import ClientsCarousel from "@/components/ClientsCarousel";
 import CampaignsSection from "@/components/CampaignsSection";
 import CampaignCTA from "@/components/CampaignCTA";
+import BastidoresSection from "@/components/BastidoresSection";
 
 import ValueProposition from "@/components/ValueProposition";
 import DifferentialsSection from "@/components/DifferentialsSection";
@@ -18,6 +19,7 @@ const Index = () => {
       
       <CampaignsSection />
       <CampaignCTA />
+      <BastidoresSection />
       <ClientsCarousel />
       
       <ValueProposition />
