@@ -556,9 +556,9 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
             const fracs = row.fractions;
             const sumFracs = fracs.reduce((s, f) => s + f, 0);
             // Normalised height of each item: fraction / ratio
-            const minNormH = Math.min(...row.items.map((it, i) => fracs[i] / it.ratio));
+            const maxNormH = Math.max(...row.items.map((it, i) => fracs[i] / it.ratio));
             // Row aspect-ratio = totalWidth / height (normalised)
-            rowAspectRatio = `${sumFracs / minNormH}`;
+            rowAspectRatio = `${sumFracs / maxNormH}`;
           }
 
           return (
