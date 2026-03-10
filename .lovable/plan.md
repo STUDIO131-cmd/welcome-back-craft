@@ -1,21 +1,20 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+## Problema
 
-### Changes to `src/components/ClientsCarousel.tsx`
+A linha 1 da Cravates tem `height: "500px"` fixo, o que força o vídeo e a foto a esticarem além da proporção natural, gerando espaçamento/crop excessivo. O `aspect-ratio` calculado nos containers individuais também não reflete a proporção real das mídias.
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+## Solução
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+Remover o `height` fixo e, em vez disso, usar a proporção natural das mídias para calcular a altura da linha automaticamente. A abordagem: quando uma linha manual tem múltiplos itens, cada item recebe um `aspect-ratio` baseado no seu ratio real (detectado), e a linha usa apenas `gridAutoRows: 1fr` para que todos fiquem com a mesma altura — determinada naturalmente pelas proporções.
 
-### Implementation details
+### Mudanças
 
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
+**1. `src/components/CampaignsSection.tsx`**
+- Remover `height: "500px"` da linha 1 do Cravates.
 
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+**2. `src/components/AdaptiveGallery.tsx`**
+- Corrigir o cálculo do `aspect-ratio` dos containers individuais em modo manual: em vez da fórmula atual (que mistura frações), usar o ratio real de cada item (`item.ratio`). Isso garante que cada item mantenha sua proporção natural.
+- Manter `gridAutoRows: "1fr"` para linhas com múltiplos itens, fazendo todos terem a mesma altura (a altura será determinada pelo item mais restritivo).
+- Para linhas com 1 item, deixar sem altura fixa — o item define sua própria proporção.
 
