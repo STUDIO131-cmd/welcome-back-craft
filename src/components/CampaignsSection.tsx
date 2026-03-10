@@ -94,6 +94,8 @@ import dnVid2 from "@/assets/campaigns/daninatal/video2.mp4";
 import dnVid3 from "@/assets/campaigns/daninatal/video3.mp4";
 import dnVid4 from "@/assets/campaigns/daninatal/video4.mp4";
 import dnCover from "@/assets/campaigns/daninatal/cover.png";
+import dnPoster1 from "@/assets/campaigns/daninatal/poster1.png";
+import dnPoster2 from "@/assets/campaigns/daninatal/poster2.png";
 import etVid1 from "@/assets/campaigns/etoiles/video1.mp4";
 import etImg1 from "@/assets/campaigns/etoiles/img1.jpg";
 import etImg2 from "@/assets/campaigns/etoiles/img2.jpg";
