@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import eagleLogo from "@/assets/eagle-logo.png";
 import { toast } from "sonner";
@@ -18,21 +18,30 @@ const ContactForm = () => {
     ideaDescription: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+  }, []);
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    setSubmitError("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError("");
 
     try {
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      if (!serviceId || !templateId || !publicKey) {
+      if (!serviceId || !templateId) {
         throw new Error("EmailJS not configured");
       }
 
@@ -47,7 +56,7 @@ const ContactForm = () => {
         campaign_date: formData.campaignDate,
         has_idea: formData.hasIdea,
         idea_description: formData.ideaDescription,
-      }, publicKey);
+      });
 
       toast.success("Obrigado pelas informações :-)", {
         description:
@@ -68,14 +77,16 @@ const ContactForm = () => {
         ideaDescription: "",
       });
     } catch {
-      toast.error("Erro ao enviar. Tente novamente.");
+      setSubmitError(
+        "Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const radioClasses = (field: string, value: string) =>
-    `flex items-center gap-2 px-4 py-2 rounded-lg border cursor-pointer transition-colors text-sm ${
+    `flex items-center gap-2 px-4 min-h-[44px] rounded-lg border cursor-pointer transition-colors text-sm ${
       formData[field as keyof typeof formData] === value
         ? "bg-primary text-primary-foreground border-primary"
         : "bg-background border-input text-foreground hover:bg-secondary"
@@ -190,7 +201,7 @@ const ContactForm = () => {
                 Faixa de faturamento mensal{" "}
                 <span className="text-destructive">*</span>
               </label>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col md:flex-row flex-wrap gap-3">
                 {[
                   "Abaixo de 30k",
                   "Entre 30k - 60k",
@@ -304,14 +315,17 @@ const ContactForm = () => {
               )}
             </AnimatePresence>
 
-            <div className="text-center pt-4">
+            <div className="text-center pt-4 space-y-3">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-10 py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity max-w-full disabled:opacity-50"
+                className="w-full md:w-fit md:mx-auto px-10 min-h-[44px] py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 {isSubmitting ? "Enviando..." : "Enviar"}
               </button>
+              {submitError && (
+                <p className="text-destructive text-sm">{submitError}</p>
+              )}
             </div>
           </form>
 
