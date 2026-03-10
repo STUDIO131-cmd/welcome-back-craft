@@ -16,6 +16,7 @@ import pfImg4 from "@/assets/campaigns/pinkfriday/DSC05583.jpg";
 import pfImg5 from "@/assets/campaigns/pinkfriday/5D4A6295_1.jpg";
 import pfImg6 from "@/assets/campaigns/pinkfriday/DSC05586_1.jpg";
 import pfImg7 from "@/assets/campaigns/pinkfriday/5D4A6286.jpg";
+import tngCover from "@/assets/campaigns/tng/cover.png";
 import tngVid1 from "@/assets/campaigns/tng/TNG-Campaing01.mp4";
 import tngImg1 from "@/assets/campaigns/tng/5D4A5594.jpg";
 import tngImg2 from "@/assets/campaigns/tng/5D4A5611.jpg";
@@ -173,7 +174,7 @@ const campaigns = [
   },
   // 4 - The National Gallery
   {
-    image: daniGallery,
+    image: tngCover,
     title: "Dani Fernandes × The National Gallery",
     subtitle: "Lançamento de novas fragrâncias",
     description:
@@ -183,14 +184,14 @@ const campaigns = [
       { src: tngVid1, type: "video", colSpan: 2 },
       { src: tngImg1, type: "image", colSpan: 1 },
       { src: tngImg2, type: "image", colSpan: 1 },
-      { src: tngImg3, type: "image", colSpan: 1 },
-      { src: tngVid2, type: "video", colSpan: 1 },
+      { src: tngVid2, type: "video", colSpan: 2 },
       { src: tngVid3, type: "video", colSpan: 2 },
+      { src: tngImg3, type: "image", colSpan: 1 },
       { src: tngImg4, type: "image", colSpan: 1 },
-      { src: tngImg5, type: "image", colSpan: 3 },
+      { src: tngImg5, type: "image", colSpan: 1 },
+      { src: tngImg6, type: "image", colSpan: 1 },
       { src: tngVid4, type: "video", colSpan: 2 },
       { src: tngVid5, type: "video", colSpan: 2 },
-      { src: tngImg6, type: "image", colSpan: 1 },
     ] satisfies GalleryItem[],
   },
   // 5 - Etoiles
