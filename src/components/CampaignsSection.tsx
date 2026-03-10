@@ -79,9 +79,6 @@ import lvImg3 from "@/assets/campaigns/lavie/img3.jpg";
 import lvImg4 from "@/assets/campaigns/lavie/img4.jpg";
 import lvImg5 from "@/assets/campaigns/lavie/img5.png";
 import lvImg6 from "@/assets/campaigns/lavie/img6.png";
-import lvImg7 from "@/assets/campaigns/lavie/img7.jpg";
-import lvImg8 from "@/assets/campaigns/lavie/img8.jpg";
-import lvImg9 from "@/assets/campaigns/lavie/img9.jpg";
 import dnVid1 from "@/assets/campaigns/daninatal/video1.mp4";
 import dnVid2 from "@/assets/campaigns/daninatal/video2.mp4";
 import dnVid3 from "@/assets/campaigns/daninatal/video3.mp4";
@@ -236,12 +233,9 @@ const campaigns = [
       { src: lvImg2, type: "image", colSpan: 1 },
       { src: lvImg3, type: "image", colSpan: 1 },
       { src: lvImg4, type: "image", colSpan: 1 },
-      { src: lvImg7, type: "image", colSpan: 1 },
       { src: lvVid2, type: "video", colSpan: 2 },
       { src: lvImg5, type: "image", colSpan: 1 },
       { src: lvImg6, type: "image", colSpan: 1 },
-      { src: lvImg8, type: "image", colSpan: 1 },
-      { src: lvImg9, type: "image", colSpan: 1 },
       { src: lvVid3, type: "video", colSpan: 2 },
       { src: lvVid4, type: "video", colSpan: 3 },
     ] satisfies GalleryItem[],
