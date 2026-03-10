@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import eagleLogo from "@/assets/eagle-logo.png";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
