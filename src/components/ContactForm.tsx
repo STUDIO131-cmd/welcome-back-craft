@@ -94,7 +94,7 @@ const ContactForm = () => {
 
   return (
     <section
-      className="py-12 sm:py-16 md:py-20 backdrop-blur-xl bg-white/[0.08] border-y border-white/[0.15]"
+      className="py-12 sm:py-16 md:py-20 pb-16 md:pb-24 backdrop-blur-xl bg-white/[0.08] border-y border-white/[0.15]"
       id="orcamento">
       
       <div className="section-container">
