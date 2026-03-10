@@ -201,7 +201,7 @@ const ContactForm = () => {
                 Faixa de faturamento mensal{" "}
                 <span className="text-destructive">*</span>
               </label>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col md:flex-row flex-wrap gap-3">
                 {[
                   "Abaixo de 30k",
                   "Entre 30k - 60k",
