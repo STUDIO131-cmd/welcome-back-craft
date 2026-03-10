@@ -24,7 +24,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="py-10 backdrop-blur-xl bg-white/[0.08] border-y border-white/[0.15]" id="orcamento">
+    <section className="py-12 md:py-20 backdrop-blur-xl bg-white/[0.08] border-y border-white/[0.15]" id="orcamento">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -35,7 +35,7 @@ const ContactForm = () => {
           <h2 className="font-heading text-2xl md:text-3xl text-center text-foreground/90 mb-4">
             Preencha o formulário de contato
           </h2>
-          <p className="text-center text-muted-foreground text-sm leading-relaxed mb-12">
+          <p className="text-center text-muted-foreground text-sm leading-relaxed mb-6 md:mb-12">
             Ao preencher o formulário abaixo, você se candidata a uma vaga no Plano
             Profissional e autoriza o envio de atualizações sobre as próximas
             etapas. Mantemos um limite de clientes ativos para preservar o padrão
@@ -238,7 +238,7 @@ const ContactForm = () => {
             <div className="text-center pt-4">
               <button
                 type="submit"
-                className="px-10 py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity"
+                className="px-10 py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity max-w-full"
               >
                 Enviar
               </button>

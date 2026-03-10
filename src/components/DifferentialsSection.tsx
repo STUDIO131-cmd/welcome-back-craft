@@ -33,7 +33,7 @@ const differentials = [
 
 const DifferentialsSection = () => {
   return (
-    <section className="py-10" id="conteudo">
+    <section className="py-12 md:py-20" id="conteudo">
       <div className="section-container">
         <h2 className="font-heading text-xl md:text-2xl text-center text-foreground/80 mb-4">
           Entenda se estamos prontos para o próximo passo:
@@ -47,7 +47,7 @@ const DifferentialsSection = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {differentials.map((diff, i) => (
             <motion.div
               key={i}

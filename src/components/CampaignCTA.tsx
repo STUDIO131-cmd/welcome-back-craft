@@ -17,13 +17,13 @@ const CampaignCTA = () => {
   };
 
   return (
-    <section className="py-12 section-container text-center">
+    <section className="py-12 md:py-20 section-container text-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="max-w-3xl mx-auto space-y-10"
+        className="max-w-3xl mx-auto space-y-6 md:space-y-10"
       >
         {/* Main text */}
         <p className="font-heading text-lg md:text-xl lg:text-2xl text-foreground/90 leading-relaxed">
@@ -42,7 +42,7 @@ const CampaignCTA = () => {
           href="#orcamento"
           whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.15)" }}
           whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-foreground text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 hover:bg-white/[0.14]"
+          className="inline-flex items-center gap-2 px-8 py-4 rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-foreground text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 hover:bg-white/[0.14] max-w-full w-fit mx-auto text-center"
         >
           Quero avaliar uma campanha
         </motion.a>

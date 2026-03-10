@@ -380,8 +380,8 @@ const CampaignsSection = () => {
 
   return (
     <>
-      <section className="py-8 section-container">
-        <div className="space-y-6">
+      <section className="py-12 md:py-20 section-container">
+        <div className="space-y-6 md:space-y-10">
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
@@ -413,11 +413,11 @@ const CampaignsSection = () => {
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full h-48 md:h-full md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      className="w-full aspect-[4/3] md:aspect-auto md:h-full md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-48 md:h-full md:min-h-[280px] flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
+                    <div className="w-full aspect-[4/3] md:aspect-auto md:h-full md:min-h-[280px] flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
