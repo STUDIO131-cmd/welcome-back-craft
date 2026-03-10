@@ -28,17 +28,26 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-      const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/send-campaign-inquiry`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      if (!response.ok) throw new Error("Failed to send");
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS not configured");
+      }
+
+      await emailjs.send(serviceId, templateId, {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        company: formData.company,
+        whatsapp: formData.whatsapp,
+        instagram: formData.instagram,
+        revenue: formData.revenue,
+        timing: formData.timing,
+        campaign_date: formData.campaignDate,
+        has_idea: formData.hasIdea,
+        idea_description: formData.ideaDescription,
+      }, publicKey);
 
       toast.success("Obrigado pelas informações :-)", {
         description:
