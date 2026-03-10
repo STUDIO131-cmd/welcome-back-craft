@@ -500,7 +500,7 @@ const AdaptiveGallery = ({ items, campaignTitle }: Props) => {
             {row.items.map((item, ci) => (
               <div key={`${ri}-${ci}`} className="overflow-hidden rounded-xl bg-black/40">
                 {item.type === "video" ? (
-                  <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} />
+                  <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} />
                 ) : (
                   <img
                     src={item.src}
