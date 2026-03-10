@@ -476,7 +476,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
 
 /* ───────── Manual layout types ───────── */
 
-type ManualRow = { indices: number[]; fractions?: number[] };
+type ManualRow = { indices: number[]; fractions?: number[]; height?: string };
 
 /* ───────── Main component ───────── */
 
