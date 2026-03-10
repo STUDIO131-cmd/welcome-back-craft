@@ -16,6 +16,7 @@ import pfImg4 from "@/assets/campaigns/pinkfriday/DSC05583.jpg";
 import pfImg5 from "@/assets/campaigns/pinkfriday/5D4A6295_1.jpg";
 import pfImg6 from "@/assets/campaigns/pinkfriday/DSC05586_1.jpg";
 import pfImg7 from "@/assets/campaigns/pinkfriday/5D4A6286.jpg";
+import tngCover from "@/assets/campaigns/tng/cover.png";
 import tngVid1 from "@/assets/campaigns/tng/TNG-Campaing01.mp4";
 import tngImg1 from "@/assets/campaigns/tng/5D4A5594.jpg";
 import tngImg2 from "@/assets/campaigns/tng/5D4A5611.jpg";
