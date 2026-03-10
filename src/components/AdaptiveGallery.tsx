@@ -430,7 +430,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
   return (
     <div className="relative w-full h-full">
       {poster && !playing ? (
-        <img src={poster} alt={alt} className="w-full h-full object-contain block" />
+        <img src={poster} alt={alt} className="w-full h-full object-cover block" />
       ) : (
         <video
           ref={videoRef}
@@ -447,7 +447,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           }}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
-          className="w-full h-full object-contain block"
+          className="w-full h-full object-cover block"
           aria-label={alt}
         />
       )}
@@ -476,7 +476,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
 
 /* ───────── Manual layout types ───────── */
 
-type ManualRow = { indices: number[]; fractions?: number[] };
+type ManualRow = { indices: number[]; fractions?: number[]; height?: string };
 
 /* ───────── Main component ───────── */
 
@@ -546,6 +546,8 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
           const isManual = !!manualLayout;
           const rowItemCount = row.items.length;
           
+          const manualRow = manualLayout?.[ri];
+          const rowHeight = manualRow?.height;
           return (
             <div
               key={ri}
@@ -553,10 +555,11 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
                 display: "grid",
                 gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
                 gap: "8px",
-                ...(isManual && rowItemCount === 1
-                  ? {} // single item rows use natural height
+                ...(rowHeight ? { height: rowHeight } : {}),
+                ...(isManual && rowItemCount === 1 && !rowHeight
+                  ? {}
                   : isManual
-                  ? { gridAutoRows: "1fr" } // multi-item rows: equal height
+                  ? { gridAutoRows: "1fr" }
                   : {}),
               }}
             >

@@ -1,25 +1,21 @@
 
 
-## Problem
+## Plan: Blur edges + faster scroll on clients carousel
 
-The screenshot shows the video in Row 1 has black bars (letterboxing) because the `VideoPlayer` component uses `object-contain`, which preserves the video's native aspect ratio but leaves empty space. The user also wants Row 1 (video + photo) to be larger and more prominent.
+### Changes to `src/components/ClientsCarousel.tsx`
 
-## Plan
+1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
 
-### 1. Fix video black bars — `src/components/AdaptiveGallery.tsx`
+2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
 
-In the `VideoPlayer` component, change `object-contain` to `object-cover` on both the `<video>` element and the poster `<img>`. This will crop to fill the container, eliminating bars.
+### Implementation details
 
-- Line ~458: `object-contain` → `object-cover` (poster img)
-- Line ~462: `object-contain` → `object-cover` (video element)
+- On the `section-container overflow-hidden` div, add inline style:
+  ```
+  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+  ```
+- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
 
-### 2. Make Row 1 taller — `src/components/AdaptiveGallery.tsx`
-
-Add a `rowHeight` option to `ManualRow` type, or simply set a `minHeight` on the first row. The simplest approach: allow `ManualRow` to accept an optional `height` (CSS value like `"500px"`) that gets applied to the grid row.
-
-### 3. Update Cravates layout — `src/components/CampaignsSection.tsx`
-
-Set a height on Row 1 (e.g., `height: "500px"`) to make the video and photo more prominent.
-
-**Two files changed**: `AdaptiveGallery.tsx` (object-cover + optional row height support), `CampaignsSection.tsx` (row height on L1).
+Two files edited: `ClientsCarousel.tsx` and `index.css`.
 
