@@ -492,6 +492,7 @@ const CampaignsSection = () => {
                 <AdaptiveGallery
                   items={campaigns[openGallery].gallery}
                   campaignTitle={campaigns[openGallery].title}
+                  manualLayout={(campaigns[openGallery] as any).manualLayout}
                 />
               </div>
             </motion.div>
