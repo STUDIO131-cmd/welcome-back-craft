@@ -8,7 +8,7 @@ import { Play } from "lucide-react";
 
 /* ───────── Types ───────── */
 
-type GalleryItem = { src: string; type: "image" | "video"; colSpan?: number; posterTime?: number; poster?: string };
+type GalleryItem = { src: string; type: "image" | "video"; colSpan?: number; posterTime?: number; poster?: string; ratio?: number };
 
 type Orientation = "portrait" | "square" | "landscape";
 type VisualWeight = "hero" | "primary" | "secondary";
@@ -500,7 +500,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
         if (cancelled) return;
         const totalVideos = items.filter((it) => it.type === "video").length;
         const classified = items.map((item, i) =>
-          classify(item, dims[i].w / dims[i].h, i, totalVideos)
+          classify(item, item.ratio ?? (dims[i].w / dims[i].h), i, totalVideos)
         );
 
         const manualRows: Row[] = manualLayout.map((mr) => {
