@@ -389,13 +389,14 @@ function selectBestLayout(items: ClassifiedItem[]): Row[] {
 
 /* ───────── VideoPlayer ───────── */
 
-const VideoPlayer = ({ src, alt, posterTime }: { src: string; alt: string; posterTime?: number }) => {
+const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: string; posterTime?: number; poster?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
   const handlePlay = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
+    v.currentTime = 0;
     v.muted = false;
     v.play();
     setPlaying(true);
@@ -403,25 +404,29 @@ const VideoPlayer = ({ src, alt, posterTime }: { src: string; alt: string; poste
 
   const handleLoadedMetadata = useCallback(() => {
     const v = videoRef.current;
-    if (v && posterTime !== undefined && !playing) {
+    if (v && posterTime !== undefined && !poster && !playing) {
       v.currentTime = posterTime;
     }
-  }, [posterTime, playing]);
+  }, [posterTime, poster, playing]);
 
   return (
     <div className="relative w-full h-full">
-      <video
-        ref={videoRef}
-        src={src}
-        controls={playing}
-        playsInline
-        preload="metadata"
-        onLoadedMetadata={handleLoadedMetadata}
-        onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
-        className="w-full h-full object-contain block"
-        aria-label={alt}
-      />
+      {poster && !playing ? (
+        <img src={poster} alt={alt} className="w-full h-full object-contain block" />
+      ) : (
+        <video
+          ref={videoRef}
+          src={src}
+          controls={playing}
+          playsInline
+          preload="metadata"
+          onLoadedMetadata={handleLoadedMetadata}
+          onPause={() => setPlaying(false)}
+          onEnded={() => setPlaying(false)}
+          className="w-full h-full object-contain block"
+          aria-label={alt}
+        />
+      )}
       {!playing && (
         <button
           onClick={handlePlay}

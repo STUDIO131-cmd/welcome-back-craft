@@ -193,7 +193,7 @@ const campaigns = [
       { src: tngImg5, type: "image", colSpan: 1 },
       { src: tngImg6, type: "image", colSpan: 1 },
       { src: tngVid4, type: "video", colSpan: 2 },
-      { src: tngVid5, type: "video", colSpan: 2 },
+      { src: tngVid5, type: "video", colSpan: 2, poster: tngVid5Poster },
     ] satisfies GalleryItem[],
   },
   // 5 - Etoiles
