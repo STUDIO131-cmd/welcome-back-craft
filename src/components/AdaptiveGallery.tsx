@@ -558,7 +558,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
                   <img
                     src={item.src}
                     alt={`${campaignTitle} - ${item.index + 1}`}
-                    className="w-full h-auto block"
+                    className={manualLayout ? "w-full h-full object-cover block" : "w-full h-auto block"}
                     loading="lazy"
                   />
                 )}
