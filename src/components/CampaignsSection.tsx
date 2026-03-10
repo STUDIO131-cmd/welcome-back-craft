@@ -223,7 +223,7 @@ const campaigns = [
   },
   // 6 - La Vie
   {
-    image: null,
+    image: lvCover,
     title: "La Vie - Moda Feminina",
     subtitle: "Reposicionamento | Ação Comercial | Inauguração",
     description:
