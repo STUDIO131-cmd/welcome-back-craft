@@ -79,6 +79,8 @@ import lvImg3 from "@/assets/campaigns/lavie/img3.jpg";
 import lvImg4 from "@/assets/campaigns/lavie/img4.jpg";
 import lvImg5 from "@/assets/campaigns/lavie/img5.png";
 import lvImg6 from "@/assets/campaigns/lavie/img6.png";
+import lvCover from "@/assets/campaigns/lavie/cover.png";
+import lvPosterVid1 from "@/assets/campaigns/lavie/poster-vid1.png";
 import dnVid1 from "@/assets/campaigns/daninatal/video1.mp4";
 import dnVid2 from "@/assets/campaigns/daninatal/video2.mp4";
 import dnVid3 from "@/assets/campaigns/daninatal/video3.mp4";
@@ -221,14 +223,14 @@ const campaigns = [
   },
   // 6 - La Vie
   {
-    image: null,
+    image: lvCover,
     title: "La Vie - Moda Feminina",
     subtitle: "Reposicionamento | Ação Comercial | Inauguração",
     description:
       "A loja precisava comunicar uma nova identidade visual, a reinauguração do espaço e aproveitar esse momento para aquecer as vendas para o Rodeio de Catanduva.\nO resultado foi um alto alcance orgânico, seguido de um movimento maior de vendas.",
     tags: ["Produção visual", "Calendário de conteúdo", "Fotografia e audiovisual"],
     gallery: [
-      { src: lvVid1, type: "video", colSpan: 2 },
+      { src: lvVid1, type: "video", colSpan: 2, poster: lvPosterVid1 },
       { src: lvImg1, type: "image", colSpan: 1 },
       { src: lvImg2, type: "image", colSpan: 1 },
       { src: lvImg3, type: "image", colSpan: 1 },
