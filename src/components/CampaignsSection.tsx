@@ -105,6 +105,7 @@ type GalleryItem = {
   src: string;
   type: "image" | "video";
   colSpan?: 1 | 2 | 3;
+  posterTime?: number;
 };
 
 const campaigns = [
