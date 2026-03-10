@@ -1,21 +1,45 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+## Plan: Cards Section Redesign + Contact Form Overhaul
 
-### Changes to `src/components/ClientsCarousel.tsx`
+### A — Cards Section (DifferentialsSection + CtaSection)
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+**Files:** `DifferentialsSection.tsx`, `CtaSection.tsx`
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+1. **DifferentialsSection.tsx** — full rewrite:
+   - Title → "Como funciona na prática:"
+   - Remove subtitle "2 min | Assista a este conteúdo"
+   - Remove CRM card (index 0), keep 3 remaining cards with updated content for card 3 (studio)
+   - Layout: single column (`flex flex-col`), one card per row, full width, centered (`max-w-3xl mx-auto`)
+   - Card style: `bg-black` background, white text, rounded corners
+   - Images: `object-contain` with natural aspect ratio (no cropping, no fixed height)
 
-### Implementation details
+2. **CtaSection.tsx** — rewrite:
+   - Remove the "Nossa régua é simples..." paragraph entirely
+   - Replace button with liquid glass style: `backdrop-blur-xl bg-white/[0.08] border border-white/[0.15]`
+   - Label: "QUERO AVALIAR UMA CAMPANHA"
+   - `href="#orcamento"` for smooth scroll to contact form
 
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
+### B — Contact Form
 
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+**File:** `ContactForm.tsx`
+
+Requires email sending, which needs **Lovable Cloud** enabled + a transactional email edge function.
+
+1. **Form state** — replace all fields with new schema:
+   - `firstName`, `lastName` (required), `company` (optional), `whatsapp` (required), `instagram` (required), `revenue` (required radio), `timing` (required radio), `campaignDate` (optional text), `hasIdea` (required radio Sim/Não), `ideaDescription` (conditional textarea, required if hasIdea=Sim)
+
+2. **Remove** fields: `isTargetArea`, `niche`, `hasTeam` and the "Limitamos a 10 clientes..." text
+
+3. **Conditional field**: when `hasIdea === "Sim"`, show textarea "Descreva brevemente sua ideia sobre a campanha:"
+
+4. **On submit**: send email via edge function to `igorgagliardi@studio131.com.br` with subject "Nova Entrada STUDIO 131: Campanhas". Show success dialog/toast with the specified message.
+
+5. **Email infrastructure**: will need to enable Lovable Cloud and scaffold a transactional email edge function.
+
+### Technical Notes
+
+- The email sending requires Lovable Cloud to be enabled first, then a `send-campaign-inquiry` edge function will be created
+- The success popup will use a dialog or sonner toast
+- All existing responsive patterns (py-12/py-20, max-w-full buttons) will be maintained
 
