@@ -273,7 +273,7 @@ const campaigns = [
   },
   // 8 - Adriano Martins
   {
-    image: null,
+    image: adCover,
     title: "Adriano Martins Estilista",
     subtitle: "Moda Noiva & Festa | Lançamento de Coleção",
     description:
