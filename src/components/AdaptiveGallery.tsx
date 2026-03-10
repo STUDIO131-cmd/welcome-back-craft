@@ -389,7 +389,7 @@ function selectBestLayout(items: ClassifiedItem[]): Row[] {
 
 /* ───────── VideoPlayer ───────── */
 
-const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
+const VideoPlayer = ({ src, alt, posterTime }: { src: string; alt: string; posterTime?: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -401,6 +401,13 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
     setPlaying(true);
   }, []);
 
+  const handleLoadedMetadata = useCallback(() => {
+    const v = videoRef.current;
+    if (v && posterTime !== undefined && !playing) {
+      v.currentTime = posterTime;
+    }
+  }, [posterTime, playing]);
+
   return (
     <div className="relative w-full h-full">
       <video
@@ -408,6 +415,8 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
         src={src}
         controls={playing}
         playsInline
+        preload="metadata"
+        onLoadedMetadata={handleLoadedMetadata}
         onPause={() => setPlaying(false)}
         onEnded={() => setPlaying(false)}
         className="w-full h-full object-contain block"
@@ -416,10 +425,19 @@ const VideoPlayer = ({ src, alt }: { src: string; alt: string }) => {
       {!playing && (
         <button
           onClick={handlePlay}
-          className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
+          className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors hover:bg-black/30"
         >
-          <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-            <Play size={22} className="text-foreground ml-0.5" fill="currentColor" />
+          <div
+            className="flex items-center gap-2.5 rounded-full px-5 py-2.5 backdrop-blur-md border border-white/[0.15] transition-all duration-300 hover:scale-105"
+            style={{
+              background: "rgba(255,255,255,0.08)",
+              boxShadow: "0 0 20px rgba(255,255,255,0.25), 0 0 40px rgba(255,255,255,0.1)",
+            }}
+          >
+            <Play size={16} className="text-white/90" fill="currentColor" />
+            <span className="text-white/90 text-xs font-medium tracking-[0.15em] uppercase" style={{ fontFamily: "var(--font-heading)" }}>
+              Play
+            </span>
           </div>
         </button>
       )}
