@@ -19,7 +19,7 @@ const FooterSection = () => {
         <img
 
           alt="Studio 131"
-          className="h-10 w-auto" src="/lovable-uploads/e96bcd27-f057-48d3-b6de-5d3953b0b2ba.png" />
+          className="h-16 md:h-20 w-auto" src="/lovable-uploads/e96bcd27-f057-48d3-b6de-5d3953b0b2ba.png" />
         
 
         {/* Button grid */}
