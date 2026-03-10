@@ -37,9 +37,10 @@ const ClientsCarousel = () => {
         <h2
           className="text-center text-foreground mb-8"
           style={{
-            fontFamily: "'TikTok Sans Expanded', sans-serif",
+            fontFamily: "'TikTok Sans', sans-serif",
             fontSize: "clamp(1.2rem, 4vw, 2rem)",
-            fontWeight: 700,
+            fontWeight: 500,
+            letterSpacing: "0.05em",
           }}
         >
           Algumas marcas que já atendemos:
