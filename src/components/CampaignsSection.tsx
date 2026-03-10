@@ -244,7 +244,7 @@ const campaigns = [
   },
   // 7 - Velvet Cherry
   {
-    image: null,
+    image: vcCover,
     title: "Velvet Cherry by Dani Fernandes",
     subtitle: "Nova coleção | Lançamento",
     description:
@@ -258,6 +258,10 @@ const campaigns = [
       { src: vcImg4, type: "image", colSpan: 1 },
       { src: vcImg5, type: "image", colSpan: 1 },
       { src: vcImg6, type: "image", colSpan: 2 },
+      { src: vcImg8, type: "image", colSpan: 1 },
+      { src: vcImg9, type: "image", colSpan: 1 },
+      { src: vcImg10, type: "image", colSpan: 2 },
+      { src: vcImg11, type: "image", colSpan: 1 },
       { src: vcImg7, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
