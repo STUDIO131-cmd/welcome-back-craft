@@ -1,16 +1,9 @@
 import { motion } from "framer-motion";
-import diffCrm from "@/assets/diff-crm.png";
 import diffTeam from "@/assets/diff-team.png";
 import diffOrganic from "@/assets/diff-organic.png";
 import diffStudio from "@/assets/diff-studio.png";
 
 const differentials = [
-  {
-    image: diffCrm,
-    title: "Sistema próprio de CRM + Comercial",
-    description:
-      "Desenvolvemos um sistema próprio de CRM para uso diário de vendedores e secretárias. Entregamos análises e indicadores de eficiência e performance.",
-  },
   {
     image: diffTeam,
     title: "Trabalho em equipe",
@@ -25,9 +18,9 @@ const differentials = [
   },
   {
     image: diffStudio,
-    title: "Atendemos em estúdio ou in loco",
+    title: "Atendemos em estúdio ou no local indicado",
     description:
-      "Nossa base fica em Catanduva (SP) com escritório e estúdio próprio. Priorizamos diversidade e captamos no local indicado.",
+      "Nossa base fica em Catanduva (SP) com escritório e estúdio próprio. Realizamos campanhas em estúdio ou indicamos locais conforme escopo do projeto.",
   },
 ];
 
@@ -35,39 +28,33 @@ const DifferentialsSection = () => {
   return (
     <section className="py-12 md:py-20" id="conteudo">
       <div className="section-container">
-        <h2 className="font-heading text-xl md:text-2xl text-center text-foreground/80 mb-4">
-          Entenda se estamos prontos para o próximo passo:
+        <h2 className="font-heading text-xl md:text-2xl text-center text-foreground/80 mb-8 md:mb-12">
+          Como funciona na prática:
         </h2>
-        <div className="text-center mb-8">
-          <a
-            href="#conteudo"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            2 min | Assista a este conteúdo
-          </a>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div className="flex flex-col gap-6 md:gap-8 max-w-3xl mx-auto">
           {differentials.map((diff, i) => (
             <motion.div
               key={i}
-              className="rounded-xl overflow-hidden backdrop-blur-xl bg-white/[0.08] border border-white/[0.15]"
+              className="rounded-xl overflow-hidden bg-black text-white"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <img
-                src={diff.image}
-                alt={diff.title}
-                className="w-full h-48 object-cover"
-                loading="lazy"
-              />
+              <div className="w-full bg-black/50">
+                <img
+                  src={diff.image}
+                  alt={diff.title}
+                  className="w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
               <div className="p-6 space-y-2">
-                <h3 className="font-heading text-lg font-semibold text-foreground/90">
+                <h3 className="font-heading text-lg font-semibold">
                   {diff.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-white/70 leading-relaxed">
                   {diff.description}
                 </p>
               </div>
