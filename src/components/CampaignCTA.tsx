@@ -48,7 +48,7 @@ const CampaignCTA = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-[92vw] sm:max-w-[660px] sm:w-full mx-auto flex flex-col items-center gap-6"
+          className="mx-auto flex flex-col items-center gap-4 w-full"
         >
           {/* Watch button */}
           <motion.button
@@ -61,10 +61,10 @@ const CampaignCTA = () => {
             Assista ao vídeo 2 min.
           </motion.button>
 
-          {/* Video — vertical source → 9/16 */}
+          {/* Video — vertical source → 9/16, height-capped */}
           <div
-            className="relative w-full rounded-2xl overflow-hidden border border-white/[0.1]"
-            style={{ aspectRatio: "9/16" }}
+            className="relative rounded-2xl overflow-hidden border border-white/[0.1] max-h-[70vh] sm:max-h-[75vh] lg:max-h-[80vh]"
+            style={{ aspectRatio: "9/16", width: "auto", margin: "0 auto" }}
           >
             <video
               ref={videoRef}
