@@ -5,7 +5,7 @@ import AdaptiveGallery from "./AdaptiveGallery";
 import pageBg from "@/assets/page-bg.jpg";
 import cimplesCover from "@/assets/campaigns/cimples/cover.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
-import pinkFridayCover from "@/assets/campaigns/pink-friday-cover.png";
+import pinkFridayCover from "@/assets/campaigns/pinkfriday/cover.png";
 import pfVid1 from "@/assets/campaigns/pinkfriday/PF_1_2.mp4";
 import pfImg1 from "@/assets/campaigns/pinkfriday/5D4A6291.jpg";
 import pfImg2 from "@/assets/campaigns/pinkfriday/A4_2.jpg";
