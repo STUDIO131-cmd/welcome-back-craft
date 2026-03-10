@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import AdaptiveGallery from "./AdaptiveGallery";
 import pageBg from "@/assets/page-bg.jpg";
-import daniCimples from "@/assets/campaigns/dani-cimples.png";
+import cimplesCover from "@/assets/campaigns/cimples/cover.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFridayCover from "@/assets/campaigns/pink-friday-cover.png";
 import pfVid1 from "@/assets/campaigns/pinkfriday/PF_1_2.mp4";
@@ -105,12 +105,13 @@ type GalleryItem = {
   src: string;
   type: "image" | "video";
   colSpan?: 1 | 2 | 3;
+  posterTime?: number;
 };
 
 const campaigns = [
   // 1 - Cimples e Dani Fernandes
   {
-    image: daniCimples,
+    image: cimplesCover,
     title: "Dani Fernandes × CIMPLES (by Carolina Ferraz)",
     subtitle: "Campanha de Dia das Mães",
     description:
@@ -120,8 +121,8 @@ const campaigns = [
       { src: cVid1, type: "video", colSpan: 2 },
       { src: cImg1, type: "image", colSpan: 1 },
       { src: cImg2, type: "image", colSpan: 1 },
-      { src: cVid2, type: "video", colSpan: 2 },
-      { src: cVid3, type: "video", colSpan: 2 },
+      { src: cVid2, type: "video", colSpan: 2, posterTime: 3 },
+      { src: cVid3, type: "video", colSpan: 2, posterTime: 2 },
       { src: cImg3, type: "image", colSpan: 1 },
       { src: cImg4, type: "image", colSpan: 1 },
       { src: cVid4, type: "video", colSpan: 2 },
