@@ -347,9 +347,9 @@ const campaigns = [
     tags: ["Produção visual", "Fotografia de campanha", "Roteiro + captação de vídeo"],
     gallery: [
       { src: crVid1, type: "video", colSpan: 3 },
-      { src: crImg1, type: "image", colSpan: 1 },
-      { src: crImg2, type: "image", colSpan: 1 },
       { src: crImg3, type: "image", colSpan: 1 },
+      { src: crImg2, type: "image", colSpan: 1 },
+      { src: crImg1, type: "image", colSpan: 1 },
       { src: crImg4, type: "image", colSpan: 1 },
       { src: crImg5, type: "image", colSpan: 1 },
       { src: crImg6, type: "image", colSpan: 2 },
