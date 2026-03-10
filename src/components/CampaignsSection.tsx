@@ -103,6 +103,7 @@ import etImg8 from "@/assets/campaigns/etoiles/img8.jpg";
 import etImg9 from "@/assets/campaigns/etoiles/img9.jpg";
 import etCover from "@/assets/campaigns/etoiles/cover.png";
 import etPosterVid1 from "@/assets/campaigns/etoiles/poster-vid1.png";
+import adCover from "@/assets/campaigns/adriano/cover.png";
 import adImg1 from "@/assets/campaigns/adriano/img1.jpg";
 import adImg2 from "@/assets/campaigns/adriano/img2.jpg";
 import adImg3 from "@/assets/campaigns/adriano/img3.jpg";
@@ -272,7 +273,7 @@ const campaigns = [
   },
   // 8 - Adriano Martins
   {
-    image: null,
+    image: adCover,
     title: "Adriano Martins Estilista",
     subtitle: "Moda Noiva & Festa | Lançamento de Coleção",
     description:
