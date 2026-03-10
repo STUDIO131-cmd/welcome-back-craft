@@ -183,8 +183,8 @@ const campaigns = [
       "Dani Fernandes precisava de alguns conteúdos para potencializar a campanha de Natal. Fizemos melhor: levamos o comprador para um universo de sensações natalinas e familiares por meio do aroma.",
     tags: ["Produção visual", "Ambientação", "Vídeo"],
     gallery: [
-      { src: dnVid1, type: "video", colSpan: 2 },
-      { src: dnVid4, type: "video", colSpan: 2 },
+      { src: dnVid1, type: "video", colSpan: 2, poster: dnPoster1 },
+      { src: dnVid4, type: "video", colSpan: 2, poster: dnPoster2 },
       { src: dnVid2, type: "video", colSpan: 2 },
       { src: dnVid3, type: "video", colSpan: 2 },
     ] satisfies GalleryItem[],
