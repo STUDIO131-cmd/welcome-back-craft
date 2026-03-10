@@ -500,7 +500,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
         if (cancelled) return;
         const totalVideos = items.filter((it) => it.type === "video").length;
         const classified = items.map((item, i) =>
-          classify(item, dims[i].w / dims[i].h, i, totalVideos)
+          classify(item, item.ratio ?? (dims[i].w / dims[i].h), i, totalVideos)
         );
 
         const manualRows: Row[] = manualLayout.map((mr) => {
