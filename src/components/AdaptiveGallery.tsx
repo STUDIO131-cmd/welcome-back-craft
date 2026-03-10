@@ -436,6 +436,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           ref={videoRef}
           src={src}
           controls={playing}
+          controlsList="nodownload"
           playsInline
           preload={poster ? "auto" : "metadata"}
           onLoadedMetadata={handleLoadedMetadata}
