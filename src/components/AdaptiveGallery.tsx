@@ -589,8 +589,16 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className="w-full h-full object-cover block"
+                      className="w-full h-full object-cover block cursor-pointer"
                       loading="lazy"
+                      onClick={() => {
+                        if (onImageClick) {
+                          // Compute image-only index
+                          const imageItems = items.filter(it => it.type === "image");
+                          const imgIdx = imageItems.findIndex(it => it.src === item.src);
+                          if (imgIdx !== -1) onImageClick(imgIdx);
+                        }
+                      }}
                     />
                   )}
                 </div>
