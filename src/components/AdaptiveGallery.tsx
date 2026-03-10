@@ -568,6 +568,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
                 display: "grid",
                 gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
                 gap: "8px",
+                alignItems: "stretch",
                 ...(rowHeight ? { height: rowHeight } : {}),
                 ...(rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
               }}
@@ -575,15 +576,17 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
               {row.items.map((item, ci) => (
                 <div
                   key={`${ri}-${ci}`}
-                  className="overflow-hidden rounded-xl bg-black/40"
+                  className="overflow-hidden rounded-xl bg-black/40 h-full w-full"
                 >
                   {item.type === "video" ? (
-                    <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />
+                    <div className="h-full w-full">
+                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />
+                    </div>
                   ) : (
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className={isManual ? "w-full h-full object-cover block" : "w-full h-auto block"}
+                      className="w-full h-full object-cover block"
                       loading="lazy"
                     />
                   )}

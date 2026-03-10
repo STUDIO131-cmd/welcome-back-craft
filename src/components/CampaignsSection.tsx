@@ -359,8 +359,7 @@ const campaigns = [
       { indices: [0, 1], fractions: [3, 2] },       // L1: Vídeo + foto
       { indices: [2] },                               // L2: Foto sozinha full-width
       { indices: [3, 4] },                             // L3: Duas fotos
-      { indices: [5] },                                // L4: Horizontal sozinha
-      { indices: [5, 6], fractions: [1, 2] },          // L5: Duas fotos
+      { indices: [5, 6], fractions: [1, 2] },          // L4: Duas fotos
     ],
   },
 ];
