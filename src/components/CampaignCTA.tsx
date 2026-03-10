@@ -31,48 +31,39 @@ const CampaignCTA = () => {
           <span className="text-foreground font-semibold"> "marcar presença"</span>.
         </p>
 
-        <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+        <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-[660px] mx-auto">
           Conforme a necessidade e complexidade da campanha, entramos com o plano necessário:
           <br /><br />
           Pesquisamos fornecedores, desenhamos a estratégia, criamos os roteiros e organizamos os conteúdos que sustentam aquela brecha comercial.
         </p>
 
-        {/* Liquid glass button */}
-        <motion.a
-          href="#orcamento"
-          whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.15)" }}
-          whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-foreground text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 hover:bg-white/[0.14] max-w-full w-fit mx-auto text-center"
-        >
-          Quero avaliar uma campanha
-        </motion.a>
-
-        {/* Subtitle */}
+        {/* Title */}
         <h3 className="font-heading text-base md:text-lg text-muted-foreground">
           Como funciona a nossa atuação
         </h3>
 
-        {/* Liquid glass video bar */}
+        {/* Watch button + Video container — pixel-aligned with paragraph */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-col items-center gap-6"
+          className="w-[92vw] sm:max-w-[660px] sm:w-full mx-auto flex flex-col items-center gap-6"
         >
+          {/* Watch button */}
           <motion.button
             onClick={handlePlay}
             whileHover={{ scale: 1.03, boxShadow: "0 0 25px rgba(255,255,255,0.1)" }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-foreground/80 text-sm transition-all duration-300 hover:bg-white/[0.14]"
+            className="w-full sm:w-fit inline-flex items-center justify-center gap-3 px-6 min-h-[44px] py-3 rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-foreground/80 text-sm transition-all duration-300 hover:bg-white/[0.14]"
           >
-            <Clock className="w-4 h-4" />
+            <Clock className="w-4 h-4 flex-shrink-0" />
             Assista ao vídeo 2 min.
           </motion.button>
 
-          {/* Video with cover overlay */}
+          {/* Video — vertical source → 9/16 */}
           <div
-            className="relative w-[200px] md:w-[240px] rounded-2xl overflow-hidden border border-white/[0.1]"
+            className="relative w-full rounded-2xl overflow-hidden border border-white/[0.1]"
             style={{ aspectRatio: "9/16" }}
           >
             <video
@@ -113,6 +104,18 @@ const CampaignCTA = () => {
             </AnimatePresence>
           </div>
         </motion.div>
+
+        {/* CTA button — below video */}
+        <div className="flex justify-center pt-2">
+          <motion.a
+            href="#orcamento"
+            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.15)" }}
+            whileTap={{ scale: 0.97 }}
+            className="w-[92vw] sm:w-fit inline-flex items-center justify-center gap-2 px-8 min-h-[44px] py-4 rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-foreground text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 hover:bg-white/[0.14] text-center"
+          >
+            Quero Avaliar Uma Campanha
+          </motion.a>
+        </div>
       </motion.div>
     </section>
   );
