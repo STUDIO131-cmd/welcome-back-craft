@@ -392,15 +392,33 @@ function selectBestLayout(items: ClassifiedItem[]): Row[] {
 const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: string; posterTime?: number; poster?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [pendingPlay, setPendingPlay] = useState(false);
 
   const handlePlay = useCallback(() => {
+    if (poster && !playing) {
+      // Video element not in DOM yet — flag it and let useEffect handle playback
+      setPlaying(true);
+      setPendingPlay(true);
+      return;
+    }
     const v = videoRef.current;
     if (!v) return;
     v.currentTime = 0;
     v.muted = false;
     v.play();
     setPlaying(true);
-  }, []);
+  }, [poster, playing]);
+
+  // When switching from poster to video element, start playback once mounted
+  useEffect(() => {
+    if (pendingPlay && playing && videoRef.current) {
+      const v = videoRef.current;
+      v.currentTime = 0;
+      v.muted = false;
+      v.play();
+      setPendingPlay(false);
+    }
+  }, [pendingPlay, playing]);
 
   const handleLoadedMetadata = useCallback(() => {
     const v = videoRef.current;
@@ -419,8 +437,14 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           src={src}
           controls={playing}
           playsInline
-          preload="metadata"
+          preload={poster ? "auto" : "metadata"}
           onLoadedMetadata={handleLoadedMetadata}
+          onCanPlay={() => {
+            if (pendingPlay) {
+              const v = videoRef.current;
+              if (v) { v.currentTime = 0; v.muted = false; v.play(); setPendingPlay(false); }
+            }
+          }}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
           className="w-full h-full object-contain block"
