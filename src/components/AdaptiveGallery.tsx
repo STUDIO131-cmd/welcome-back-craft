@@ -490,7 +490,7 @@ type Props = {
   onImageClick?: (imageIndex: number) => void;
 };
 
-const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
+const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: Props) => {
   const [rows, setRows] = useState<Row[] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
