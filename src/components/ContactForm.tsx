@@ -86,7 +86,7 @@ const ContactForm = () => {
   };
 
   const radioClasses = (field: string, value: string) =>
-    `flex items-center gap-2 px-4 py-2 rounded-lg border cursor-pointer transition-colors text-sm ${
+    `flex items-center gap-2 px-4 min-h-[44px] rounded-lg border cursor-pointer transition-colors text-sm ${
       formData[field as keyof typeof formData] === value
         ? "bg-primary text-primary-foreground border-primary"
         : "bg-background border-input text-foreground hover:bg-secondary"
