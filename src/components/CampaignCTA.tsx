@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import campanhasVideo from "@/assets/campaigns/campanhas.mp4";
 
 const CampaignCTA = () => {
@@ -17,13 +17,13 @@ const CampaignCTA = () => {
   };
 
   return (
-    <section className="py-12 md:py-20 section-container text-center">
+    <section className="py-12 sm:py-16 md:py-20 section-container text-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="max-w-3xl mx-auto space-y-6 md:space-y-10"
+        className="max-w-3xl mx-auto space-y-6 md:space-y-8"
       >
         {/* Main text */}
         <p className="font-heading text-lg md:text-xl lg:text-2xl text-foreground/90 leading-relaxed">
@@ -42,7 +42,7 @@ const CampaignCTA = () => {
           Como funciona a nossa atuação
         </h3>
 
-        {/* Watch button + Video container — pixel-aligned with paragraph */}
+        {/* Video container */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,17 +50,6 @@ const CampaignCTA = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mx-auto flex flex-col items-center gap-4 w-full"
         >
-          {/* Watch button */}
-          <motion.button
-            onClick={handlePlay}
-            whileHover={{ scale: 1.03, boxShadow: "0 0 25px rgba(255,255,255,0.1)" }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full sm:w-fit inline-flex items-center justify-center gap-3 px-6 min-h-[44px] py-3 rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-foreground/80 text-sm transition-all duration-300 hover:bg-white/[0.14]"
-          >
-            <Clock className="w-4 h-4 flex-shrink-0" />
-            Assista ao vídeo 2 min.
-          </motion.button>
-
           {/* Video — vertical source → 9/16, height-capped */}
           <div
             className="relative rounded-2xl overflow-hidden border border-white/[0.1] max-h-[70vh] sm:max-h-[75vh] lg:max-h-[80vh]"
