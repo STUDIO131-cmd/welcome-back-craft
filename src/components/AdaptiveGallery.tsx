@@ -430,7 +430,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
   return (
     <div className="relative w-full h-full">
       {poster && !playing ? (
-        <img src={poster} alt={alt} className="w-full h-full object-contain block" />
+        <img src={poster} alt={alt} className="w-full h-full object-cover block" />
       ) : (
         <video
           ref={videoRef}
