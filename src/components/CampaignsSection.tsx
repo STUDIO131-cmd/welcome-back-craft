@@ -49,6 +49,10 @@ import aImg1 from "@/assets/campaigns/auramia/5D4A0703_1.jpg";
 import aImg2 from "@/assets/campaigns/auramia/5D4A0768_1.jpg";
 import aImg3 from "@/assets/campaigns/auramia/5D4A0750_1.jpg";
 import aImg4 from "@/assets/campaigns/auramia/5D4A0834_1.jpg";
+import aImg5 from "@/assets/campaigns/auramia/5D4A0723.jpg";
+import aImg6 from "@/assets/campaigns/auramia/5D4A0457.jpg";
+import aImg7 from "@/assets/campaigns/auramia/5D4A0977.jpg";
+import aPosterEntrevista from "@/assets/campaigns/auramia/poster-entrevista.png";
 import aCover from "@/assets/campaigns/auramia/cover.png";
 import crVid1 from "@/assets/campaigns/cravates/cravates1.mp4";
 import crCover from "@/assets/campaigns/cravates/cover.png";
@@ -306,11 +310,13 @@ const campaigns = [
       "Em Aracaju (SE), criamos a campanha de lançamento da Auramia para apresentar a coleção Brisa com leveza, desejo e intenção de compra.\nA comunicação foi pensada para aquecer o público antes da abertura e transformar expectativa em movimento real.\nQuando o site abriu, vários modelos esgotaram em 24 horas.",
     tags: ["Estudo de público", "Calendário de lançamento", "Foto + vídeo de campanha"],
     gallery: [
-      { src: aVid1, type: "video", colSpan: 2 },
-      { src: aImg1, type: "image", colSpan: 1 },
+      { src: aVid1, type: "video", colSpan: 3 },
       { src: aImg2, type: "image", colSpan: 1 },
       { src: aVid2, type: "video", colSpan: 2 },
-      { src: aVid3, type: "video", colSpan: 2 },
+      { src: aVid3, type: "video", colSpan: 2, poster: aPosterEntrevista },
+      { src: aImg5, type: "image", colSpan: 1 },
+      { src: aImg6, type: "image", colSpan: 1 },
+      { src: aImg7, type: "image", colSpan: 1 },
       { src: aImg3, type: "image", colSpan: 1 },
       { src: aImg4, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
