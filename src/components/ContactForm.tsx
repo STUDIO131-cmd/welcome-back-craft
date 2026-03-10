@@ -315,14 +315,17 @@ const ContactForm = () => {
               )}
             </AnimatePresence>
 
-            <div className="text-center pt-4">
+            <div className="text-center pt-4 space-y-3">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-10 py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity max-w-full disabled:opacity-50"
+                className="w-full md:w-fit md:mx-auto px-10 min-h-[44px] py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 {isSubmitting ? "Enviando..." : "Enviar"}
               </button>
+              {submitError && (
+                <p className="text-destructive text-sm">{submitError}</p>
+              )}
             </div>
           </form>
 
