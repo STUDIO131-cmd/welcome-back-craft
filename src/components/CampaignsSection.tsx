@@ -130,6 +130,7 @@ type GalleryItem = {
   colSpan?: 1 | 2 | 3;
   posterTime?: number;
   poster?: string;
+  ratio?: number;
 };
 
 const campaigns = [
