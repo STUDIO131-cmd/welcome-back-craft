@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import AdaptiveGallery from "./AdaptiveGallery";
 import pageBg from "@/assets/page-bg.jpg";
-import daniCimples from "@/assets/campaigns/dani-cimples.png";
+import cimplesCover from "@/assets/campaigns/cimples/cover.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
 import pinkFridayCover from "@/assets/campaigns/pink-friday-cover.png";
 import pfVid1 from "@/assets/campaigns/pinkfriday/PF_1_2.mp4";
