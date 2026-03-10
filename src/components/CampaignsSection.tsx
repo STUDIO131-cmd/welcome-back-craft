@@ -94,6 +94,8 @@ import etImg6 from "@/assets/campaigns/etoiles/img6.jpg";
 import etImg7 from "@/assets/campaigns/etoiles/img7.jpg";
 import etImg8 from "@/assets/campaigns/etoiles/img8.jpg";
 import etImg9 from "@/assets/campaigns/etoiles/img9.jpg";
+import etCover from "@/assets/campaigns/etoiles/cover.png";
+import etPosterVid1 from "@/assets/campaigns/etoiles/poster-vid1.png";
 import adImg1 from "@/assets/campaigns/adriano/img1.jpg";
 import adImg2 from "@/assets/campaigns/adriano/img2.jpg";
 import adImg3 from "@/assets/campaigns/adriano/img3.jpg";
