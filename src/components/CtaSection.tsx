@@ -8,7 +8,7 @@ const CtaSection = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="max-w-3xl mx-auto space-y-8"
+        className="max-w-3xl mx-auto space-y-6 md:space-y-8"
       >
         <h2 className="font-heading text-2xl md:text-3xl text-foreground/85 leading-relaxed">
           Nossa régua é simples: Para cada R$1 investido, construímos estruturas
