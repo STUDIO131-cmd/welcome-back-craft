@@ -297,7 +297,7 @@ const campaigns = [
   },
   // 9 - AuraMia
   {
-    image: null,
+    image: aCover,
     title: "Auramia by Beatriz Manganelli",
     subtitle: "Lançamento | Moda Fitness",
     description:
