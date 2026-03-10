@@ -1,21 +1,25 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+# Ajustes Campanha de Natal
 
-### Changes to `src/components/ClientsCarousel.tsx`
+## Alterações
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+### 1. Capa (Anexo 1 → imagem)
+Copiar `user-uploads://11.png` para `src/assets/campaigns/daninatal/cover.png` e usar como `image` da campanha 3.
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+### 2. Novo vídeo (Anexo 2)
+Copiar `user-uploads://Dani_Fernandes_1_versao_2_1.mp4` para `src/assets/campaigns/daninatal/video4.mp4` e adicionar na galeria.
 
-### Implementation details
+### 3. Layout da galeria — duas linhas de 2 vídeos
+Atualmente: 3 vídeos em layout misto. Com o novo vídeo serão 4 no total.
+Nova estrutura:
+```text
+Linha 1: dnVid1 (col 2) + dnVid4 (col 2)
+Linha 2: dnVid2 (col 2) + dnVid3 (col 2)
+```
 
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
-
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+### Arquivos
+- `src/assets/campaigns/daninatal/cover.png` (novo)
+- `src/assets/campaigns/daninatal/video4.mp4` (novo)
+- `src/components/CampaignsSection.tsx` — import capa + vídeo, atualizar campanha 3
 
