@@ -27,8 +27,8 @@ const HeroSection = () => {
           <br />
           em momentos decisivos de negócio.
         </p>
-        <div className="mt-4 inline-flex px-6 py-2 rounded-full backdrop-blur-md bg-white/10 border border-white/20 shadow-lg">
-          <p className="text-sm tracking-[0.3em] uppercase text-white whitespace-nowrap" style={{ textShadow: '0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(200,180,255,0.4)' }}>Lançamentos, Coleções & Datas Estratégicas.</p>
+        <div className="mt-4 sm:mt-4 mb-2 sm:mb-0 inline-flex px-4 sm:px-6 py-2 rounded-full backdrop-blur-md bg-white/10 border border-white/20 shadow-lg max-w-[90vw] mx-auto">
+          <p className="tracking-[0.15em] sm:tracking-[0.3em] uppercase text-white text-center" style={{ fontSize: 'clamp(0.65rem, 2.5vw, 0.875rem)', textShadow: '0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(200,180,255,0.4)' }}>Lançamentos, Coleções & Datas Estratégicas.</p>
         </div>
       </motion.div>
     </section>);
