@@ -230,7 +230,7 @@ const campaigns = [
       "A loja precisava comunicar uma nova identidade visual, a reinauguração do espaço e aproveitar esse momento para aquecer as vendas para o Rodeio de Catanduva.\nO resultado foi um alto alcance orgânico, seguido de um movimento maior de vendas.",
     tags: ["Produção visual", "Calendário de conteúdo", "Fotografia e audiovisual"],
     gallery: [
-      { src: lvVid1, type: "video", colSpan: 2 },
+      { src: lvVid1, type: "video", colSpan: 2, poster: lvPosterVid1 },
       { src: lvImg1, type: "image", colSpan: 1 },
       { src: lvImg2, type: "image", colSpan: 1 },
       { src: lvImg3, type: "image", colSpan: 1 },
