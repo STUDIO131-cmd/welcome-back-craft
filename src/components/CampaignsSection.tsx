@@ -158,7 +158,7 @@ const campaigns = [
   },
   // 3 - Dani Fernandes Campanha de Natal
   {
-    image: null,
+    image: dnCover,
     title: "Dani Fernandes | Campanha de Natal",
     subtitle: "Ação Comercial | Lançamento",
     description:
@@ -166,8 +166,9 @@ const campaigns = [
     tags: ["Produção visual", "Ambientação", "Vídeo"],
     gallery: [
       { src: dnVid1, type: "video", colSpan: 2 },
-      { src: dnVid2, type: "video", colSpan: 1 },
-      { src: dnVid3, type: "video", colSpan: 3 },
+      { src: dnVid4, type: "video", colSpan: 2 },
+      { src: dnVid2, type: "video", colSpan: 2 },
+      { src: dnVid3, type: "video", colSpan: 2 },
     ] satisfies GalleryItem[],
   },
   // 4 - The National Gallery
