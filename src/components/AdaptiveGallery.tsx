@@ -548,6 +548,19 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
           
           const manualRow = manualLayout?.[ri];
           const rowHeight = manualRow?.height;
+
+          // For manual multi-item rows, compute a single row aspect-ratio
+          // so all items share the same height without gaps
+          let rowAspectRatio: string | undefined;
+          if (isManual && rowItemCount > 1 && !rowHeight) {
+            const fracs = row.fractions;
+            const sumFracs = fracs.reduce((s, f) => s + f, 0);
+            // Normalised height of each item: fraction / ratio
+            const minNormH = Math.min(...row.items.map((it, i) => fracs[i] / it.ratio));
+            // Row aspect-ratio = totalWidth / height (normalised)
+            rowAspectRatio = `${sumFracs / minNormH}`;
+          }
+
           return (
             <div
               key={ri}
@@ -556,18 +569,13 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
                 gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
                 gap: "8px",
                 ...(rowHeight ? { height: rowHeight } : {}),
-                ...(isManual && rowItemCount === 1 && !rowHeight
-                  ? {}
-                  : isManual
-                  ? { gridAutoRows: "1fr" }
-                  : {}),
+                ...(rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
               }}
             >
               {row.items.map((item, ci) => (
                 <div
                   key={`${ri}-${ci}`}
                   className="overflow-hidden rounded-xl bg-black/40"
-                  style={isManual && rowItemCount > 1 ? { aspectRatio: `${item.ratio}` } : undefined}
                 >
                   {item.type === "video" ? (
                     <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />

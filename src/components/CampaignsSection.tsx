@@ -360,7 +360,7 @@ const campaigns = [
       { indices: [2] },                               // L2: Foto sozinha full-width
       { indices: [3, 4] },                             // L3: Duas fotos
       { indices: [5] },                                // L4: Horizontal sozinha
-      { indices: [6, 3], fractions: [1, 2] },          // L5: Vertical + horizontal
+      { indices: [5, 6], fractions: [1, 2] },          // L5: Duas fotos
     ],
   },
 ];
