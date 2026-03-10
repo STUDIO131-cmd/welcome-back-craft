@@ -64,6 +64,11 @@ import vcImg4 from "@/assets/campaigns/velvetcherry/img4.jpg";
 import vcImg5 from "@/assets/campaigns/velvetcherry/img5.jpg";
 import vcImg6 from "@/assets/campaigns/velvetcherry/img6.jpg";
 import vcImg7 from "@/assets/campaigns/velvetcherry/img7.jpg";
+import vcImg8 from "@/assets/campaigns/velvetcherry/img8.jpg";
+import vcImg9 from "@/assets/campaigns/velvetcherry/img9.jpg";
+import vcImg10 from "@/assets/campaigns/velvetcherry/img10.jpg";
+import vcImg11 from "@/assets/campaigns/velvetcherry/img11.jpg";
+import vcCover from "@/assets/campaigns/velvetcherry/cover.png";
 import ntVid1 from "@/assets/campaigns/novatrida/video1.mp4";
 import ntVid2 from "@/assets/campaigns/novatrida/video2.mp4";
 import ntVid3 from "@/assets/campaigns/novatrida/video3.mp4";
@@ -244,7 +249,7 @@ const campaigns = [
   },
   // 7 - Velvet Cherry
   {
-    image: null,
+    image: vcCover,
     title: "Velvet Cherry by Dani Fernandes",
     subtitle: "Nova coleção | Lançamento",
     description:
@@ -258,6 +263,10 @@ const campaigns = [
       { src: vcImg4, type: "image", colSpan: 1 },
       { src: vcImg5, type: "image", colSpan: 1 },
       { src: vcImg6, type: "image", colSpan: 2 },
+      { src: vcImg8, type: "image", colSpan: 1 },
+      { src: vcImg9, type: "image", colSpan: 1 },
+      { src: vcImg10, type: "image", colSpan: 2 },
+      { src: vcImg11, type: "image", colSpan: 1 },
       { src: vcImg7, type: "image", colSpan: 3 },
     ] satisfies GalleryItem[],
   },
