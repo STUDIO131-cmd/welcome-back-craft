@@ -151,7 +151,7 @@ const campaigns = [
       { src: pfImg4, type: "image", colSpan: 1 },
       { src: pfImg5, type: "image", colSpan: 1 },
       { src: pfImg7, type: "image", colSpan: 1 },
-      { src: pfImg6, type: "image", colSpan: 3 },
+      { src: pfImg6, type: "image", colSpan: 1 },
     ] satisfies GalleryItem[],
   },
   // 3 - Dani Fernandes Campanha de Natal
