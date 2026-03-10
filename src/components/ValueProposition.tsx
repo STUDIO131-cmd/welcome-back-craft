@@ -18,7 +18,7 @@ const ValueProposition = () => {
         
         <a
           href="#conteudo"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground text-sm tracking-wider uppercase hover:opacity-90 transition-opacity">
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground text-sm tracking-wider uppercase hover:opacity-90 transition-opacity max-w-full w-fit mx-auto text-center">
           
           Vídeo 2 min | Entenda o Plano na Prática
         </a>

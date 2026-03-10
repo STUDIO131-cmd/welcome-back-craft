@@ -35,7 +35,7 @@ const ContactForm = () => {
           <h2 className="font-heading text-2xl md:text-3xl text-center text-foreground/90 mb-4">
             Preencha o formulário de contato
           </h2>
-          <p className="text-center text-muted-foreground text-sm leading-relaxed mb-12">
+          <p className="text-center text-muted-foreground text-sm leading-relaxed mb-6 md:mb-12">
             Ao preencher o formulário abaixo, você se candidata a uma vaga no Plano
             Profissional e autoriza o envio de atualizações sobre as próximas
             etapas. Mantemos um limite de clientes ativos para preservar o padrão

@@ -16,7 +16,7 @@ const CtaSection = () => {
         </h2>
         <a
           href="#orcamento"
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity"
+          className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground text-sm tracking-[0.2em] uppercase font-medium hover:opacity-90 transition-opacity max-w-full w-fit mx-auto text-center"
         >
           Quero Avançar
         </a>

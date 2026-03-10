@@ -380,8 +380,8 @@ const CampaignsSection = () => {
 
   return (
     <>
-      <section className="py-8 section-container">
-        <div className="space-y-6">
+      <section className="py-12 md:py-20 section-container">
+        <div className="space-y-6 md:space-y-10">
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}

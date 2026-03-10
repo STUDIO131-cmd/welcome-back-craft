@@ -23,7 +23,7 @@ const CampaignCTA = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="max-w-3xl mx-auto space-y-10"
+        className="max-w-3xl mx-auto space-y-6 md:space-y-10"
       >
         {/* Main text */}
         <p className="font-heading text-lg md:text-xl lg:text-2xl text-foreground/90 leading-relaxed">

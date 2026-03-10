@@ -47,7 +47,7 @@ const DifferentialsSection = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {differentials.map((diff, i) => (
             <motion.div
               key={i}

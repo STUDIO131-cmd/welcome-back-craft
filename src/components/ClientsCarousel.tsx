@@ -31,7 +31,7 @@ const ScrollRow = ({ items }: { items: string[] }) => (
 
 const ClientsCarousel = () => {
   return (
-    <div className="w-full py-12 relative">
+    <div className="w-full py-12 md:py-20 relative">
       <div className="section-container">
         <h2 className="font-display text-2xl md:text-3xl text-center text-foreground mb-8">
           Algumas marcas que já atendemos:
