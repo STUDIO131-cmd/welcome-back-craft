@@ -331,7 +331,7 @@ const campaigns = [
   },
   // 11 - Cravates
   {
-    image: null,
+    image: crCover,
     title: "Coleção Cravates by Corpo De Ballet",
     subtitle: "Lançamento | Moda Ballet",
     description:
