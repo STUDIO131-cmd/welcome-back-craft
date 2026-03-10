@@ -94,6 +94,8 @@ import etImg6 from "@/assets/campaigns/etoiles/img6.jpg";
 import etImg7 from "@/assets/campaigns/etoiles/img7.jpg";
 import etImg8 from "@/assets/campaigns/etoiles/img8.jpg";
 import etImg9 from "@/assets/campaigns/etoiles/img9.jpg";
+import etCover from "@/assets/campaigns/etoiles/cover.png";
+import etPosterVid1 from "@/assets/campaigns/etoiles/poster-vid1.png";
 import adImg1 from "@/assets/campaigns/adriano/img1.jpg";
 import adImg2 from "@/assets/campaigns/adriano/img2.jpg";
 import adImg3 from "@/assets/campaigns/adriano/img3.jpg";
@@ -198,14 +200,14 @@ const campaigns = [
   },
   // 5 - Etoiles
   {
-    image: null,
+    image: etCover,
     title: "Etoiles by Corpo de Ballet Shop",
     subtitle: "Nova coleção | Lançamento",
     description:
       "Na segunda coleção da Corpo de Ballet Shop, a marca firmou presença ao apresentar com mais clareza o seu universo.\n\nAtravés da personagem Etoiles, a campanha mostrou ao público o sonho de viver uma rotina elegante, com estética europeia e os looks como plano de fundo.",
     tags: ["Roteiro e vídeo", "Produção visual", "Fotografia + look book"],
     gallery: [
-      { src: etVid1, type: "video", colSpan: 2 },
+      { src: etVid1, type: "video", colSpan: 2, poster: etPosterVid1 },
       { src: etImg1, type: "image", colSpan: 1 },
       { src: etImg2, type: "image", colSpan: 1 },
       { src: etImg3, type: "image", colSpan: 1 },
