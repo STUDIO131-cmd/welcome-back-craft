@@ -70,6 +70,7 @@ const CampaignCTA = () => {
               ref={videoRef}
               src={campanhasVideo}
               className="w-full h-full object-cover"
+              controlsList="nodownload"
               muted
               loop
               playsInline

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import AdaptiveGallery from "./AdaptiveGallery";
+import PhotoLightbox from "./PhotoLightbox";
 import pageBg from "@/assets/page-bg.jpg";
 import cimplesCover from "@/assets/campaigns/cimples/cover.png";
 import daniGallery from "@/assets/campaigns/dani-gallery.png";
@@ -377,6 +378,8 @@ const fadeUp = {
 
 const CampaignsSection = () => {
   const [openGallery, setOpenGallery] = useState<number | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxStartIdx, setLightboxStartIdx] = useState(0);
 
   return (
     <>
@@ -493,8 +496,20 @@ const CampaignsSection = () => {
                   items={campaigns[openGallery].gallery}
                   campaignTitle={campaigns[openGallery].title}
                   manualLayout={(campaigns[openGallery] as any).manualLayout}
+                  onImageClick={(imgIdx) => {
+                    setLightboxStartIdx(imgIdx);
+                    setLightboxOpen(true);
+                  }}
                 />
               </div>
+
+              {lightboxOpen && openGallery !== null && (
+                <PhotoLightbox
+                  images={campaigns[openGallery].gallery.filter(g => g.type === "image").map(g => g.src)}
+                  startIndex={lightboxStartIdx}
+                  onClose={() => setLightboxOpen(false)}
+                />
+              )}
             </motion.div>
           </motion.div>
         )}

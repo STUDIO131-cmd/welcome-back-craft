@@ -436,6 +436,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           ref={videoRef}
           src={src}
           controls={playing}
+          controlsList="nodownload"
           playsInline
           preload={poster ? "auto" : "metadata"}
           onLoadedMetadata={handleLoadedMetadata}
@@ -485,9 +486,11 @@ type Props = {
   campaignTitle: string;
   /** Optional manual layout: array of rows, each with item indices and optional fr fractions */
   manualLayout?: ManualRow[];
+  /** Callback when an image is clicked — receives the index within images-only array */
+  onImageClick?: (imageIndex: number) => void;
 };
 
-const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
+const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: Props) => {
   const [rows, setRows] = useState<Row[] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -586,8 +589,16 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout }: Props) => {
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className="w-full h-full object-cover block"
+                      className="w-full h-full object-cover block cursor-pointer"
                       loading="lazy"
+                      onClick={() => {
+                        if (onImageClick) {
+                          // Compute image-only index
+                          const imageItems = items.filter(it => it.type === "image");
+                          const imgIdx = imageItems.findIndex(it => it.src === item.src);
+                          if (imgIdx !== -1) onImageClick(imgIdx);
+                        }
+                      }}
                     />
                   )}
                 </div>
