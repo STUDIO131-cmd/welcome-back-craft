@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import eagleLogo from "@/assets/eagle-logo.png";
 import { toast } from "sonner";
@@ -18,21 +18,30 @@ const ContactForm = () => {
     ideaDescription: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+  }, []);
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    setSubmitError("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError("");
 
     try {
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      if (!serviceId || !templateId || !publicKey) {
+      if (!serviceId || !templateId) {
         throw new Error("EmailJS not configured");
       }
 
@@ -47,7 +56,7 @@ const ContactForm = () => {
         campaign_date: formData.campaignDate,
         has_idea: formData.hasIdea,
         idea_description: formData.ideaDescription,
-      }, publicKey);
+      });
 
       toast.success("Obrigado pelas informações :-)", {
         description:
@@ -68,7 +77,9 @@ const ContactForm = () => {
         ideaDescription: "",
       });
     } catch {
-      toast.error("Erro ao enviar. Tente novamente.");
+      setSubmitError(
+        "Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp."
+      );
     } finally {
       setIsSubmitting(false);
     }
