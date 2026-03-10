@@ -200,14 +200,14 @@ const campaigns = [
   },
   // 5 - Etoiles
   {
-    image: null,
+    image: etCover,
     title: "Etoiles by Corpo de Ballet Shop",
     subtitle: "Nova coleção | Lançamento",
     description:
       "Na segunda coleção da Corpo de Ballet Shop, a marca firmou presença ao apresentar com mais clareza o seu universo.\n\nAtravés da personagem Etoiles, a campanha mostrou ao público o sonho de viver uma rotina elegante, com estética europeia e os looks como plano de fundo.",
     tags: ["Roteiro e vídeo", "Produção visual", "Fotografia + look book"],
     gallery: [
-      { src: etVid1, type: "video", colSpan: 2 },
+      { src: etVid1, type: "video", colSpan: 2, poster: etPosterVid1 },
       { src: etImg1, type: "image", colSpan: 1 },
       { src: etImg2, type: "image", colSpan: 1 },
       { src: etImg3, type: "image", colSpan: 1 },
