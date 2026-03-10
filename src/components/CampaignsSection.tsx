@@ -79,6 +79,8 @@ import lvImg3 from "@/assets/campaigns/lavie/img3.jpg";
 import lvImg4 from "@/assets/campaigns/lavie/img4.jpg";
 import lvImg5 from "@/assets/campaigns/lavie/img5.png";
 import lvImg6 from "@/assets/campaigns/lavie/img6.png";
+import lvCover from "@/assets/campaigns/lavie/cover.png";
+import lvPosterVid1 from "@/assets/campaigns/lavie/poster-vid1.png";
 import dnVid1 from "@/assets/campaigns/daninatal/video1.mp4";
 import dnVid2 from "@/assets/campaigns/daninatal/video2.mp4";
 import dnVid3 from "@/assets/campaigns/daninatal/video3.mp4";
