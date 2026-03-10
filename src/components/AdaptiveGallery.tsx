@@ -447,7 +447,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           }}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
-          className="w-full h-full object-contain block"
+          className="w-full h-full object-cover block"
           aria-label={alt}
         />
       )}
