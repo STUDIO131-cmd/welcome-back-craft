@@ -1,21 +1,25 @@
 
 
-## Plan: Blur edges + faster scroll on clients carousel
+## Plan
 
-### Changes to `src/components/ClientsCarousel.tsx`
+The `ValueProposition` component contains only the "Vídeo 2 min | Entenda o Plano na Prática" button and is otherwise empty. It should be removed entirely.
 
-1. **Add gradient blur masks** on left and right edges of the carousel container using CSS `mask-image` with a linear gradient (transparent → black → black → transparent), creating a fade-out effect on both sides.
+### Changes
 
-2. **Increase scroll speed** — reduce the animation duration in `src/index.css` for `animate-scroll-right` from `25s` to ~`18s`.
+1. **Delete `src/components/ValueProposition.tsx`** — the component is now empty content besides the unwanted button.
 
-### Implementation details
+2. **Update `src/pages/Index.tsx`** — remove the `ValueProposition` import and its usage from the page layout. The section order becomes:
+   ```
+   HeroSection
+   CampaignsSection
+   CampaignCTA
+   BastidoresSection
+   ClientsCarousel
+   DifferentialsSection
+   CtaSection
+   ContactForm
+   FooterSection
+   ```
 
-- On the `section-container overflow-hidden` div, add inline style:
-  ```
-  maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-  ```
-- In `src/index.css`, change `.animate-scroll-right` duration from `25s` to `18s`.
-
-Two files edited: `ClientsCarousel.tsx` and `index.css`.
+All sections already use the standardized `py-12 sm:py-16 md:py-20` spacing from the previous update, so no further spacing adjustments are needed.
 
