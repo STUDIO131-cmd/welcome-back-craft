@@ -110,7 +110,7 @@ const CampaignCTA = () => {
                     <Play className="w-6 h-6 text-foreground fill-foreground ml-0.5" />
                   </motion.div>
                   <span
-                    className="mt-3 text-xs tracking-[0.2em] uppercase font-medium text-foreground"
+                    className="relative z-10 mt-3 text-xs tracking-[0.2em] uppercase font-medium text-foreground"
                     style={{ textShadow: "0 0 12px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.3)" }}
                   >
                     Conheça a proposta
