@@ -1,11 +1,27 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play } from "lucide-react";
 import campanhasVideo from "@/assets/campaigns/campanhas.mp4";
 
 const CampaignCTA = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [coverDataUrl, setCoverDataUrl] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const handleLoadedData = useCallback(() => {
+    const v = videoRef.current;
+    const canvas = canvasRef.current;
+    if (v && canvas && !coverDataUrl) {
+      canvas.width = v.videoWidth;
+      canvas.height = v.videoHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+        setCoverDataUrl(canvas.toDataURL());
+      }
+    }
+  }, [coverDataUrl]);
 
   const handlePlay = () => {
     if (videoRef.current) {
@@ -55,6 +71,7 @@ const CampaignCTA = () => {
             className="relative rounded-2xl overflow-hidden border border-white/[0.1] max-h-[70vh] sm:max-h-[75vh] lg:max-h-[80vh]"
             style={{ aspectRatio: "9/16", width: "auto", margin: "0 auto" }}
           >
+            <canvas ref={canvasRef} className="hidden" />
             <video
               ref={videoRef}
               src={campanhasVideo}
@@ -64,27 +81,36 @@ const CampaignCTA = () => {
               loop
               playsInline
               preload="metadata"
+              onLoadedData={handleLoadedData}
             />
 
-            {/* Cover overlay with blur + play button */}
+            {/* Cover overlay with blurred frame + play button */}
             <AnimatePresence>
               {!isPlaying && (
                 <motion.div
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer backdrop-blur-md bg-black/30"
+                  className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
                   onClick={handlePlay}
                 >
+                  {coverDataUrl && (
+                    <img
+                      src={coverDataUrl}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/30" />
                   <motion.div
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-14 h-14 rounded-full backdrop-blur-xl bg-white/[0.15] border border-white/[0.25] flex items-center justify-center"
+                    className="relative z-10 w-14 h-14 rounded-full backdrop-blur-xl bg-white/[0.15] border border-white/[0.25] flex items-center justify-center"
                   >
                     <Play className="w-6 h-6 text-foreground fill-foreground ml-0.5" />
                   </motion.div>
                   <span
-                    className="mt-3 text-xs tracking-[0.2em] uppercase font-medium text-foreground"
+                    className="relative z-10 mt-3 text-xs tracking-[0.2em] uppercase font-medium text-foreground"
                     style={{ textShadow: "0 0 12px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.3)" }}
                   >
                     Conheça a proposta
