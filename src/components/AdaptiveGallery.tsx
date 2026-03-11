@@ -486,15 +486,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           onClick={handlePlay}
           className="absolute inset-0 flex items-center justify-center"
         >
-          {/* Blurred frame background */}
-          {coverSrc && (
-            <img
-              src={coverSrc}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover blur-xl scale-110 pointer-events-none"
-            />
-          )}
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-black/20" />
 
           <div
             className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2.5 backdrop-blur-md border border-white/[0.15] transition-all duration-300 hover:scale-105"
