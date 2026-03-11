@@ -16,7 +16,7 @@ const BastidoresSection = () => {
   const [playingIdx, setPlayingIdx] = useState<number | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const coverCanvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
-  const [coverReady, setCoverReady] = useState<boolean[]>(Array(videos.length).fill(false));
+  const [coverUrls, setCoverUrls] = useState<(string | null)[]>(Array(videos.length).fill(null));
 
   const prev = useCallback(() => {
     setPlayingIdx(null);
@@ -38,19 +38,26 @@ const BastidoresSection = () => {
     }
   };
 
-  // Capture the first frame as a blurred cover
   const handleLoadedData = (idx: number) => {
     const v = videoRefs.current[idx];
+    if (v && !coverUrls[idx]) {
+      v.currentTime = 0.1; // seek to get a real frame
+    }
+  };
+
+  const handleSeeked = (idx: number) => {
+    const v = videoRefs.current[idx];
     const canvas = coverCanvasRefs.current[idx];
-    if (v && canvas && !coverReady[idx]) {
+    if (v && canvas && !coverUrls[idx] && playingIdx !== idx) {
       canvas.width = v.videoWidth;
       canvas.height = v.videoHeight;
       const ctx = canvas.getContext("2d");
       if (ctx) {
         ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
-        setCoverReady((prev) => {
+        const url = canvas.toDataURL();
+        setCoverUrls((prev) => {
           const next = [...prev];
-          next[idx] = true;
+          next[idx] = url;
           return next;
         });
       }
@@ -104,42 +111,41 @@ const BastidoresSection = () => {
                     style={{ aspectRatio: "9/16", maxHeight: "70vh", width: "auto" }}
                   >
                     <div className="relative h-full rounded-2xl overflow-hidden border border-white/[0.1]">
-                      {/* Hidden canvas to capture first frame */}
                       <canvas
                         ref={(el) => { coverCanvasRefs.current[i] = el; }}
                         className="hidden"
                       />
 
-                      <video
-                        ref={(el) => { videoRefs.current[i] = el; }}
-                        src={src}
-                        className="h-full w-full object-cover"
-                        muted
-                        playsInline
-                        preload="metadata"
-                        controlsList="nodownload"
-                        onLoadedData={() => handleLoadedData(i)}
-                        onPause={() => { if (playingIdx === i) setPlayingIdx(null); }}
-                        onEnded={() => { if (playingIdx === i) setPlayingIdx(null); }}
-                      />
+                      {/* Show captured poster or the video element */}
+                      {coverUrls[i] && playingIdx !== i ? (
+                        <img
+                          src={coverUrls[i]!}
+                          alt={`Bastidores ${i + 1}`}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <video
+                          ref={(el) => { videoRefs.current[i] = el; }}
+                          src={src}
+                          className="h-full w-full object-cover"
+                          muted
+                          playsInline
+                          preload="auto"
+                          controlsList="nodownload"
+                          onLoadedData={() => handleLoadedData(i)}
+                          onSeeked={() => handleSeeked(i)}
+                          onPause={() => { if (playingIdx === i) setPlayingIdx(null); }}
+                          onEnded={() => { if (playingIdx === i) setPlayingIdx(null); }}
+                        />
+                      )}
 
-                      {/* Blurred frame cover overlay */}
+                      {/* Play button overlay */}
                       {playingIdx !== i && (
                         <button
                           onClick={() => handlePlay(i)}
                           className="absolute inset-0 flex items-center justify-center"
                         >
-                          {/* Blurred background frame */}
-                          {coverReady[i] && coverCanvasRefs.current[i] && (
-                            <img
-                              src={coverCanvasRefs.current[i]!.toDataURL()}
-                              alt=""
-                              className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
-                            />
-                          )}
-                          <div className="absolute inset-0 bg-black/30" />
-
-                          {/* Play button */}
+                          <div className="absolute inset-0 bg-black/20" />
                           <div
                             className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2.5 backdrop-blur-md border border-white/[0.15]"
                             style={{

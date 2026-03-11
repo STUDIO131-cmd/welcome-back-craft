@@ -11,8 +11,15 @@ const CampaignCTA = () => {
 
   const handleLoadedData = useCallback(() => {
     const v = videoRef.current;
+    if (v && !coverDataUrl) {
+      v.currentTime = 0.1; // seek to get a real frame
+    }
+  }, [coverDataUrl]);
+
+  const handleSeeked = useCallback(() => {
+    const v = videoRef.current;
     const canvas = canvasRef.current;
-    if (v && canvas && !coverDataUrl) {
+    if (v && canvas && !coverDataUrl && !isPlaying) {
       canvas.width = v.videoWidth;
       canvas.height = v.videoHeight;
       const ctx = canvas.getContext("2d");
@@ -21,10 +28,11 @@ const CampaignCTA = () => {
         setCoverDataUrl(canvas.toDataURL());
       }
     }
-  }, [coverDataUrl]);
+  }, [coverDataUrl, isPlaying]);
 
   const handlePlay = () => {
     if (videoRef.current) {
+      videoRef.current.currentTime = 0;
       videoRef.current.muted = false;
       videoRef.current.controls = true;
       videoRef.current.play();
@@ -72,19 +80,30 @@ const CampaignCTA = () => {
             style={{ aspectRatio: "9/16", width: "auto", margin: "0 auto" }}
           >
             <canvas ref={canvasRef} className="hidden" />
-            <video
-              ref={videoRef}
-              src={campanhasVideo}
-              className="w-full h-full object-cover"
-              controlsList="nodownload"
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              onLoadedData={handleLoadedData}
-            />
 
-            {/* Cover overlay with blurred frame + play button */}
+            {/* Show captured poster or video element */}
+            {coverDataUrl && !isPlaying ? (
+              <img
+                src={coverDataUrl}
+                alt="Preview do vídeo"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <video
+                ref={videoRef}
+                src={campanhasVideo}
+                className="w-full h-full object-cover"
+                controlsList="nodownload"
+                muted
+                loop
+                playsInline
+                preload="auto"
+                onLoadedData={handleLoadedData}
+                onSeeked={handleSeeked}
+              />
+            )}
+
+            {/* Play button overlay */}
             <AnimatePresence>
               {!isPlaying && (
                 <motion.div
@@ -94,14 +113,7 @@ const CampaignCTA = () => {
                   className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
                   onClick={handlePlay}
                 >
-                  {coverDataUrl && (
-                    <img
-                      src={coverDataUrl}
-                      alt=""
-                      className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-black/30" />
+                  <div className="absolute inset-0 bg-black/20" />
                   <motion.div
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.95 }}
