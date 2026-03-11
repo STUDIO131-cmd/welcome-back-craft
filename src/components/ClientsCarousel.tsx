@@ -14,14 +14,14 @@ const row1 = [cimples, auramia, corpoBallet, ouromil, anaFlavia];
 const row2 = [laVie, client7, client8, client9, client10];
 
 const ScrollRow = ({ items }: { items: string[] }) => (
-  <div className="overflow-hidden">
+  <div className="overflow-hidden py-2">
     <div className="flex animate-scroll-right" style={{ width: "max-content" }}>
       {[...items, ...items].map((src, i) => (
         <div key={i} className="flex-shrink-0 mx-3">
           <img
             src={src}
             alt="Cliente"
-            className="w-[117px] h-[117px] md:w-[153px] md:h-[153px] lg:w-[165px] lg:h-[165px] rounded-full object-cover transition-all duration-500"
+            className="w-[117px] h-[117px] md:w-[153px] md:h-[153px] lg:w-[165px] lg:h-[165px] rounded-full object-contain transition-all duration-500"
             loading="lazy"
           />
         </div>
