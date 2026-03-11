@@ -105,7 +105,7 @@ const CampaignCTA = () => {
                   <motion.div
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-14 h-14 rounded-full backdrop-blur-xl bg-white/[0.15] border border-white/[0.25] flex items-center justify-center"
+                    className="relative z-10 w-14 h-14 rounded-full backdrop-blur-xl bg-white/[0.15] border border-white/[0.25] flex items-center justify-center"
                   >
                     <Play className="w-6 h-6 text-foreground fill-foreground ml-0.5" />
                   </motion.div>
