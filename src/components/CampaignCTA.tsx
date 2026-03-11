@@ -5,7 +5,23 @@ import campanhasVideo from "@/assets/campaigns/campanhas.mp4";
 
 const CampaignCTA = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [coverDataUrl, setCoverDataUrl] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const handleLoadedData = useCallback(() => {
+    const v = videoRef.current;
+    const canvas = canvasRef.current;
+    if (v && canvas && !coverDataUrl) {
+      canvas.width = v.videoWidth;
+      canvas.height = v.videoHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+        setCoverDataUrl(canvas.toDataURL());
+      }
+    }
+  }, [coverDataUrl]);
 
   const handlePlay = () => {
     if (videoRef.current) {
