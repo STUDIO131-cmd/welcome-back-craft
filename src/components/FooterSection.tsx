@@ -7,7 +7,7 @@ const FooterSection = () => {
 
   const buttons = [
   { label: "Sobre o Studio 131", bg: "rgba(120, 80, 160, 0.25)" },
-  { label: "Conheça a metodologia", bg: "rgba(70, 90, 140, 0.25)" },
+  { label: "Conheça o Plano Profissional", bg: "rgba(70, 90, 140, 0.25)" },
   { label: "Fotografia", bg: "rgba(160, 90, 110, 0.25)" },
   { label: "Voltar ao topo", bg: "rgba(80, 90, 110, 0.25)", onClick: scrollToTop }];
 
