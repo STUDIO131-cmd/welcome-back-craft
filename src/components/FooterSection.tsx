@@ -28,7 +28,7 @@ const FooterSection = () => {
           <button
             key={btn.label}
             onClick={btn.onClick}
-            className="min-h-[44px] px-6 py-3 rounded-lg backdrop-blur-xl border border-white/[0.15] text-foreground/90 text-xs tracking-[0.2em] uppercase font-medium hover:bg-white/[0.15] transition-all text-center"
+            className="min-h-[56px] px-5 py-3 rounded-lg backdrop-blur-xl border border-white/[0.15] text-foreground/90 text-xs sm:text-[0.7rem] tracking-[0.2em] uppercase font-medium hover:bg-white/[0.15] transition-all text-center leading-[1.3] whitespace-normal"
             style={{ backgroundColor: btn.bg }}>
             
               {btn.label}
