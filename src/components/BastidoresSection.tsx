@@ -2,14 +2,21 @@ import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
-const PLACEHOLDER_VIDEO = "https://www.w3schools.com/html/mov_bbb.mp4";
+import vid1 from "@/assets/bastidores/VlogDF.mp4";
+import vid2 from "@/assets/bastidores/BTS4.mp4";
+import vid3 from "@/assets/bastidores/Vlog_DF_Cimples.mp4";
+import vid4 from "@/assets/bastidores/DF-MakingOff02.mp4";
+import vid5 from "@/assets/bastidores/BTS5.mp4";
+import vid6 from "@/assets/bastidores/BTS6.mp4";
 
-const videos = Array(6).fill(PLACEHOLDER_VIDEO);
+const videos = [vid1, vid2, vid3, vid4, vid5, vid6];
 
 const BastidoresSection = () => {
   const [current, setCurrent] = useState(0);
   const [playingIdx, setPlayingIdx] = useState<number | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const coverCanvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
+  const [coverReady, setCoverReady] = useState<boolean[]>(Array(videos.length).fill(false));
 
   const prev = useCallback(() => {
     setPlayingIdx(null);
@@ -31,12 +38,27 @@ const BastidoresSection = () => {
     }
   };
 
+  // Capture the first frame as a blurred cover
+  const handleLoadedData = (idx: number) => {
+    const v = videoRefs.current[idx];
+    const canvas = coverCanvasRefs.current[idx];
+    if (v && canvas && !coverReady[idx]) {
+      canvas.width = v.videoWidth;
+      canvas.height = v.videoHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+        setCoverReady((prev) => {
+          const next = [...prev];
+          next[idx] = true;
+          return next;
+        });
+      }
+    }
+  };
+
   const glassBtn =
     "min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full backdrop-blur-xl bg-white/[0.08] border border-white/[0.15] text-white/80 hover:bg-white/[0.14] transition-all duration-300";
-
-  // Compute visible items with offsets
-  // Mobile: 1 centered; Tablet: 1 + 2 partials; Desktop: 2 + 2 partials
-  // We'll render all and use CSS transforms
 
   return (
     <section className="py-12 sm:py-16 md:py-20 section-container text-center">
@@ -56,32 +78,18 @@ const BastidoresSection = () => {
 
         {/* Carousel */}
         <div className="relative flex items-center justify-center">
-          {/* Left arrow */}
           <button onClick={prev} className={`${glassBtn} absolute left-0 sm:left-2 z-20`}>
             <ChevronLeft size={22} />
           </button>
 
-          {/* Track */}
           <div className="overflow-hidden w-full mx-12 sm:mx-14">
-            <div
-              className="flex items-center justify-center transition-transform duration-500 ease-out gap-3 sm:gap-4"
-              style={{
-                // Each item width: on mobile full, tablet ~60%, desktop ~40%
-                // We'll translate based on current
-              }}
-            >
+            <div className="flex items-center justify-center transition-transform duration-500 ease-out gap-3 sm:gap-4">
               {videos.map((src, i) => {
-                // Relative position to current
                 const rel = i - current;
-                // Determine visibility class
                 const isCenter = rel === 0;
-                const isCenterSecond = rel === 1; // desktop second center
+                const isCenterSecond = rel === 1;
                 const isPartialLeft = rel === -1;
-                const isPartialRight = rel === 2; // desktop right partial
-
-                // Mobile: only show current
-                // Tablet: current + partials at -1, +1
-                // Desktop: current, current+1 center, -1 partial, +2 partial
+                const isPartialRight = rel === 2;
 
                 return (
                   <div
@@ -96,6 +104,12 @@ const BastidoresSection = () => {
                     style={{ aspectRatio: "9/16", maxHeight: "70vh", width: "auto" }}
                   >
                     <div className="relative h-full rounded-2xl overflow-hidden border border-white/[0.1]">
+                      {/* Hidden canvas to capture first frame */}
+                      <canvas
+                        ref={(el) => { coverCanvasRefs.current[i] = el; }}
+                        className="hidden"
+                      />
+
                       <video
                         ref={(el) => { videoRefs.current[i] = el; }}
                         src={src}
@@ -104,16 +118,30 @@ const BastidoresSection = () => {
                         playsInline
                         preload="metadata"
                         controlsList="nodownload"
+                        onLoadedData={() => handleLoadedData(i)}
                         onPause={() => { if (playingIdx === i) setPlayingIdx(null); }}
                         onEnded={() => { if (playingIdx === i) setPlayingIdx(null); }}
                       />
+
+                      {/* Blurred frame cover overlay */}
                       {playingIdx !== i && (
                         <button
                           onClick={() => handlePlay(i)}
-                          className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors"
+                          className="absolute inset-0 flex items-center justify-center"
                         >
+                          {/* Blurred background frame */}
+                          {coverReady[i] && coverCanvasRefs.current[i] && (
+                            <img
+                              src={coverCanvasRefs.current[i]!.toDataURL()}
+                              alt=""
+                              className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-black/30" />
+
+                          {/* Play button */}
                           <div
-                            className="flex items-center gap-2.5 rounded-full px-5 py-2.5 backdrop-blur-md border border-white/[0.15]"
+                            className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2.5 backdrop-blur-md border border-white/[0.15]"
                             style={{
                               background: "rgba(255,255,255,0.08)",
                               boxShadow: "0 0 20px rgba(255,255,255,0.25), 0 0 40px rgba(255,255,255,0.1)",
@@ -133,7 +161,6 @@ const BastidoresSection = () => {
             </div>
           </div>
 
-          {/* Right arrow */}
           <button onClick={next} className={`${glassBtn} absolute right-0 sm:right-2 z-20`}>
             <ChevronRight size={22} />
           </button>
