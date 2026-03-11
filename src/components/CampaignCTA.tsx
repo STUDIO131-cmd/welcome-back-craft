@@ -71,6 +71,7 @@ const CampaignCTA = () => {
             className="relative rounded-2xl overflow-hidden border border-white/[0.1] max-h-[70vh] sm:max-h-[75vh] lg:max-h-[80vh]"
             style={{ aspectRatio: "9/16", width: "auto", margin: "0 auto" }}
           >
+            <canvas ref={canvasRef} className="hidden" />
             <video
               ref={videoRef}
               src={campanhasVideo}
@@ -80,18 +81,27 @@ const CampaignCTA = () => {
               loop
               playsInline
               preload="metadata"
+              onLoadedData={handleLoadedData}
             />
 
-            {/* Cover overlay with blur + play button */}
+            {/* Cover overlay with blurred frame + play button */}
             <AnimatePresence>
               {!isPlaying && (
                 <motion.div
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer backdrop-blur-md bg-black/30"
+                  className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
                   onClick={handlePlay}
                 >
+                  {coverDataUrl && (
+                    <img
+                      src={coverDataUrl}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/30" />
                   <motion.div
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.95 }}
