@@ -391,12 +391,13 @@ function selectBestLayout(items: ClassifiedItem[]): Row[] {
 
 const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: string; posterTime?: number; poster?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [playing, setPlaying] = useState(false);
   const [pendingPlay, setPendingPlay] = useState(false);
+  const [coverDataUrl, setCoverDataUrl] = useState<string | null>(null);
 
   const handlePlay = useCallback(() => {
-    if (poster && !playing) {
-      // Video element not in DOM yet — flag it and let useEffect handle playback
+    if ((poster || coverDataUrl) && !playing) {
       setPlaying(true);
       setPendingPlay(true);
       return;
@@ -407,9 +408,9 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
     v.muted = false;
     v.play();
     setPlaying(true);
-  }, [poster, playing]);
+  }, [poster, coverDataUrl, playing]);
 
-  // When switching from poster to video element, start playback once mounted
+  // When switching from poster/cover to video element, start playback once mounted
   useEffect(() => {
     if (pendingPlay && playing && videoRef.current) {
       const v = videoRef.current;
@@ -420,17 +421,43 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
     }
   }, [pendingPlay, playing]);
 
-  const handleLoadedMetadata = useCallback(() => {
+  // Capture frame for blurred cover when no poster image is provided
+  const handleSeeked = useCallback(() => {
     const v = videoRef.current;
-    if (v && posterTime !== undefined && !poster && !playing) {
-      v.currentTime = posterTime;
+    const canvas = canvasRef.current;
+    if (v && canvas && !coverDataUrl && !poster && !playing) {
+      canvas.width = v.videoWidth;
+      canvas.height = v.videoHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+        setCoverDataUrl(canvas.toDataURL());
+      }
+    }
+  }, [coverDataUrl, poster, playing]);
+
+  const handleLoadedData = useCallback(() => {
+    const v = videoRef.current;
+    if (v && !poster && !playing) {
+      if (posterTime !== undefined) {
+        v.currentTime = posterTime;
+      } else {
+        // Seek to 0.1s to get a non-black frame
+        v.currentTime = 0.1;
+      }
     }
   }, [posterTime, poster, playing]);
 
+  // The cover to show: explicit poster image OR captured frame
+  const coverSrc = poster || coverDataUrl;
+
   return (
     <div className="relative w-full h-full">
-      {poster && !playing ? (
-        <img src={poster} alt={alt} className="w-full h-full object-cover block" />
+      {/* Hidden canvas for frame capture */}
+      {!poster && <canvas ref={canvasRef} className="hidden" />}
+
+      {coverSrc && !playing ? (
+        <img src={coverSrc} alt={alt} className="w-full h-full object-cover block" />
       ) : (
         <video
           ref={videoRef}
@@ -438,8 +465,10 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           controls={playing}
           controlsList="nodownload"
           playsInline
-          preload={poster ? "auto" : "metadata"}
-          onLoadedMetadata={handleLoadedMetadata}
+          muted
+          preload="auto"
+          onLoadedData={handleLoadedData}
+          onSeeked={handleSeeked}
           onCanPlay={() => {
             if (pendingPlay) {
               const v = videoRef.current;
@@ -455,10 +484,20 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
       {!playing && (
         <button
           onClick={handlePlay}
-          className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors hover:bg-black/30"
+          className="absolute inset-0 flex items-center justify-center"
         >
+          {/* Blurred frame background */}
+          {coverSrc && (
+            <img
+              src={coverSrc}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover blur-xl scale-110 pointer-events-none"
+            />
+          )}
+          <div className="absolute inset-0 bg-black/30" />
+
           <div
-            className="flex items-center gap-2.5 rounded-full px-5 py-2.5 backdrop-blur-md border border-white/[0.15] transition-all duration-300 hover:scale-105"
+            className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2.5 backdrop-blur-md border border-white/[0.15] transition-all duration-300 hover:scale-105"
             style={{
               background: "rgba(255,255,255,0.08)",
               boxShadow: "0 0 20px rgba(255,255,255,0.25), 0 0 40px rgba(255,255,255,0.1)",
