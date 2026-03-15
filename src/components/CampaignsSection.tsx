@@ -388,7 +388,7 @@ const CampaignsSection = () => {
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
-              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg md:min-h-[280px]"
+              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -410,18 +410,20 @@ const CampaignsSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-0 h-full">
-                <div className="md:w-2/5 flex-shrink-0">
+              <div className="flex flex-col md:flex-row gap-0">
+                {/* Cover image — 1000×800 native ratio (5:4) */}
+                <div className="md:w-2/5 flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full aspect-[3/4] md:aspect-auto md:h-full md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      className="w-full h-auto md:h-full object-contain md:object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                       decoding="async"
+                      style={{ aspectRatio: "5/4" }}
                     />
                   ) : (
-                    <div className="w-full aspect-[3/4] md:aspect-auto md:h-full md:min-h-[280px] flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
+                    <div className="w-full flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700" style={{ aspectRatio: "5/4" }}>
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
