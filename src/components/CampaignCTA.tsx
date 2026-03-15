@@ -78,7 +78,7 @@ const CampaignCTA = () => {
           <div className="relative max-h-[70vh] sm:max-h-[75vh] lg:max-h-[80vh]" style={{ aspectRatio: "9/16", width: "auto", margin: "0 auto" }}>
             {/* Blurred glow background */}
             <div
-              className="absolute -inset-4 sm:-inset-6 rounded-3xl overflow-hidden -z-10 opacity-50 blur-2xl scale-105"
+              className="absolute -inset-6 sm:-inset-8 rounded-3xl overflow-hidden -z-10 opacity-30 blur-3xl scale-110 pointer-events-none"
               aria-hidden="true"
             >
               {coverDataUrl && (
