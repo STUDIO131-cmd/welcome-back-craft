@@ -194,6 +194,7 @@ const campaigns: {
   // 3 - Dani Fernandes Campanha de Natal
   {
     image: dnCover,
+    coverPosition: "center center",
     title: "Dani Fernandes | Campanha de Natal",
     subtitle: "Ação Comercial | Lançamento",
     description:
