@@ -361,6 +361,7 @@ const campaigns: {
   // 11 - Cravates
   {
     image: crCover,
+    coverPosition: "center center",
     title: "Coleção Cravates by Corpo De Ballet",
     subtitle: "Lançamento | Moda Ballet",
     description:
