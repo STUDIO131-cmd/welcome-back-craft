@@ -172,6 +172,7 @@ const campaigns: {
   // 2 - Pink Friday
   {
     image: pinkFridayCover,
+    coverPosition: "center center",
     title: "PINK Friday × Marina Fraga",
     subtitle: "Black Friday — Pink Shine",
     description:
