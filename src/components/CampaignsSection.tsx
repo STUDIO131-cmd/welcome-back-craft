@@ -277,6 +277,7 @@ const campaigns: {
   // 7 - Velvet Cherry
   {
     image: vcCover,
+    coverPosition: "center top",
     title: "Velvet Cherry by Dani Fernandes",
     subtitle: "Nova coleção | Lançamento",
     description:
