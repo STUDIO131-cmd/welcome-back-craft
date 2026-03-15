@@ -233,6 +233,7 @@ const campaigns: {
   // 5 - Etoiles
   {
     image: etCover,
+    coverPosition: "center top",
     title: "Etoiles by Corpo de Ballet Shop",
     subtitle: "Nova coleção | Lançamento",
     description:
