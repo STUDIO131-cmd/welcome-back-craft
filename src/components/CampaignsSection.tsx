@@ -134,10 +134,20 @@ type GalleryItem = {
   ratio?: number;
 };
 
-const campaigns = [
+const campaigns: {
+  image: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+  gallery: GalleryItem[];
+  manualLayout?: { indices: number[]; fractions?: number[]; heights?: number[] }[];
+  coverPosition?: string; // CSS object-position per campaign
+}[] = [
   // 1 - Cimples e Dani Fernandes
   {
     image: cimplesCover,
+    coverPosition: "center top",
     title: "Dani Fernandes × CIMPLES (by Carolina Ferraz)",
     subtitle: "Campanha de Dia das Mães",
     description:
@@ -162,6 +172,7 @@ const campaigns = [
   // 2 - Pink Friday
   {
     image: pinkFridayCover,
+    coverPosition: "center center",
     title: "PINK Friday × Marina Fraga",
     subtitle: "Black Friday — Pink Shine",
     description:
@@ -183,6 +194,7 @@ const campaigns = [
   // 3 - Dani Fernandes Campanha de Natal
   {
     image: dnCover,
+    coverPosition: "center center",
     title: "Dani Fernandes | Campanha de Natal",
     subtitle: "Ação Comercial | Lançamento",
     description:
@@ -198,6 +210,7 @@ const campaigns = [
   // 4 - The National Gallery
   {
     image: tngCover,
+    coverPosition: "center center",
     title: "Dani Fernandes × The National Gallery",
     subtitle: "Lançamento de novas fragrâncias",
     description:
@@ -220,6 +233,7 @@ const campaigns = [
   // 5 - Etoiles
   {
     image: etCover,
+    coverPosition: "center top",
     title: "Etoiles by Corpo de Ballet Shop",
     subtitle: "Nova coleção | Lançamento",
     description:
@@ -241,6 +255,7 @@ const campaigns = [
   // 6 - La Vie
   {
     image: lvCover,
+    coverPosition: "center center",
     title: "La Vie - Moda Feminina",
     subtitle: "Reposicionamento | Ação Comercial | Inauguração",
     description:
@@ -262,6 +277,7 @@ const campaigns = [
   // 7 - Velvet Cherry
   {
     image: vcCover,
+    coverPosition: "center top",
     title: "Velvet Cherry by Dani Fernandes",
     subtitle: "Nova coleção | Lançamento",
     description:
@@ -285,6 +301,7 @@ const campaigns = [
   // 8 - Adriano Martins
   {
     image: adCover,
+    coverPosition: "center top",
     title: "Adriano Martins Estilista",
     subtitle: "Moda Noiva & Festa | Lançamento de Coleção",
     description:
@@ -306,6 +323,7 @@ const campaigns = [
   // 9 - AuraMia
   {
     image: aCover,
+    coverPosition: "center center",
     title: "Auramia by Beatriz Manganelli",
     subtitle: "Lançamento | Moda Fitness",
     description:
@@ -326,6 +344,7 @@ const campaigns = [
   // 10 - Nova Trida
   {
     image: ntCover,
+    coverPosition: "center center",
     title: "Nova Trida | Tecnologia & Suprimentos para Empresas",
     subtitle: "Reposicionamento | Institucional",
     description:
@@ -342,6 +361,7 @@ const campaigns = [
   // 11 - Cravates
   {
     image: crCover,
+    coverPosition: "center center",
     title: "Coleção Cravates by Corpo De Ballet",
     subtitle: "Lançamento | Moda Ballet",
     description:
@@ -410,19 +430,20 @@ const CampaignsSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-0">
-                {/* Cover image — 1000×800 native ratio (5:4) */}
-                <div className="md:w-2/5 flex-shrink-0 bg-white/[0.03] flex items-center justify-center">
+              <div className="flex flex-col md:flex-row gap-0 h-full">
+                {/* Cover image — fills container, position customizable per campaign */}
+                <div className="md:w-2/5 flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full h-auto object-contain"
+                      className="w-full h-full min-h-[220px] md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                       decoding="async"
+                      style={{ objectPosition: campaign.coverPosition || "center center" }}
                     />
                   ) : (
-                    <div className="w-full aspect-[5/4] flex items-center justify-center bg-white/[0.05]">
+                    <div className="w-full min-h-[220px] md:min-h-[280px] flex items-center justify-center bg-white/[0.05]">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
