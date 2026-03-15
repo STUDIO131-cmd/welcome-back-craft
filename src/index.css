@@ -160,6 +160,18 @@
     font-family: var(--font-heading);
   }
 
+  .font-epika {
+    font-family: 'NT Epika', serif;
+  }
+
+  .font-moneta {
+    font-family: 'Moneta', sans-serif;
+  }
+
+  .font-tiktok {
+    font-family: 'TikTok Sans', sans-serif;
+  }
+
   .section-container {
     @apply max-w-5xl mx-auto px-6;
   }
