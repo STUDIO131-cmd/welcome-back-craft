@@ -430,19 +430,20 @@ const CampaignsSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-0">
-                {/* Cover image — 1000×800 native ratio (5:4) */}
-                <div className="md:w-2/5 flex-shrink-0 bg-white/[0.03] flex items-center justify-center">
+              <div className="flex flex-col md:flex-row gap-0 h-full">
+                {/* Cover image — fills container, position customizable per campaign */}
+                <div className="md:w-2/5 flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full h-auto object-contain"
+                      className="w-full h-full min-h-[220px] md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                       decoding="async"
+                      style={{ objectPosition: campaign.coverPosition || "center center" }}
                     />
                   ) : (
-                    <div className="w-full aspect-[5/4] flex items-center justify-center bg-white/[0.05]">
+                    <div className="w-full min-h-[220px] md:min-h-[280px] flex items-center justify-center bg-white/[0.05]">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
