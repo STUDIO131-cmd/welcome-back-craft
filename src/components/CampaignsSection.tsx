@@ -416,8 +416,9 @@ const CampaignsSection = () => {
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full aspect-[4/3] md:aspect-auto md:h-full md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      className="w-full aspect-[3/4] md:aspect-auto md:h-full md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <div className="w-full aspect-[4/3] md:aspect-auto md:h-full md:min-h-[280px] flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
