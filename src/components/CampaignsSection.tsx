@@ -210,6 +210,7 @@ const campaigns: {
   // 4 - The National Gallery
   {
     image: tngCover,
+    coverPosition: "center center",
     title: "Dani Fernandes × The National Gallery",
     subtitle: "Lançamento de novas fragrâncias",
     description:
