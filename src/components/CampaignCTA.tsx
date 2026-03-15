@@ -75,33 +75,42 @@ const CampaignCTA = () => {
           className="mx-auto flex flex-col items-center gap-4 w-full"
         >
           {/* Video — vertical source → 9/16, height-capped */}
-          <div
-            className="relative rounded-2xl overflow-hidden border border-white/[0.1] max-h-[70vh] sm:max-h-[75vh] lg:max-h-[80vh]"
-            style={{ aspectRatio: "9/16", width: "auto", margin: "0 auto" }}
-          >
-            <canvas ref={canvasRef} className="hidden" />
+          <div className="relative max-h-[70vh] sm:max-h-[75vh] lg:max-h-[80vh]" style={{ aspectRatio: "9/16", width: "auto", margin: "0 auto" }}>
+            {/* Blurred glow background */}
+            <div
+              className="absolute -inset-4 sm:-inset-6 rounded-3xl overflow-hidden -z-10 opacity-50 blur-2xl scale-105"
+              aria-hidden="true"
+            >
+              {coverDataUrl && (
+                <img src={coverDataUrl} alt="" className="w-full h-full object-cover" />
+              )}
+            </div>
 
-            {/* Show captured poster or video element */}
-            {coverDataUrl && !isPlaying ? (
-              <img
-                src={coverDataUrl}
-                alt="Preview do vídeo"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <video
-                ref={videoRef}
-                src={campanhasVideo}
-                className="w-full h-full object-cover"
-                controlsList="nodownload"
-                muted
-                loop
-                playsInline
-                preload="auto"
-                onLoadedData={handleLoadedData}
-                onSeeked={handleSeeked}
-              />
-            )}
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.1] h-full">
+              <canvas ref={canvasRef} className="hidden" />
+
+              {/* Show captured poster or video element */}
+              {coverDataUrl && !isPlaying ? (
+                <img
+                  src={coverDataUrl}
+                  alt="Preview do vídeo"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <video
+                  ref={videoRef}
+                  src={campanhasVideo}
+                  className="w-full h-full object-cover"
+                  controlsList="nodownload"
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onLoadedData={handleLoadedData}
+                  onSeeked={handleSeeked}
+                />
+              )}
+            </div>
 
             {/* Play button overlay */}
             <AnimatePresence>

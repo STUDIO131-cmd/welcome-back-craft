@@ -421,7 +421,7 @@ const CampaignsSection = () => {
                       decoding="async"
                     />
                   ) : (
-                    <div className="w-full aspect-[4/3] md:aspect-auto md:h-full md:min-h-[280px] flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
+                    <div className="w-full aspect-[3/4] md:aspect-auto md:h-full md:min-h-[280px] flex items-center justify-center bg-white/[0.05] group-hover:scale-[1.02] transition-transform duration-700">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}

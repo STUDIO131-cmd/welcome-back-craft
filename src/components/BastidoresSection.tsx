@@ -130,7 +130,7 @@ const BastidoresSection = () => {
                           className="h-full w-full object-cover"
                           muted
                           playsInline
-                          preload="auto"
+                          preload="metadata"
                           controlsList="nodownload"
                           onLoadedData={() => handleLoadedData(i)}
                           onSeeked={() => handleSeeked(i)}
