@@ -301,6 +301,7 @@ const campaigns: {
   // 8 - Adriano Martins
   {
     image: adCover,
+    coverPosition: "center top",
     title: "Adriano Martins Estilista",
     subtitle: "Moda Noiva & Festa | Lançamento de Coleção",
     description:
