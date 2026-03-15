@@ -134,10 +134,20 @@ type GalleryItem = {
   ratio?: number;
 };
 
-const campaigns = [
+const campaigns: {
+  image: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+  gallery: GalleryItem[];
+  manualLayout?: { indices: number[]; fractions?: number[]; heights?: number[] }[];
+  coverPosition?: string; // CSS object-position per campaign
+}[] = [
   // 1 - Cimples e Dani Fernandes
   {
     image: cimplesCover,
+    coverPosition: "center top",
     title: "Dani Fernandes × CIMPLES (by Carolina Ferraz)",
     subtitle: "Campanha de Dia das Mães",
     description:
