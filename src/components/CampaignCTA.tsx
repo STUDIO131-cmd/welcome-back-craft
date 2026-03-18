@@ -122,7 +122,7 @@ const CampaignCTA = () => {
                   className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
                   onClick={handlePlay}
                 >
-                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
                   <motion.div
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.95 }}
