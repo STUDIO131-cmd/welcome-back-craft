@@ -430,23 +430,24 @@ const CampaignsSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-0 h-full">
-                {/* Cover image — fills container, position customizable per campaign */}
+              <div className="flex flex-col md:flex-row gap-0">
+                {/* Cover image — locked to 5:4, decoupled from text height */}
                 <div className="md:w-2/5 flex-shrink-0 overflow-hidden">
-                  {campaign.image ? (
-                    <img
-                      src={campaign.image}
-                      alt={campaign.title}
-                      className="w-full h-full min-h-[220px] md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                      loading="lazy"
-                      decoding="async"
-                      style={{ objectPosition: campaign.coverPosition || "center center" }}
-                    />
-                  ) : (
-                    <div className="w-full min-h-[220px] md:min-h-[280px] flex items-center justify-center bg-white/[0.05]">
-                      <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
-                    </div>
-                  )}
+                  <div className="relative w-full" style={{ aspectRatio: "5/4" }}>
+                    {campaign.image ? (
+                      <img
+                        src={campaign.image}
+                        alt={campaign.title}
+                        className="absolute inset-0 w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-700"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-white/[0.05]">
+                        <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className="p-6 md:p-8 md:w-3/5 space-y-3 flex flex-col justify-center">
                   <p className="text-xs tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
