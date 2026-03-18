@@ -430,39 +430,38 @@ const CampaignsSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-0">
-                {/* Cover image — locked to 5:4, decoupled from text height */}
-                <div className="md:w-2/5 flex-shrink-0 overflow-hidden">
-                  <div className="relative w-full" style={{ aspectRatio: "5/4" }}>
-                    {campaign.image ? (
-                      <img
-                        src={campaign.image}
-                        alt={campaign.title}
-                        className="absolute inset-0 w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-700"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-white/[0.05]">
-                        <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
-                      </div>
-                    )}
-                  </div>
+              <div className="flex flex-col md:flex-row gap-0 h-full">
+                {/* Cover image — 60% width on desktop, object-cover with focal point */}
+                <div className="md:w-3/5 flex-shrink-0 overflow-hidden">
+                  {campaign.image ? (
+                    <img
+                      src={campaign.image}
+                      alt={campaign.title}
+                      className="w-full h-full min-h-[220px] md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      loading="lazy"
+                      decoding="async"
+                      style={{ objectPosition: campaign.coverPosition || "center center" }}
+                    />
+                  ) : (
+                    <div className="w-full min-h-[220px] md:min-h-[280px] flex items-center justify-center bg-white/[0.05]">
+                      <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
+                    </div>
+                  )}
                 </div>
-                <div className="p-6 md:p-8 md:w-3/5 space-y-3 flex flex-col justify-center">
-                  <p className="text-xs tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
+                <div className="p-5 md:p-6 md:w-2/5 space-y-2 flex flex-col justify-center">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
                   <h3
-                    className="font-heading text-lg md:text-xl font-semibold"
+                    className="font-heading text-base md:text-lg font-semibold leading-tight"
                     style={{ color: "#FFFFFF", textShadow: "0 0 12px rgba(255,255,255,0.3)" }}
                   >
                     {campaign.title}
                   </h3>
-                  <p className="text-sm text-white/70 leading-relaxed">{campaign.description}</p>
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <p className="text-xs md:text-sm text-white/70 leading-relaxed line-clamp-5">{campaign.description}</p>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
                     {campaign.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 text-[10px] tracking-wider uppercase rounded-full bg-white/10 border border-white/20 text-white/60"
+                        className="px-2.5 py-0.5 text-[9px] tracking-wider uppercase rounded-full bg-white/10 border border-white/20 text-white/60"
                       >
                         {tag}
                       </span>
