@@ -54,7 +54,7 @@ const DifferentialsSection = () => {
                 <h3 className="font-heading text-lg font-semibold">
                   {diff.title}
                 </h3>
-                <p className="text-sm text-white/70 leading-relaxed">
+                <p className="text-sm text-foreground/70 leading-relaxed">
                   {diff.description}
                 </p>
               </div>
