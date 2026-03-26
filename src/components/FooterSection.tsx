@@ -13,7 +13,7 @@ const FooterSection = () => {
       href: "https://131fotos.studio131.com.br",
       external: true,
       disabled: true,
-      tooltip: "EM BREVE",
+      tag: "EM BREVE",
     },
     {
       label: "O PLANO PROFISSIONAL",
