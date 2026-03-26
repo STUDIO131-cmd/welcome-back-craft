@@ -8,7 +8,7 @@ import { Play } from "lucide-react";
 
 /* ───────── Types ───────── */
 
-type GalleryItem = { src: string; type: "image" | "video"; colSpan?: number; posterTime?: number; poster?: string; ratio?: number };
+type GalleryItem = { src: string; type: "image" | "video"; colSpan?: number; posterTime?: number; poster?: string; ratio?: number; fit?: "cover" | "contain" };
 
 type Orientation = "portrait" | "square" | "landscape";
 type VisualWeight = "hero" | "primary" | "secondary";
@@ -589,10 +589,20 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
           if (isManual && rowItemCount > 1 && !rowHeight) {
             const fracs = row.fractions;
             const sumFracs = fracs.reduce((s, f) => s + f, 0);
-            // Normalised height of each item: fraction / ratio
-            const maxNormH = Math.max(...row.items.map((it, i) => fracs[i] / it.ratio));
-            // Row aspect-ratio = totalWidth / height (normalised)
-            const computedRatio = sumFracs / maxNormH;
+            // If any item uses fit:"contain", use its normH to drive the row height
+            // so the contain item fits perfectly without letterboxing
+            const containItems = row.items.filter((it) => it.fit === "contain");
+            let targetNormH: number;
+            if (containItems.length > 0) {
+              // Use the contain item's natural height as the target
+              targetNormH = Math.max(...containItems.map((it) => {
+                const idx = row.items.indexOf(it);
+                return fracs[idx] / it.ratio;
+              }));
+            } else {
+              targetNormH = Math.max(...row.items.map((it, i) => fracs[i] / it.ratio));
+            }
+            const computedRatio = sumFracs / targetNormH;
             rowAspectRatio = `${computedRatio}`;
           }
 
@@ -611,6 +621,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
               {row.items.map((item, ci) => {
                 // For manual single-item rows, preserve the item's natural aspect ratio
                 const isSingleManual = isManual && rowItemCount === 1;
+                const itemFit = item.fit === "contain" ? "object-contain" : "object-cover";
                 return (
                 <div
                   key={`${ri}-${ci}`}
@@ -619,13 +630,13 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                 >
                   {item.type === "video" ? (
                     <div className="h-full w-full">
-                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />
+                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} fitMode={itemFit} />
                     </div>
                   ) : (
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className="w-full h-full object-cover block cursor-pointer"
+                      className={`w-full h-full ${itemFit} block cursor-pointer`}
                       loading="lazy"
                       onClick={() => {
                         if (onImageClick) {

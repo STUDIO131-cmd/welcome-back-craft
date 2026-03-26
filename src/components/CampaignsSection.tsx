@@ -132,6 +132,7 @@ type GalleryItem = {
   posterTime?: number;
   poster?: string;
   ratio?: number;
+  fit?: "cover" | "contain";
 };
 
 const campaigns: {
@@ -369,7 +370,7 @@ const campaigns: {
     tags: ["Produção visual", "Fotografia de campanha", "Roteiro + captação de vídeo"],
     gallery: [
       // 0: Video, 1: IMG_0706, 2: IMG_0455, 3: IMG_0423, 4: IMG_0276, 5: IMG_0190, 6: IMG_0143
-      { src: crVid1, type: "video", ratio: 9/16 },
+      { src: crVid1, type: "video", ratio: 9/16, fit: "contain" },
       { src: crImg2, type: "image" },
       { src: crImg3, type: "image" },
       { src: crImg1, type: "image" },
