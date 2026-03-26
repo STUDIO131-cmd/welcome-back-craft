@@ -389,7 +389,7 @@ function selectBestLayout(items: ClassifiedItem[]): Row[] {
 
 /* ───────── VideoPlayer ───────── */
 
-const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: string; posterTime?: number; poster?: string }) => {
+const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }: { src: string; alt: string; posterTime?: number; poster?: string; fitMode?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [playing, setPlaying] = useState(false);
