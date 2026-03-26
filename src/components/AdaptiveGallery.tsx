@@ -608,24 +608,25 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                 ...(rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
               }}
             >
-              {row.items.map((item, ci) => (
+              {row.items.map((item, ci) => {
+                const fitClass = isManual ? "object-contain" : "object-cover";
+                return (
                 <div
                   key={`${ri}-${ci}`}
-                  className="overflow-hidden rounded-xl bg-black/40 h-full w-full"
+                  className="overflow-hidden rounded-xl bg-black h-full w-full"
                 >
                   {item.type === "video" ? (
                     <div className="h-full w-full">
-                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />
+                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} fitMode={fitClass} />
                     </div>
                   ) : (
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className="w-full h-full object-cover block cursor-pointer"
+                      className={`w-full h-full ${fitClass} block cursor-pointer`}
                       loading="lazy"
                       onClick={() => {
                         if (onImageClick) {
-                          // Compute image-only index
                           const imageItems = items.filter(it => it.type === "image");
                           const imgIdx = imageItems.findIndex(it => it.src === item.src);
                           if (imgIdx !== -1) onImageClick(imgIdx);
@@ -634,7 +635,8 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                     />
                   )}
                 </div>
-              ))}
+                );
+              })}
             </div>
           );
         })
