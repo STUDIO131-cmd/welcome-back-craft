@@ -4,7 +4,7 @@ const FooterSection = () => {
   };
 
   const buttons = [
-    { label: "CAMPANHAS", href: "#campanhas" },
+    { label: "131 FOTOS", href: "#campanhas" },
     { label: "O PLANO PROFISSIONAL", href: "#orcamento" },
     { label: "THE JOURNEY", href: "#diferenciais", subtitle: "FRENTE EDUCACIONAL" },
     { label: "VOLTAR AO TOPO", onClick: scrollToTop },
