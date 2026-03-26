@@ -132,6 +132,7 @@ type GalleryItem = {
   posterTime?: number;
   poster?: string;
   ratio?: number;
+  fit?: "cover" | "contain";
 };
 
 const campaigns: {
