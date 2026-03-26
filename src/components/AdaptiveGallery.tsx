@@ -477,7 +477,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
           }}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
-          className="w-full h-full object-cover block"
+          className={`w-full h-full ${fitMode} block`}
           aria-label={alt}
         />
       )}
