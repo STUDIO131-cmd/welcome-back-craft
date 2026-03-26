@@ -42,7 +42,7 @@ const DifferentialsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <div className="w-full bg-black/50">
+              <div className="w-full bg-s131-black/50">
                 <img
                   src={diff.image}
                   alt={diff.title}
