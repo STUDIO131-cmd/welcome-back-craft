@@ -69,11 +69,6 @@ const FooterSection = () => {
                       {btn.subtitle}
                     </span>
                   )}
-                  {btn.tooltip && hoveredIndex === i && (
-                    <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white/90 text-black text-[9px] tracking-[0.15em] font-semibold px-2.5 py-1 rounded shadow-md z-20 whitespace-nowrap">
-                      {btn.tooltip}
-                    </span>
-                  )}
                 </a>
               );
             }
