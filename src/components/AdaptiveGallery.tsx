@@ -457,7 +457,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
       {!poster && <canvas ref={canvasRef} className="hidden" />}
 
       {coverSrc && !playing ? (
-        <img src={coverSrc} alt={alt} className="w-full h-full object-cover block" />
+        <img src={coverSrc} alt={alt} className={`w-full h-full ${fitMode} block`} />
       ) : (
         <video
           ref={videoRef}
