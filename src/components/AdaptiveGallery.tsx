@@ -611,6 +611,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
               {row.items.map((item, ci) => {
                 // For manual single-item rows, preserve the item's natural aspect ratio
                 const isSingleManual = isManual && rowItemCount === 1;
+                const itemFit = item.fit === "contain" ? "object-contain" : "object-cover";
                 return (
                 <div
                   key={`${ri}-${ci}`}
@@ -619,13 +620,13 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                 >
                   {item.type === "video" ? (
                     <div className="h-full w-full">
-                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />
+                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} fitMode={itemFit} />
                     </div>
                   ) : (
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className="w-full h-full object-cover block cursor-pointer"
+                      className={`w-full h-full ${itemFit} block cursor-pointer`}
                       loading="lazy"
                       onClick={() => {
                         if (onImageClick) {
