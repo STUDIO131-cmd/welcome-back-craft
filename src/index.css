@@ -4,9 +4,53 @@
 
 /* ============================================
    FONTES OFICIAIS STUDIO 131
+   Unificado: TikTok Sans como família principal
    ============================================ */
 
-/* NT EPIKA — Display */
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('/fonts/tiktok-regular.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('/fonts/tiktok-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('/fonts/tiktok-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('/fonts/tiktok-semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('/fonts/tiktok-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('/fonts/tiktok-bold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NT EPIKA — Display (mantida para uso pontual com .font-epika) */
 @font-face {
   font-family: 'NT Epika';
   src: url('/fonts/epika-thin.otf') format('opentype');
@@ -36,7 +80,7 @@
   font-display: swap;
 }
 
-/* MONETA — Body */
+/* MONETA — Mantida para uso pontual com .font-moneta */
 @font-face {
   font-family: 'Moneta';
   src: url('/fonts/moneta-light.ttf') format('truetype');
@@ -59,71 +103,86 @@
   font-display: swap;
 }
 
-/* TIKTOK SANS — UI */
-@font-face {
-  font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-semibold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @layer base {
   :root {
-    --background: 0 0% 10%;
-    --foreground: 0 0% 92%;
+    /* ── Studio 131 Official Palette ── */
 
-    --card: 0 0% 12%;
-    --card-foreground: 0 0% 92%;
+    /* Background & Foreground — dark editorial */
+    --background: 0 0% 17%;          /* #2b2b2b */
+    --foreground: 40 20% 91%;        /* #eaeaea */
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 92%;
+    --card: 0 0% 14%;               /* slightly darker than bg */
+    --card-foreground: 40 20% 91%;
 
-    --primary: 0 0% 92%;
-    --primary-foreground: 0 0% 10%;
+    --popover: 0 0% 14%;
+    --popover-foreground: 40 20% 91%;
 
-    --secondary: 0 0% 20%;
-    --secondary-foreground: 0 0% 92%;
+    /* Primary — Studio 131 deep blue */
+    --primary: 213 45% 33%;          /* #2d5978 */
+    --primary-foreground: 40 20% 91%;
 
-    --muted: 0 0% 18%;
-    --muted-foreground: 0 0% 70%;
+    /* Secondary — warm neutral */
+    --secondary: 0 0% 32%;           /* #515151 */
+    --secondary-foreground: 40 20% 91%;
 
-    --accent: 0 0% 22%;
-    --accent-foreground: 0 0% 92%;
+    /* Muted — soft gray */
+    --muted: 0 0% 27%;              /* between 2b2b2b and 515151 */
+    --muted-foreground: 0 0% 54%;    /* #888989 */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 92%;
+    /* Accent — Studio 131 purple */
+    --accent: 253 30% 36%;           /* #4a4375 */
+    --accent-foreground: 40 20% 91%;
+
+    /* Destructive — Studio 131 warm red */
+    --destructive: 5 60% 49%;        /* #c73c32 */
+    --destructive-foreground: 40 20% 91%;
 
     --border: 0 0% 25%;
-    --input: 0 0% 20%;
-    --ring: 0 0% 60%;
+    --input: 0 0% 22%;
+    --ring: 213 45% 33%;             /* matches primary */
 
     --radius: 0.75rem;
 
-    --font-display: 'Roboto Slab', serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-heading: 'Sora', sans-serif;
+    /* Typography — TikTok Sans unified */
+    --font-display: 'TikTok Sans', sans-serif;
+    --font-body: 'TikTok Sans', sans-serif;
+    --font-heading: 'TikTok Sans', sans-serif;
+
+    /* Studio 131 Extended Palette Tokens */
+    --s131-red: 5 60% 49%;           /* #c73c32 */
+    --s131-coral: 14 56% 55%;        /* #d15e4a */
+    --s131-peach: 18 55% 61%;        /* #d87e5f */
+
+    --s131-wine-deep: 328 62% 15%;   /* #3c0e29 */
+    --s131-wine: 342 73% 22%;        /* #630f2d */
+    --s131-wine-light: 330 36% 48%;  /* #95426b */
+    --s131-magenta: 322 55% 35%;     /* #892866 */
+
+    --s131-navy: 233 25% 27%;        /* #333856 */
+    --s131-purple: 249 30% 36%;      /* #4a4375 */
+    --s131-slate: 222 18% 43%;       /* #576084 */
+    --s131-indigo: 254 46% 31%;      /* #2f2a73 */
+
+    --s131-ocean: 203 45% 32%;       /* #2d5978 */
+    --s131-ocean-mid: 204 39% 48%;   /* #4a85aa */
+    --s131-ocean-light: 204 40% 63%; /* #75abcc */
+    --s131-ocean-vivid: 207 100% 32%;/* #0065a4 */
+
+    --s131-forest: 153 24% 19%;      /* #253d30 */
+    --s131-green: 153 31% 31%;       /* #35684a */
+    --s131-green-light: 153 16% 50%; /* #6c937d */
+    --s131-olive: 105 38% 22%;       /* #324f22 */
+
+    --s131-cream: 36 38% 90%;        /* #efe7da */
+    --s131-silver: 0 0% 92%;         /* #eaeaea */
+    --s131-gray-light: 0 0% 81%;     /* #cfcece */
+    --s131-gray: 0 0% 54%;           /* #888989 */
+    --s131-gray-dark: 0 0% 32%;      /* #515151 */
+    --s131-black: 0 0% 17%;          /* #2b2b2b */
+
+    /* Glow effects */
+    --shadow-glow: 0 0 20px hsla(213, 45%, 33%, 0.25);
+    --shadow-glow-accent: 0 0 20px hsla(253, 30%, 36%, 0.25);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -132,7 +191,7 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 213 45% 33%;
   }
 }
 
@@ -144,10 +203,33 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Safe area insets for modern devices */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+  }
+
+  /* Smooth transitions for all interactive elements */
+  a, button, input, textarea, select {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Ensure minimum touch targets */
+  button, a, [role="button"], input[type="radio"] + label, input[type="checkbox"] + label {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent horizontal overflow globally */
+  html, body {
+    overflow-x: hidden;
   }
 }
 
@@ -178,6 +260,21 @@
 
   .section-divider {
     @apply w-full max-w-lg mx-auto border-t border-border my-12;
+  }
+
+  /* Glass card utility */
+  .glass-card {
+    @apply backdrop-blur-xl border border-white/[0.15];
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Glass button utility */
+  .glass-btn {
+    @apply backdrop-blur-xl border border-white/[0.15] transition-all duration-300;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .glass-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
   }
 }
 

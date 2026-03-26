@@ -452,8 +452,8 @@ const CampaignsSection = () => {
                 <div className="p-5 md:p-6 md:w-2/5 space-y-2 flex flex-col justify-center">
                   <p className="text-[10px] tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
                   <h3
-                    className="font-heading text-base md:text-lg font-semibold leading-tight"
-                    style={{ color: "#FFFFFF", textShadow: "0 0 12px rgba(255,255,255,0.3)" }}
+                    className="font-heading text-base md:text-lg font-semibold leading-tight text-foreground"
+                    style={{ textShadow: "0 0 12px rgba(234,234,234,0.3)" }}
                   >
                     {campaign.title}
                   </h3>

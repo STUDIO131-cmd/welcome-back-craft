@@ -35,9 +35,8 @@ const ClientsCarousel = () => {
     <div className="w-full py-12 sm:py-16 md:py-20 relative">
       <div className="section-container">
         <h2
-          className="text-center text-foreground mb-8"
+          className="text-center text-foreground mb-8 font-heading"
           style={{
-            fontFamily: "'TikTok Sans', sans-serif",
             fontSize: "clamp(1.2rem, 4vw, 2rem)",
             fontWeight: 500,
             letterSpacing: "0.05em",

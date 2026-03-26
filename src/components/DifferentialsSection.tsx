@@ -36,13 +36,13 @@ const DifferentialsSection = () => {
           {differentials.map((diff, i) => (
             <motion.div
               key={i}
-              className="rounded-xl overflow-hidden bg-black text-white"
+              className="rounded-xl overflow-hidden bg-s131-black text-foreground"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <div className="w-full bg-black/50">
+              <div className="w-full bg-s131-black/50">
                 <img
                   src={diff.image}
                   alt={diff.title}
@@ -54,7 +54,7 @@ const DifferentialsSection = () => {
                 <h3 className="font-heading text-lg font-semibold">
                   {diff.title}
                 </h3>
-                <p className="text-sm text-white/70 leading-relaxed">
+                <p className="text-sm text-foreground/70 leading-relaxed">
                   {diff.description}
                 </p>
               </div>

@@ -14,9 +14,12 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Roboto Slab', 'serif'],
-        heading: ['Sora', 'sans-serif'],
-        body: ['DM Sans', 'sans-serif'],
+        display: ["TikTok Sans", "sans-serif"],
+        heading: ["TikTok Sans", "sans-serif"],
+        body: ["TikTok Sans", "sans-serif"],
+        epika: ["NT Epika", "serif"],
+        moneta: ["Moneta", "sans-serif"],
+        tiktok: ["TikTok Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -62,6 +65,32 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Studio 131 Extended Palette
+        "s131-red": "hsl(var(--s131-red))",
+        "s131-coral": "hsl(var(--s131-coral))",
+        "s131-peach": "hsl(var(--s131-peach))",
+        "s131-wine-deep": "hsl(var(--s131-wine-deep))",
+        "s131-wine": "hsl(var(--s131-wine))",
+        "s131-wine-light": "hsl(var(--s131-wine-light))",
+        "s131-magenta": "hsl(var(--s131-magenta))",
+        "s131-navy": "hsl(var(--s131-navy))",
+        "s131-purple": "hsl(var(--s131-purple))",
+        "s131-slate": "hsl(var(--s131-slate))",
+        "s131-indigo": "hsl(var(--s131-indigo))",
+        "s131-ocean": "hsl(var(--s131-ocean))",
+        "s131-ocean-mid": "hsl(var(--s131-ocean-mid))",
+        "s131-ocean-light": "hsl(var(--s131-ocean-light))",
+        "s131-ocean-vivid": "hsl(var(--s131-ocean-vivid))",
+        "s131-forest": "hsl(var(--s131-forest))",
+        "s131-green": "hsl(var(--s131-green))",
+        "s131-green-light": "hsl(var(--s131-green-light))",
+        "s131-olive": "hsl(var(--s131-olive))",
+        "s131-cream": "hsl(var(--s131-cream))",
+        "s131-silver": "hsl(var(--s131-silver))",
+        "s131-gray-light": "hsl(var(--s131-gray-light))",
+        "s131-gray": "hsl(var(--s131-gray))",
+        "s131-gray-dark": "hsl(var(--s131-gray-dark))",
+        "s131-black": "hsl(var(--s131-black))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -70,20 +99,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {

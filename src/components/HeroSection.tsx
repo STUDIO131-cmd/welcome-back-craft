@@ -5,7 +5,7 @@ import logoHeader from "@/assets/logo-campanhas-header.png";
 const HeroSection = () => {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[70vh] py-8 sm:py-12 md:py-20 px-4 sm:px-6 text-center">
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #4a4375, transparent)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, hsl(249, 30%, 36%), transparent)' }} />
 
       <motion.img
         src={logoHeader}
