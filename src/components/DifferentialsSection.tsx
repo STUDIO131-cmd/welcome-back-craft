@@ -36,7 +36,7 @@ const DifferentialsSection = () => {
           {differentials.map((diff, i) => (
             <motion.div
               key={i}
-              className="rounded-xl overflow-hidden bg-black text-white"
+              className="rounded-xl overflow-hidden bg-s131-black text-foreground"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
