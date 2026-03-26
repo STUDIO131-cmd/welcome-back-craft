@@ -389,7 +389,7 @@ function selectBestLayout(items: ClassifiedItem[]): Row[] {
 
 /* ───────── VideoPlayer ───────── */
 
-const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: string; posterTime?: number; poster?: string }) => {
+const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }: { src: string; alt: string; posterTime?: number; poster?: string; fitMode?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -457,7 +457,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
       {!poster && <canvas ref={canvasRef} className="hidden" />}
 
       {coverSrc && !playing ? (
-        <img src={coverSrc} alt={alt} className="w-full h-full object-cover block" />
+        <img src={coverSrc} alt={alt} className={`w-full h-full ${fitMode} block`} />
       ) : (
         <video
           ref={videoRef}
@@ -477,7 +477,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster }: { src: string; alt: strin
           }}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
-          className="w-full h-full object-cover block"
+          className={`w-full h-full ${fitMode} block`}
           aria-label={alt}
         />
       )}
@@ -592,10 +592,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
             // Normalised height of each item: fraction / ratio
             const maxNormH = Math.max(...row.items.map((it, i) => fracs[i] / it.ratio));
             // Row aspect-ratio = totalWidth / height (normalised)
-            let computedRatio = sumFracs / maxNormH;
-            // Cap: prevent portrait-dominated rows from becoming too tall
-            // Minimum aspect ratio of 1.8 ensures reasonable row height
-            if (computedRatio < 1.8) computedRatio = 1.8;
+            const computedRatio = sumFracs / maxNormH;
             rowAspectRatio = `${computedRatio}`;
           }
 
@@ -606,15 +603,17 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                 display: "grid",
                 gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
                 gap: "8px",
-                alignItems: "stretch",
+                alignItems: isManual ? "center" : "stretch",
                 ...(rowHeight ? { height: rowHeight } : {}),
-                ...(rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
+                ...(!isManual && rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
               }}
             >
-              {row.items.map((item, ci) => (
+              {row.items.map((item, ci) => {
+                return (
                 <div
                   key={`${ri}-${ci}`}
-                  className="overflow-hidden rounded-xl bg-black/40 h-full w-full"
+                  className="overflow-hidden rounded-xl bg-black w-full"
+                  style={isManual ? { aspectRatio: `${item.ratio}` } : { height: "100%" }}
                 >
                   {item.type === "video" ? (
                     <div className="h-full w-full">
@@ -628,7 +627,6 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                       loading="lazy"
                       onClick={() => {
                         if (onImageClick) {
-                          // Compute image-only index
                           const imageItems = items.filter(it => it.type === "image");
                           const imgIdx = imageItems.findIndex(it => it.src === item.src);
                           if (imgIdx !== -1) onImageClick(imgIdx);
@@ -637,7 +635,8 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                     />
                   )}
                 </div>
-              ))}
+                );
+              })}
             </div>
           );
         })
