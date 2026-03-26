@@ -603,17 +603,19 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                 display: "grid",
                 gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
                 gap: "8px",
-                alignItems: isManual ? "center" : "stretch",
+                alignItems: "stretch",
                 ...(rowHeight ? { height: rowHeight } : {}),
-                ...(!isManual && rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
+                ...(rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
               }}
             >
               {row.items.map((item, ci) => {
+                // For manual single-item rows, preserve the item's natural aspect ratio
+                const isSingleManual = isManual && rowItemCount === 1;
                 return (
                 <div
                   key={`${ri}-${ci}`}
-                  className="overflow-hidden rounded-xl bg-black w-full"
-                  style={isManual ? { aspectRatio: `${item.ratio}` } : { height: "100%" }}
+                  className="overflow-hidden rounded-xl bg-black w-full h-full"
+                  style={isSingleManual ? { aspectRatio: `${item.ratio}` } : {}}
                 >
                   {item.type === "video" ? (
                     <div className="h-full w-full">
