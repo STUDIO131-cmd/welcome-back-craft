@@ -8,7 +8,7 @@ import { Play } from "lucide-react";
 
 /* ───────── Types ───────── */
 
-type GalleryItem = { src: string; type: "image" | "video"; colSpan?: number; posterTime?: number; poster?: string; ratio?: number };
+type GalleryItem = { src: string; type: "image" | "video"; colSpan?: number; posterTime?: number; poster?: string; ratio?: number; fit?: "cover" | "contain" };
 
 type Orientation = "portrait" | "square" | "landscape";
 type VisualWeight = "hero" | "primary" | "secondary";
