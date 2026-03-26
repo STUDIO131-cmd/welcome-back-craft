@@ -603,27 +603,27 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                 display: "grid",
                 gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
                 gap: "8px",
-                alignItems: "stretch",
+                alignItems: isManual ? "center" : "stretch",
                 ...(rowHeight ? { height: rowHeight } : {}),
-                ...(rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
+                ...(!isManual && rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
               }}
             >
               {row.items.map((item, ci) => {
-                const fitClass = isManual ? "object-contain" : "object-cover";
                 return (
                 <div
                   key={`${ri}-${ci}`}
-                  className="overflow-hidden rounded-xl bg-black h-full w-full"
+                  className="overflow-hidden rounded-xl bg-black w-full"
+                  style={isManual ? { aspectRatio: `${item.ratio}` } : { height: "100%" }}
                 >
                   {item.type === "video" ? (
                     <div className="h-full w-full">
-                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} fitMode={fitClass} />
+                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} />
                     </div>
                   ) : (
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className={`w-full h-full ${fitClass} block cursor-pointer`}
+                      className="w-full h-full object-cover block cursor-pointer"
                       loading="lazy"
                       onClick={() => {
                         if (onImageClick) {
