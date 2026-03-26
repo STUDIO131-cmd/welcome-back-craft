@@ -13,7 +13,7 @@ const FooterSection = () => {
       href: "https://131fotos.studio131.com.br",
       external: true,
       disabled: true,
-      tooltip: "EM BREVE",
+      tag: "EM BREVE",
     },
     {
       label: "O PLANO PROFISSIONAL",
@@ -56,15 +56,17 @@ const FooterSection = () => {
                   style={{ backgroundColor: "rgba(80, 90, 110, 0.25)" }}
                   onClick={btn.disabled ? (e) => e.preventDefault() : undefined}
                 >
-                  <span className="relative z-10">{btn.label}</span>
+                  <span className="relative z-10 inline-flex items-center gap-2">
+                    {btn.label}
+                    {btn.tag && (
+                      <span className="text-[8px] tracking-[0.12em] font-semibold bg-white/15 border border-white/20 text-foreground/70 px-1.5 py-0.5 rounded">
+                        {btn.tag}
+                      </span>
+                    )}
+                  </span>
                   {btn.subtitle && (
                     <span className="relative z-10 block text-[9px] tracking-[0.15em] text-foreground/50 mt-0.5">
                       {btn.subtitle}
-                    </span>
-                  )}
-                  {btn.tooltip && hoveredIndex === i && (
-                    <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white/90 text-black text-[9px] tracking-[0.15em] font-semibold px-2.5 py-1 rounded shadow-md z-20 whitespace-nowrap">
-                      {btn.tooltip}
                     </span>
                   )}
                 </a>
