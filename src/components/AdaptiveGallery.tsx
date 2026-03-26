@@ -592,7 +592,11 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
             // Normalised height of each item: fraction / ratio
             const maxNormH = Math.max(...row.items.map((it, i) => fracs[i] / it.ratio));
             // Row aspect-ratio = totalWidth / height (normalised)
-            rowAspectRatio = `${sumFracs / maxNormH}`;
+            let computedRatio = sumFracs / maxNormH;
+            // Cap: prevent portrait-dominated rows from becoming too tall
+            // Minimum aspect ratio of 1.8 ensures reasonable row height
+            if (computedRatio < 1.8) computedRatio = 1.8;
+            rowAspectRatio = `${computedRatio}`;
           }
 
           return (
