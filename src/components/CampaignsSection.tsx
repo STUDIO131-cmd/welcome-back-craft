@@ -378,10 +378,10 @@ const campaigns: {
       { src: crImg6, type: "image" },
     ] satisfies GalleryItem[],
     manualLayout: [
-      { indices: [0, 1], fractions: [3, 2] },       // L1: Vídeo + foto
-      { indices: [2] },                               // L2: Foto sozinha full-width
-      { indices: [3, 4] },                             // L3: Duas fotos
-      { indices: [5, 6], fractions: [1, 2] },          // L4: Duas fotos
+      { indices: [0, 1], fractions: [2, 3], height: "420px" },  // L1: Vídeo portrait contido + foto
+      { indices: [2] },                                          // L2: Foto sozinha full-width
+      { indices: [3, 4] },                                       // L3: Duas fotos
+      { indices: [5, 6] },                                       // L4: Duas fotos proporcionais
     ],
   },
 ];
