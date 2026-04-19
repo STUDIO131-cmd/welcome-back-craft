@@ -94,6 +94,8 @@ const CampaignCTA = () => {
                 <img
                   src={coverDataUrl}
                   alt="Preview do vídeo"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               ) : (

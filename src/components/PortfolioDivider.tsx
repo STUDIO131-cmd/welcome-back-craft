@@ -6,6 +6,10 @@ const PortfolioDivider = () => {
       <img
         src={portfolioTitle}
         alt="Portfólio"
+        width={420}
+        height={120}
+        loading="lazy"
+        decoding="async"
         className="w-[320px] md:w-[380px] lg:w-[420px] h-auto object-contain"
       />
     </div>

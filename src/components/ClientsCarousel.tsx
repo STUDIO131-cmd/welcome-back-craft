@@ -21,8 +21,11 @@ const ScrollRow = ({ items }: { items: string[] }) => (
           <img
             src={src}
             alt="Cliente"
+            width={165}
+            height={165}
             className="w-[117px] h-[117px] md:w-[153px] md:h-[153px] lg:w-[165px] lg:h-[165px] rounded-2xl object-contain transition-all duration-500"
             loading="lazy"
+            decoding="async"
           />
         </div>
       ))}

@@ -9,8 +9,14 @@ const HeroSection = () => {
 
       <motion.img
         src={logoHeader}
-        alt="Logo Campanhas"
-        className="relative z-10 w-[450px] md:w-[650px] max-w-full"
+        alt="Campanhas Studio 131"
+        width={650}
+        height={180}
+        loading="eager"
+        decoding="async"
+        // @ts-expect-error - fetchpriority is valid HTML attribute
+        fetchpriority="high"
+        className="relative z-10 w-[450px] md:w-[650px] max-w-full h-auto"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
