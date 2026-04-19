@@ -1,6 +1,5 @@
 import g1 from "@/assets/gallery/1.png";
 import g2 from "@/assets/gallery/2.png";
-import g23 from "@/assets/gallery/2-3.png";
 import g3 from "@/assets/gallery/3.png";
 import g4 from "@/assets/gallery/4.png";
 import g5 from "@/assets/gallery/5.png";
