@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import logoCampanhas from "@/assets/logo-campanhas.png";
-import logoHeader from "@/assets/logo-campanhas-header.png";
+import logoCampanhas from "@/assets/logo-campanhas.webp";
+import logoHeader from "@/assets/logo-campanhas-header.webp";
 
 const HeroSection = () => {
   return (

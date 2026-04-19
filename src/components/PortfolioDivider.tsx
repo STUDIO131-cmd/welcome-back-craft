@@ -1,4 +1,4 @@
-import portfolioTitle from "@/assets/portfolio-title.png";
+import portfolioTitle from "@/assets/portfolio-title.webp";
 
 const PortfolioDivider = () => {
   return (

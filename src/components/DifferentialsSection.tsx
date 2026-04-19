@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import diffTeam from "@/assets/diff-team.png";
-import diffOrganic from "@/assets/diff-organic.png";
-import diffStudio from "@/assets/diff-studio.png";
+import diffTeam from "@/assets/diff-team.webp";
+import diffOrganic from "@/assets/diff-organic.webp";
+import diffStudio from "@/assets/diff-studio.webp";
 
 const differentials = [
   {
