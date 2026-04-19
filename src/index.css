@@ -9,42 +9,42 @@
 
 @font-face {
   font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-regular.ttf') format('truetype');
+  src: url('/fonts/tiktok-regular.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-regular.ttf') format('truetype');
+  src: url('/fonts/tiktok-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-medium.ttf') format('truetype');
+  src: url('/fonts/tiktok-medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-semibold.ttf') format('truetype');
+  src: url('/fonts/tiktok-semibold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-bold.ttf') format('truetype');
+  src: url('/fonts/tiktok-bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'TikTok Sans';
-  src: url('/fonts/tiktok-bold.ttf') format('truetype');
+  src: url('/fonts/tiktok-bold.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -53,28 +53,28 @@
 /* NT EPIKA — Display (mantida para uso pontual com .font-epika) */
 @font-face {
   font-family: 'NT Epika';
-  src: url('/fonts/epika-thin.otf') format('opentype');
+  src: url('/fonts/epika-thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'NT Epika';
-  src: url('/fonts/epika-regular.otf') format('opentype');
+  src: url('/fonts/epika-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'NT Epika';
-  src: url('/fonts/epika-medium.otf') format('opentype');
+  src: url('/fonts/epika-medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'NT Epika';
-  src: url('/fonts/epika-bold.otf') format('opentype');
+  src: url('/fonts/epika-bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -83,21 +83,21 @@
 /* MONETA — Mantida para uso pontual com .font-moneta */
 @font-face {
   font-family: 'Moneta';
-  src: url('/fonts/moneta-light.ttf') format('truetype');
+  src: url('/fonts/moneta-light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Moneta';
-  src: url('/fonts/moneta-regular.ttf') format('truetype');
+  src: url('/fonts/moneta-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Moneta';
-  src: url('/fonts/moneta-bold.ttf') format('truetype');
+  src: url('/fonts/moneta-bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
