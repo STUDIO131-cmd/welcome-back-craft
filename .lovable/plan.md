@@ -1,40 +1,28 @@
 
 
-## Problema
+## Mudanças
 
-Em `CampaignsSection.tsx` (linha 460), as descrições têm `line-clamp-5` aplicado, e o layout desktop divide o card em **60% imagem + 40% texto**, sobrando pouca largura para o texto. Resultado: praticamente todas as descrições (que têm 3–6 linhas com quebras) ficam truncadas com "...".
+### 1. Reduzir capa das campanhas em 50% (`CampaignsSection.tsx`)
 
-## Opções de solução
+Linhas 441 e 447 — alturas mínimas atuais: `min-h-[280px] md:min-h-[420px]`.
 
-### Opção A — Remover o truncamento (mínima mudança)
-Tira o `line-clamp-5`. Descrição aparece inteira ao lado da imagem. Cards ficam com alturas variáveis (umas mais altas que outras). Mantém layout horizontal desktop.
+Reduzir para metade:
+- Mobile: `280px` → `140px`
+- Desktop: `420px` → `210px`
 
-### Opção B — Empilhar (sua sugestão)
-Imagem em cima, texto embaixo, em **todos os breakpoints**. Texto ocupa largura total do card → cabe tudo confortavelmente em 2–4 linhas. Cards ficam mais "verticais" e padronizados, estilo editorial/portfólio clássico. Visualmente mais limpo e legível.
+Como o card empilha imagem + texto e o texto vem logo abaixo, ele "acompanha" naturalmente — descrição sobe junto com o encolhimento da imagem. Sem outras alterações no bloco de texto (padding, tipografia, tags permanecem).
 
-### Opção C — Híbrido
-Mantém lado-a-lado no desktop mas aumenta a coluna de texto (50/50 em vez de 60/40) e remove o `line-clamp`. Compromisso entre o atual e empilhar.
+### 2. Aumentar opacidade do glass bar em 40% (`HeroSection.tsx`)
 
-## Recomendação: **Opção B (empilhar)**
+A "glass bar" é o pill com texto "Lançamentos, Coleções & Datas Estratégicas" (linha 36 do HeroSection):
+- Atual: `bg-white/10` (10% opacidade)
+- Novo: `bg-white/14` → arredondando para o token Tailwind mais próximo: **`bg-white/15`** (aumento de ~40% relativo: 10 × 1.4 = 14)
 
-Motivos:
-- Resolve 100% o corte — texto ganha largura total
-- Hierarquia visual mais forte: imagem grande chama atenção, texto abaixo descreve sem competir
-- Padroniza altura/proporção dos cards (mais "grid de portfólio")
-- Mantém consistência com o resto do site (Bastidores e Differentials já são empilhados)
+Borda permanece `border-white/20` para manter o contorno cristalino.
 
-## Mudanças técnicas (Opção B)
+## Arquivos editados
+- `src/components/CampaignsSection.tsx` — linhas 441, 447 (min-h reduzidos)
+- `src/components/HeroSection.tsx` — linha 36 (`bg-white/10` → `bg-white/15`)
 
-Arquivo único: `src/components/CampaignsSection.tsx`
-
-1. **Linha 434**: trocar `flex flex-col md:flex-row` → `flex flex-col` (sempre coluna)
-2. **Linha 436**: remover `md:w-3/5` da imagem (largura total)
-3. **Linha 441**: ajustar altura da imagem para uma proporção mais editorial (ex: `aspect-[16/10]` ou `min-h-[280px] md:min-h-[420px]`)
-4. **Linha 452**: remover `md:w-2/5`, ajustar padding (ex: `p-6 md:p-8`)
-5. **Linha 460**: remover `line-clamp-5` para mostrar descrição completa
-6. **Linha 455**: aumentar levemente o título no desktop (`text-base md:text-xl`) já que tem mais espaço
-7. **Linha 408**: aumentar gap vertical entre cards (`space-y-8 md:space-y-12`) para respirar
-8. Preservar hover overlay "VEJA A GALERIA" e o resto da estrutura intactos
-
-Sem mudança em: modal/galeria expandida, lightbox, lazy loading, animations.
+Sem impacto em: lightbox, modal, lazy loading, layout do card, tipografia.
 
