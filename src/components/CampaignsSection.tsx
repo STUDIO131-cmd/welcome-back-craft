@@ -405,7 +405,7 @@ const CampaignsSection = () => {
   return (
     <>
       <section className="py-12 sm:py-16 md:py-20 section-container">
-        <div className="space-y-6 md:space-y-10">
+        <div className="space-y-8 md:space-y-12">
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
@@ -431,33 +431,33 @@ const CampaignsSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-0 h-full">
-                {/* Cover image — 60% width on desktop, object-cover with focal point */}
-                <div className="md:w-3/5 flex-shrink-0 overflow-hidden">
+              <div className="flex flex-col gap-0 h-full">
+                {/* Cover image — full width, editorial proportion */}
+                <div className="w-full flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full h-full min-h-[220px] md:min-h-[280px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      className="w-full h-full min-h-[280px] md:min-h-[420px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                       decoding="async"
                       style={{ objectPosition: campaign.coverPosition || "center center" }}
                     />
                   ) : (
-                    <div className="w-full min-h-[220px] md:min-h-[280px] flex items-center justify-center bg-white/[0.05]">
+                    <div className="w-full min-h-[280px] md:min-h-[420px] flex items-center justify-center bg-white/[0.05]">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
                 </div>
-                <div className="p-5 md:p-6 md:w-2/5 space-y-2 flex flex-col justify-center">
+                <div className="p-6 md:p-8 space-y-2 flex flex-col">
                   <p className="text-[10px] tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
                   <h3
-                    className="font-heading text-base md:text-lg font-semibold leading-tight text-foreground"
+                    className="font-heading text-base md:text-xl font-semibold leading-tight text-foreground"
                     style={{ textShadow: "0 0 12px rgba(234,234,234,0.3)" }}
                   >
                     {campaign.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-white/70 leading-relaxed line-clamp-5">{campaign.description}</p>
+                  <p className="text-xs md:text-sm text-white/70 leading-relaxed">{campaign.description}</p>
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {campaign.tags.map((tag) => (
                       <span
