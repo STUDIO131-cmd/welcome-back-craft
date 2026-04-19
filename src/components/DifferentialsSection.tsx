@@ -46,8 +46,11 @@ const DifferentialsSection = () => {
                 <img
                   src={diff.image}
                   alt={diff.title}
-                  className="w-full object-contain"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto object-contain"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="p-6 space-y-2">

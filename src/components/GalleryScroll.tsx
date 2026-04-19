@@ -19,8 +19,11 @@ const GalleryScroll = () => {
             <img
               src={src}
               alt="Projeto"
+              width={400}
+              height={256}
               className="h-48 md:h-64 w-auto rounded-md object-cover"
               loading="lazy"
+              decoding="async"
             />
           </div>
         ))}

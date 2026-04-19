@@ -37,6 +37,10 @@ const FooterSection = () => {
       <div className="flex flex-col items-center gap-6">
         <img
           alt="Studio 131"
+          width={200}
+          height={80}
+          loading="lazy"
+          decoding="async"
           className="h-16 md:h-20 w-auto"
           src="/lovable-uploads/e96bcd27-f057-48d3-b6de-5d3953b0b2ba.png"
         />

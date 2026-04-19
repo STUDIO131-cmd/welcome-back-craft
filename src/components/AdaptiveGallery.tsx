@@ -457,7 +457,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
       {!poster && <canvas ref={canvasRef} className="hidden" />}
 
       {coverSrc && !playing ? (
-        <img src={coverSrc} alt={alt} className={`w-full h-full ${fitMode} block`} />
+        <img src={coverSrc} alt={alt} loading="lazy" decoding="async" className={`w-full h-full ${fitMode} block`} />
       ) : (
         <video
           ref={videoRef}
@@ -636,8 +636,9 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                     <img
                       src={item.src}
                       alt={`${campaignTitle} - ${item.index + 1}`}
-                      className={`w-full h-full ${itemFit} block cursor-pointer`}
                       loading="lazy"
+                      decoding="async"
+                      className={`w-full h-full ${itemFit} block cursor-pointer`}
                       onClick={() => {
                         if (onImageClick) {
                           const imageItems = items.filter(it => it.type === "image");
