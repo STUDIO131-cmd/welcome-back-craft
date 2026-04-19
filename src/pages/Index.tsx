@@ -7,7 +7,7 @@ import DifferentialsSection from "@/components/DifferentialsSection";
 import CtaSection from "@/components/CtaSection";
 import ContactForm from "@/components/ContactForm";
 import FooterSection from "@/components/FooterSection";
-import pageBg from "@/assets/page-bg.jpg";
+import pageBg from "@/assets/page-bg.webp";
 
 const Index = () => {
   return (

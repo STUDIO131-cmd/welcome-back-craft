@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
-import cimples from "@/assets/clients/cimples.png";
-import auramia from "@/assets/clients/auramia.png";
-import corpoBallet from "@/assets/clients/corpo-ballet.png";
-import ouromil from "@/assets/clients/ouromil.png";
-import anaFlavia from "@/assets/clients/ana-flavia.png";
-import laVie from "@/assets/clients/la-vie.png";
-import client7 from "@/assets/clients/client7.png";
-import client8 from "@/assets/clients/client8.png";
-import client9 from "@/assets/clients/client9.png";
-import client10 from "@/assets/clients/client10.png";
+import cimples from "@/assets/clients/cimples.webp";
+import auramia from "@/assets/clients/auramia.webp";
+import corpoBallet from "@/assets/clients/corpo-ballet.webp";
+import ouromil from "@/assets/clients/ouromil.webp";
+import anaFlavia from "@/assets/clients/ana-flavia.webp";
+import laVie from "@/assets/clients/la-vie.webp";
+import client7 from "@/assets/clients/client7.webp";
+import client8 from "@/assets/clients/client8.webp";
+import client9 from "@/assets/clients/client9.webp";
+import client10 from "@/assets/clients/client10.webp";
 
 const row1 = [cimples, auramia, corpoBallet, ouromil, anaFlavia];
 const row2 = [laVie, client7, client8, client9, client10];
