@@ -8,7 +8,7 @@ import g7 from "@/assets/gallery/7.png";
 import g8 from "@/assets/gallery/8.png";
 import g9 from "@/assets/gallery/9.png";
 
-const images = [g1, g2, g23, g3, g4, g5, g6, g7, g8, g9];
+const images = [g1, g2, g3, g4, g5, g6, g7, g8, g9];
 
 const GalleryScroll = () => {
   return (
