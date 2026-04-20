@@ -138,19 +138,39 @@ const posterModules = import.meta.glob<string>("@/assets/**/*.poster.webp", {
   import: "default",
   query: "?url",
 });
-const POSTERS_BY_KEY: Record<string, string> = {};
+/** Index posters by their relative path under /src/assets/, without the .poster.webp suffix.
+ *  Example: "/src/assets/campaigns/cimples/video1.poster.webp" -> key "campaigns/cimples/video1".
+ *  We also keep a basename fallback for cases where the video URL doesn't preserve the folder. */
+const POSTERS_BY_PATH: Record<string, string> = {};
+const POSTERS_BY_BASENAME: Record<string, string[]> = {};
 for (const path in posterModules) {
-  // path looks like: /src/assets/campaigns/cimples/video1.poster.webp
-  const m = path.match(/\/([^/]+)\.poster\.webp$/);
-  if (m) POSTERS_BY_KEY[m[1]] = posterModules[path];
+  const rel = path.replace(/^.*\/src\/assets\//, "").replace(/\.poster\.webp$/, "");
+  POSTERS_BY_PATH[rel] = posterModules[path];
+  const base = rel.split("/").pop() as string;
+  (POSTERS_BY_BASENAME[base] ||= []).push(posterModules[path]);
 }
-/** Given a Vite-hashed video URL, find a sibling poster by basename. */
+
+/** Given a Vite-hashed video URL like "/assets/video1-abc123.mp4", we cannot recover
+ *  the original folder. Instead, the caller must pass the *original* import path
+ *  via a side channel. To keep things simple, we build a video→poster map using the
+ *  same import.meta.glob trick on .mp4 files so each video URL maps to its sibling. */
+const videoModules = import.meta.glob<string>("@/assets/**/*.mp4", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+const POSTER_BY_VIDEO_URL: Record<string, string> = {};
+for (const path in videoModules) {
+  const rel = path.replace(/^.*\/src\/assets\//, "").replace(/\.mp4$/, "");
+  const videoUrl = videoModules[path];
+  const poster = POSTERS_BY_PATH[rel];
+  if (poster) POSTER_BY_VIDEO_URL[videoUrl] = poster;
+}
+
 function resolvePosterFor(videoUrl: string): string | undefined {
-  // videoUrl is like "/assets/video1-abc123.mp4" — extract the original basename.
-  // Vite hashes filename as `<name>-<hash>.<ext>`.
-  const m = videoUrl.match(/\/([^/]+?)(?:-[A-Za-z0-9_]+)?\.mp4(?:\?.*)?$/);
-  if (!m) return undefined;
-  return POSTERS_BY_KEY[m[1]];
+  // Strip query string just in case.
+  const cleanUrl = videoUrl.split("?")[0];
+  return POSTER_BY_VIDEO_URL[cleanUrl] || POSTER_BY_VIDEO_URL[videoUrl];
 }
 
 type GalleryItem = {
