@@ -1,79 +1,89 @@
 
 
-## Objetivo
+## Diagnóstico — galerias com solo no mobile/tablet
 
-Apenas no **mobile e tablet** (<1024px), reorganizar a galeria Cimples para que:
-- **L5 = tríade fotográfica** `[cImg5, cImg6, cImg7]`
-- **L6 = fechamento full-width** `[cImg8]`
-- **L4 = tríade** `[cImg4, cVid4, cVid5]` (acomoda o cVid5 deslocado)
-- L1–L3: pares como hoje no mobile auto
+| Galeria | Causa do solo | Item solo |
+|---|---|---|
+| **Pink Friday** | manualLayout cobre só 12 de 13 índices (0-11); índice 12 (`pfImg9`) fica órfão | pfImg9 — última linha |
+| **AuraMia** | 9 itens em auto → mobile faz 4 pares + 1 solo | aImg4 (último) |
+| **Nova Trida** | 5 itens em auto → mobile faz 2 pares + 1 solo | ntVid3 (último) |
+| **Cravates** | manual L2 declarado como `[2]` solo intencional | crImg3 |
 
-Desktop (≥1024px) permanece com o engine editorial automático intacto.
+Demais galerias (Cimples, Dani Natal, TNG, Etoiles, La Vie, Velvet Cherry, Adriano) já estão sem solos no mobile/tablet.
 
-## Layout final mobile/tablet (Cimples)
+## Solução
 
-```text
-L1: [cVid1, cImg1]                  ← par
-L2: [cImg2, cVid2]                  ← par
-L3: [cVid3, cImg3]                  ← par
-L4: [cImg4, cVid4, cVid5]           ← TRÍADE (foto + 2 vídeos)
-L5: [cImg5, cImg6, cImg7]           ← TRÍADE fotográfica (objetivo)
-L6: [cImg8]                         ← full-width final (objetivo)
+**Comportamento desejado**: solo permanece em linha própria, mas com largura **~60% do container**, centralizado horizontalmente. Aplicar **somente** em mobile e tablet (<1024px). Desktop intacto.
+
+### 1. `AdaptiveGallery.tsx` — render de linha solo no mobile/tablet
+
+Quando `viewport !== "desktop"` e a sub-row tem 1 único item, embrulhar/centralizar:
+
+```tsx
+const isSoloRowMobile = subItemCount === 1 && viewport !== "desktop";
+
+// No <div> da grid:
+style={{
+  display: "grid",
+  gridTemplateColumns: isSoloRowMobile ? "60% " : sub.fractions.map(...).join(" "),
+  justifyContent: isSoloRowMobile ? "center" : undefined,
+  gap: "8px",
+  ...
+}}
 ```
 
-Total: 6 linhas no mobile/tablet (atualmente são 7 com pares forçados).
+Funciona para solos automáticos (auto engine) e manuais (`indices: [N]`).
 
-## Mudanças técnicas
+### 2. `CampaignsSection.tsx` — Pink Friday
 
-### 1. `src/components/AdaptiveGallery.tsx`
-
-Tornar `manualLayout` viewport-aware. Aceitar duas formas:
+Adicionar a linha faltante ao `manualLayout` para garantir que `pfImg9` (índice 12) entre na galeria como solo:
 
 ```ts
-manualLayout?: ManualRow[] | { mobile?: ManualRow[]; tablet?: ManualRow[]; desktop?: ManualRow[] }
+manualLayout: [
+  { indices: [0, 1] },
+  { indices: [2, 3] },
+  { indices: [4, 5] },
+  { indices: [6, 7] },
+  { indices: [8, 9] },
+  { indices: [10, 11] },
+  { indices: [12] },        // L7: pfImg9 solo (será centralizado pela regra global)
+],
 ```
 
-No componente, resolver qual conjunto usar conforme `viewport`:
-- Se for `ManualRow[]` simples → usa em todos os breakpoints (compatível com Pink Friday atual).
-- Se for objeto → escolhe `mobile`/`tablet`/`desktop`. Se o breakpoint atual não tiver layout definido, cai no engine automático.
+### 3. AuraMia e Nova Trida — converter de auto para manual viewport-aware
 
-Também: como o `manualLayout` fará override pré-chunking, a função `chunkRow` continua dividindo no mobile, mas se a linha já estiver dentro do limite (≤2 mobile, ≤3 tablet) ela passa intacta. **Importante**: vamos permitir tríades no mobile via manualLayout — para isso, quando `isManual` for `true`, **pular o `chunkRow`** (a linha manual é literal, não é dividida).
+Adicionar `manualLayout` apenas para mobile/tablet (desktop continua usando o engine):
 
-### 2. `src/components/CampaignsSection.tsx`
-
-Adicionar `manualLayout` à campanha Cimples (linhas 152-175):
-
+**AuraMia** (9 itens):
 ```ts
 manualLayout: {
   mobile: [
-    { indices: [0, 1] },
-    { indices: [2, 3] },
-    { indices: [4, 5] },
-    { indices: [6, 7, 8] },
-    { indices: [9, 10, 11] },
-    { indices: [12] },
+    { indices: [0, 1] }, { indices: [2, 3] },
+    { indices: [4, 5] }, { indices: [6, 7] },
+    { indices: [8] },     // solo centralizado
   ],
-  tablet: [
-    { indices: [0, 1] },
-    { indices: [2, 3] },
-    { indices: [4, 5] },
-    { indices: [6, 7, 8] },
-    { indices: [9, 10, 11] },
-    { indices: [12] },
-  ],
-  // desktop: undefined → mantém engine automático
-},
+  tablet: [ /* mesmo */ ],
+}
 ```
 
-Pink Friday continua usando o formato antigo (`ManualRow[]` direto) — compatibilidade preservada.
+**Nova Trida** (5 itens):
+```ts
+manualLayout: {
+  mobile: [
+    { indices: [0, 1] }, { indices: [2, 3] },
+    { indices: [4] },     // solo centralizado
+  ],
+  tablet: [ /* mesmo */ ],
+}
+```
 
-### 3. Tipo da prop `manualLayout` na campanha
+### 4. Cravates
 
-Atualizar a interface no array `campaigns` para aceitar a forma estendida.
+Já tem L2 solo (`{ indices: [2] }`) — herda automaticamente o novo comportamento de centralização global. Nenhuma mudança no array.
 
-## Resultado esperado
+## Resultado
 
-- **Mobile (390px)** e **tablet (768px)**: L4 e L5 viram tríades; L6 fecha com cImg8 full-width. Visual mais editorial, menos repetitivo.
-- **Desktop (≥1024px)**: nenhum impacto — engine automático continua decidindo.
-- **Pink Friday e demais campanhas**: nenhuma regressão.
+- **Mobile (390px) / tablet (768px)**: todo solo (Pink Friday L7, AuraMia L5, Nova Trida L3, Cravates L2) renderiza a ~60% da largura, centralizado, com respiro lateral.
+- **Desktop (≥1024px)**: zero impacto — engine automático segue intacto e Cravates manual mantém comportamento atual (sem viewport split).
+- Nenhuma regressão nas galerias já corrigidas.
 
