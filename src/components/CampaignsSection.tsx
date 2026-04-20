@@ -181,8 +181,7 @@ const campaigns: {
         { indices: [4, 5] },
         { indices: [6, 7] },
         { indices: [8, 9] },
-        { indices: [10, 11] },
-        { indices: [12] }, // TODO: pareiar quando chegar a 14ª mídia
+        { indices: [10, 11, 12] }, // tríade de fechamento
       ],
       tablet: [
         { indices: [0, 1] },
@@ -190,8 +189,7 @@ const campaigns: {
         { indices: [4, 5] },
         { indices: [6, 7] },
         { indices: [8, 9] },
-        { indices: [10, 11] },
-        { indices: [12] }, // TODO: pareiar quando chegar a 14ª mídia
+        { indices: [10, 11, 12] }, // tríade de fechamento
       ],
       // desktop: undefined → automatic engine
     },
