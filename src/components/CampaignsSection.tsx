@@ -574,20 +574,17 @@ const CampaignsSection = () => {
                     </div>
                   </div>
                 </div>
-                <div className="p-6 md:p-8 space-y-2 flex flex-col">
-                  <p className="text-[10px] tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
-                  <h3
-                    className="font-heading text-base md:text-xl font-semibold leading-tight text-foreground"
-                    style={{ textShadow: "0 0 12px rgba(234,234,234,0.3)" }}
-                  >
+                <div className="p-6 md:p-8 space-y-2 flex flex-col bg-[#EAEAEA]">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-s131-purple/70">{campaign.subtitle}</p>
+                  <h3 className="font-heading text-base md:text-xl font-semibold leading-tight text-s131-purple">
                     {campaign.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-white/70 leading-relaxed">{campaign.description}</p>
+                  <p className="text-xs md:text-sm text-[#2B2B2B] leading-relaxed">{campaign.description}</p>
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {campaign.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2.5 py-0.5 text-[9px] tracking-wider uppercase rounded-full bg-white/10 border border-white/20 text-white/60"
+                        className="px-2.5 py-0.5 text-[9px] tracking-wider uppercase rounded-full bg-s131-purple/10 border border-s131-purple/20 text-s131-purple"
                       >
                         {tag}
                       </span>
