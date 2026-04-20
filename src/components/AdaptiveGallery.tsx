@@ -426,9 +426,11 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
   const [playing, setPlaying] = useState(false);
   const [pendingPlay, setPendingPlay] = useState(false);
   const [coverDataUrl, setCoverDataUrl] = useState<string | null>(null);
+  // Use the explicit poster passed in (resolved upstream via Vite import map).
+  const resolvedPoster = poster;
 
   const handlePlay = useCallback(() => {
-    if ((poster || coverDataUrl) && !playing) {
+    if ((resolvedPoster || coverDataUrl) && !playing) {
       setPlaying(true);
       setPendingPlay(true);
       return;
@@ -439,7 +441,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
     v.muted = false;
     v.play();
     setPlaying(true);
-  }, [poster, coverDataUrl, playing]);
+  }, [resolvedPoster, coverDataUrl, playing]);
 
   // When switching from poster/cover to video element, start playback once mounted
   useEffect(() => {
@@ -452,11 +454,11 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
     }
   }, [pendingPlay, playing]);
 
-  // Capture frame for blurred cover when no poster image is provided
+  // Fallback: capture frame for cover when no poster image is provided/resolved
   const handleSeeked = useCallback(() => {
     const v = videoRef.current;
     const canvas = canvasRef.current;
-    if (v && canvas && !coverDataUrl && !poster && !playing) {
+    if (v && canvas && !coverDataUrl && !resolvedPoster && !playing) {
       canvas.width = v.videoWidth;
       canvas.height = v.videoHeight;
       const ctx = canvas.getContext("2d");
@@ -465,11 +467,11 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
         setCoverDataUrl(canvas.toDataURL());
       }
     }
-  }, [coverDataUrl, poster, playing]);
+  }, [coverDataUrl, resolvedPoster, playing]);
 
   const handleLoadedData = useCallback(() => {
     const v = videoRef.current;
-    if (v && !poster && !playing) {
+    if (v && !resolvedPoster && !playing) {
       if (posterTime !== undefined) {
         v.currentTime = posterTime;
       } else {
@@ -477,15 +479,15 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
         v.currentTime = 0.1;
       }
     }
-  }, [posterTime, poster, playing]);
+  }, [posterTime, resolvedPoster, playing]);
 
   // The cover to show: explicit poster image OR captured frame
-  const coverSrc = poster || coverDataUrl;
+  const coverSrc = resolvedPoster || coverDataUrl;
 
   return (
     <div className="relative w-full h-full">
       {/* Hidden canvas for frame capture */}
-      {!poster && <canvas ref={canvasRef} className="hidden" />}
+      {!resolvedPoster && <canvas ref={canvasRef} className="hidden" />}
 
       {coverSrc && !playing ? (
         <img src={coverSrc} alt={alt} loading="lazy" decoding="async" className={`w-full h-full ${fitMode} block`} />
@@ -497,7 +499,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
           controlsList="nodownload"
           playsInline
           muted
-          preload="auto"
+          preload="metadata"
           onLoadedData={handleLoadedData}
           onSeeked={handleSeeked}
           onCanPlay={() => {
