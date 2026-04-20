@@ -17,6 +17,8 @@ import pfImg4 from "@/assets/campaigns/pinkfriday/DSC05583.webp";
 import pfImg5 from "@/assets/campaigns/pinkfriday/5D4A6295_1.webp";
 import pfImg6 from "@/assets/campaigns/pinkfriday/DSC05586_1.webp";
 import pfImg7 from "@/assets/campaigns/pinkfriday/5D4A6286.webp";
+import pfImg8 from "@/assets/campaigns/pinkfriday/DSC05589.webp";
+import pfImg9 from "@/assets/campaigns/pinkfriday/A3_6.webp";
 import tngCover from "@/assets/campaigns/tng/cover.webp";
 import tngVid1 from "@/assets/campaigns/tng/TNG-Campaing01.mp4";
 import tngImg1 from "@/assets/campaigns/tng/5D4A5594.webp";
@@ -187,17 +189,19 @@ const campaigns: {
       { src: pfVid3, type: "video", colSpan: 2 },
       { src: pfImg3, type: "image", colSpan: 1 },
       { src: pfImg4, type: "image", colSpan: 1 },
-      { src: pfImg5, type: "image", colSpan: 2 },
-      { src: pfImg7, type: "image", colSpan: 2 },
-      { src: pfImg6, type: "image", colSpan: 2 },
+      { src: pfImg5, type: "image", colSpan: 1 },
+      { src: pfImg7, type: "image", colSpan: 1 },
+      { src: pfImg6, type: "image", colSpan: 1 },
+      { src: pfImg8, type: "image", colSpan: 1 },
+      { src: pfImg9, type: "image", colSpan: 1 },
     ] satisfies GalleryItem[],
     manualLayout: [
       { indices: [0] },          // L1: vídeo principal full-width
       { indices: [1, 2] },       // L2: 2 fotos
       { indices: [3, 4] },       // L3: 2 vídeos
-      { indices: [5, 6] },       // L4a: 2 fotos (era parte da linha 4)
-      { indices: [7, 8] },       // L4b: 2 fotos (era parte da linha 4)
-      { indices: [9] },          // L5: foto final
+      { indices: [5, 6] },       // L4: 2 fotos
+      { indices: [7, 8] },       // L5: 2 fotos
+      { indices: [9, 10] },      // L6: 2 fotos (novas)
     ],
   },
   // 3 - Dani Fernandes Campanha de Natal
