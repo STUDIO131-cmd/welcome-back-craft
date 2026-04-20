@@ -540,14 +540,15 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
 /* ───────── Manual layout types ───────── */
 
 type ManualRow = { indices: number[]; fractions?: number[]; height?: string };
+type ResponsiveManualLayout = { mobile?: ManualRow[]; tablet?: ManualRow[]; desktop?: ManualRow[] };
 
 /* ───────── Main component ───────── */
 
 type Props = {
   items: GalleryItem[];
   campaignTitle: string;
-  /** Optional manual layout: array of rows, each with item indices and optional fr fractions */
-  manualLayout?: ManualRow[];
+  /** Optional manual layout: array of rows, OR per-viewport object. When per-viewport, missing breakpoints fall back to auto engine. */
+  manualLayout?: ManualRow[] | ResponsiveManualLayout;
   /** Callback when an image is clicked — receives the index within images-only array */
   onImageClick?: (imageIndex: number) => void;
 };
@@ -558,8 +559,15 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
   const viewport = useViewport();
   const maxPerRow = viewport === "mobile" ? 2 : viewport === "tablet" ? 3 : 99;
 
+  // Resolve which manual layout (if any) applies for the current viewport.
+  const activeManualLayout: ManualRow[] | undefined = (() => {
+    if (!manualLayout) return undefined;
+    if (Array.isArray(manualLayout)) return manualLayout;
+    return manualLayout[viewport];
+  })();
+
   useEffect(() => {
-    if (manualLayout) {
+    if (activeManualLayout) {
       // Manual mode: build rows from provided layout
       let cancelled = false;
       (async () => {
