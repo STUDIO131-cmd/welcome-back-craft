@@ -409,7 +409,7 @@ const CampaignsSection = () => {
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
-              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg"
+              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg w-[48%] mx-auto"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -433,7 +433,7 @@ const CampaignsSection = () => {
 
               <div className="flex flex-col gap-0 h-full">
                 {/* Cover image — full width, editorial proportion */}
-                <div className="w-[48%] mx-auto flex-shrink-0 overflow-hidden">
+                <div className="w-full flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
@@ -449,7 +449,7 @@ const CampaignsSection = () => {
                     </div>
                   )}
                 </div>
-                <div className="w-[48%] mx-auto p-6 md:p-8 space-y-2 flex flex-col">
+                <div className="p-6 md:p-8 space-y-2 flex flex-col">
                   <p className="text-[10px] tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
                   <h3
                     className="font-heading text-base md:text-xl font-semibold leading-tight text-foreground"
