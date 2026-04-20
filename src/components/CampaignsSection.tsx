@@ -449,7 +449,7 @@ const CampaignsSection = () => {
                     </div>
                   )}
                 </div>
-                <div className="p-6 md:p-8 space-y-2 flex flex-col">
+                <div className="w-[48%] mx-auto p-6 md:p-8 space-y-2 flex flex-col">
                   <p className="text-[10px] tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
                   <h3
                     className="font-heading text-base md:text-xl font-semibold leading-tight text-foreground"
