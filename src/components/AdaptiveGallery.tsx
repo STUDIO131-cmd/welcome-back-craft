@@ -578,7 +578,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
           classify(item, item.ratio ?? (dims[i].w / dims[i].h), i, totalVideos)
         );
 
-        const manualRows: Row[] = manualLayout.map((mr) => {
+        const manualRows: Row[] = activeManualLayout.map((mr) => {
           const rowItems = mr.indices.map((idx) => classified[idx]);
           const fractions = mr.fractions || rowItems.map((it) => it.ratio);
           const sumRatios = fractions.reduce((s, f) => s + f, 0);
@@ -605,7 +605,7 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
       if (!cancelled) setRows(best);
     })();
     return () => { cancelled = true; };
-  }, [items, manualLayout]);
+  }, [items, manualLayout, viewport]);
 
   return (
     <div ref={containerRef} className="w-full space-y-2">
@@ -617,12 +617,15 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
         </div>
       ) : (
         rows.flatMap((row, ri) => {
-          const isManual = !!manualLayout;
-          const manualRow = manualLayout?.[ri];
+          const isManual = !!activeManualLayout;
+          const manualRow = activeManualLayout?.[ri];
           const rowHeight = manualRow?.height;
 
-          // Split into sub-rows on mobile/tablet to avoid squeezed items
-          const subRows = chunkRow(row.items, row.fractions, maxPerRow);
+          // Split into sub-rows on mobile/tablet to avoid squeezed items.
+          // Manual rows are literal — never chunked, so trios on mobile are allowed.
+          const subRows = isManual
+            ? [{ items: row.items, fractions: row.fractions }]
+            : chunkRow(row.items, row.fractions, maxPerRow);
 
           return subRows.map((sub, si) => {
             const subItemCount = sub.items.length;
