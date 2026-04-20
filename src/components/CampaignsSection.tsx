@@ -225,6 +225,7 @@ const campaigns: {
       { indices: [6, 7] },       // L4: 2 fotos
       { indices: [8, 9] },       // L5: 2 fotos
       { indices: [10, 11] },     // L6: 2 fotos
+      { indices: [12] },         // L7: pfImg9 solo (centralizado em mobile/tablet)
     ],
   },
   // 3 - Dani Fernandes Campanha de Natal
@@ -392,6 +393,22 @@ const campaigns: {
       { src: aImg3, type: "image", colSpan: 1 },
       { src: aImg4, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
+    manualLayout: {
+      mobile: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4, 5] },
+        { indices: [6, 7] },
+        { indices: [8] },
+      ],
+      tablet: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4, 5] },
+        { indices: [6, 7] },
+        { indices: [8] },
+      ],
+    },
   },
   // 10 - Nova Trida
   {
@@ -409,6 +426,18 @@ const campaigns: {
       { src: ntVid2, type: "video", colSpan: 2 },
       { src: ntVid3, type: "video", colSpan: 3 },
     ] satisfies GalleryItem[],
+    manualLayout: {
+      mobile: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4] },
+      ],
+      tablet: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4] },
+      ],
+    },
   },
   // 11 - Cravates
   {
