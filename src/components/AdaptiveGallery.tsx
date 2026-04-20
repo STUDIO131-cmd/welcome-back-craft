@@ -1,6 +1,37 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 
+/* ───────── Responsive viewport hook ───────── */
+function useViewport(): "mobile" | "tablet" | "desktop" {
+  const [vp, setVp] = useState<"mobile" | "tablet" | "desktop">(() => {
+    if (typeof window === "undefined") return "desktop";
+    const w = window.innerWidth;
+    return w < 640 ? "mobile" : w < 1024 ? "tablet" : "desktop";
+  });
+  useEffect(() => {
+    const onResize = () => {
+      const w = window.innerWidth;
+      setVp(w < 640 ? "mobile" : w < 1024 ? "tablet" : "desktop");
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  return vp;
+}
+
+/* Split a row's items+fractions into chunks of at most `maxPerRow` */
+function chunkRow(items: ClassifiedItem[], fractions: number[], maxPerRow: number): { items: ClassifiedItem[]; fractions: number[] }[] {
+  if (items.length <= maxPerRow) return [{ items, fractions }];
+  const out: { items: ClassifiedItem[]; fractions: number[] }[] = [];
+  for (let i = 0; i < items.length; i += maxPerRow) {
+    out.push({
+      items: items.slice(i, i + maxPerRow),
+      fractions: fractions.slice(i, i + maxPerRow),
+    });
+  }
+  return out;
+}
+
 /* ═══════════════════════════════════════════════════════
    EDITORIAL LAYOUT ENGINE v3
    classify → compose → score → select → fix ending
