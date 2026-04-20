@@ -179,17 +179,19 @@ const campaigns: {
         { indices: [0, 1] },
         { indices: [2, 3] },
         { indices: [4, 5] },
-        { indices: [6, 7, 8] },
-        { indices: [9, 10, 11] },
-        { indices: [12] },
+        { indices: [6, 7] },
+        { indices: [8, 9] },
+        { indices: [10, 11] },
+        { indices: [12] }, // TODO: pareiar quando chegar a 14ª mídia
       ],
       tablet: [
         { indices: [0, 1] },
         { indices: [2, 3] },
         { indices: [4, 5] },
-        { indices: [6, 7, 8] },
-        { indices: [9, 10, 11] },
-        { indices: [12] },
+        { indices: [6, 7] },
+        { indices: [8, 9] },
+        { indices: [10, 11] },
+        { indices: [12] }, // TODO: pareiar quando chegar a 14ª mídia
       ],
       // desktop: undefined → automatic engine
     },
