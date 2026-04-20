@@ -426,12 +426,8 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
   const [playing, setPlaying] = useState(false);
   const [pendingPlay, setPendingPlay] = useState(false);
   const [coverDataUrl, setCoverDataUrl] = useState<string | null>(null);
-
-  // Auto-resolve a sibling `.poster.webp` (generated at build/asset prep time)
-  // so we don't need to download the full video just to capture a frame.
-  const autoPoster = poster || (src ? src.replace(/\.mp4(\?.*)?$/i, ".poster.webp$1") : undefined);
-  // Only consider autoPoster valid if it's actually a .poster.webp path (avoids passing original src back)
-  const resolvedPoster = autoPoster && /\.poster\.webp(\?.*)?$/i.test(autoPoster) ? autoPoster : poster;
+  // Use the explicit poster passed in (resolved upstream via Vite import map).
+  const resolvedPoster = poster;
 
   const handlePlay = useCallback(() => {
     if ((resolvedPoster || coverDataUrl) && !playing) {
