@@ -191,6 +191,14 @@ const campaigns: {
       { src: pfImg7, type: "image", colSpan: 2 },
       { src: pfImg6, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
+    manualLayout: [
+      { indices: [0] },          // L1: vídeo principal full-width
+      { indices: [1, 2] },       // L2: 2 fotos
+      { indices: [3, 4] },       // L3: 2 vídeos
+      { indices: [5, 6] },       // L4a: 2 fotos (era parte da linha 4)
+      { indices: [7, 8] },       // L4b: 2 fotos (era parte da linha 4)
+      { indices: [9] },          // L5: foto final
+    ],
   },
   // 3 - Dani Fernandes Campanha de Natal
   {
