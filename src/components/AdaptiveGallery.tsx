@@ -555,6 +555,8 @@ type Props = {
 const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: Props) => {
   const [rows, setRows] = useState<Row[] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const viewport = useViewport();
+  const maxPerRow = viewport === "mobile" ? 2 : viewport === "tablet" ? 3 : 99;
 
   useEffect(() => {
     if (manualLayout) {
