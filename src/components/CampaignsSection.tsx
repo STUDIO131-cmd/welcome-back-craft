@@ -265,6 +265,24 @@ const campaigns: {
       { src: tngVid4, type: "video", colSpan: 2 },
       { src: tngVid5, type: "video", colSpan: 2, poster: tngVid5Poster },
     ] satisfies GalleryItem[],
+    manualLayout: {
+      mobile: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4, 5] },
+        { indices: [6, 7] },
+        { indices: [8, 9] },
+        { indices: [10] },
+      ],
+      tablet: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4, 5] },
+        { indices: [6, 7] },
+        { indices: [8, 9] },
+        { indices: [10] },
+      ],
+    },
   },
   // 5 - Etoiles
   {
