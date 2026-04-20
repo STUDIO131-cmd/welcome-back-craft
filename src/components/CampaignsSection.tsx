@@ -433,18 +433,18 @@ const CampaignsSection = () => {
 
               <div className="flex flex-col gap-0 h-full">
                 {/* Cover image — full width, editorial proportion */}
-                <div className="w-full flex-shrink-0 overflow-hidden aspect-[16/7] md:aspect-[21/7]">
+                <div className="w-full flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      className="w-full h-full min-h-[140px] md:min-h-[210px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                       decoding="async"
                       style={{ objectPosition: campaign.coverPosition || "center center" }}
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-white/[0.05]">
+                    <div className="w-full min-h-[140px] md:min-h-[210px] flex items-center justify-center bg-white/[0.05]">
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
