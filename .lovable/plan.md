@@ -1,28 +1,48 @@
 
 
-## Mudanças
+## Diagnóstico
 
-### 1. Reduzir capa das campanhas em 50% (`CampaignsSection.tsx`)
+A redução do `min-h-[140px] md:min-h-[210px]` **não teve efeito visual** porque:
 
-Linhas 441 e 447 — alturas mínimas atuais: `min-h-[280px] md:min-h-[420px]`.
+1. **`min-h` define apenas o piso, não o teto**. A imagem natural (proporção 5:4, 1000×800px) renderiza muito maior que 210px — então `min-h-[210px]` é irrelevante: a imagem já passa disso naturalmente.
+2. A classe atual `w-full h-full min-h-[140px] md:min-h-[210px] object-cover` no `<img>` não restringe a altura máxima. O container pai (`<div className="w-full flex-shrink-0 overflow-hidden">`) também não tem altura — então a imagem expande até seu tamanho natural escalado pela largura do card.
 
-Reduzir para metade:
-- Mobile: `280px` → `140px`
-- Desktop: `420px` → `210px`
+Resultado: capa continua "gigante" mesmo com o `min-h` reduzido.
 
-Como o card empilha imagem + texto e o texto vem logo abaixo, ele "acompanha" naturalmente — descrição sobe junto com o encolhimento da imagem. Sem outras alterações no bloco de texto (padding, tipografia, tags permanecem).
+## Solução
 
-### 2. Aumentar opacidade do glass bar em 40% (`HeroSection.tsx`)
+Trocar `min-h` por **`aspect-ratio`** (proporção controlada) **ou** por **`max-h` com `h-`** (altura fixa). Recomendo **`aspect-ratio`** porque:
+- Mantém a imagem proporcional em qualquer largura
+- Não estica nem corta de forma imprevisível
+- É responsivo automaticamente
 
-A "glass bar" é o pill com texto "Lançamentos, Coleções & Datas Estratégicas" (linha 36 do HeroSection):
-- Atual: `bg-white/10` (10% opacidade)
-- Novo: `bg-white/14` → arredondando para o token Tailwind mais próximo: **`bg-white/15`** (aumento de ~40% relativo: 10 × 1.4 = 14)
+### Mudança técnica
 
-Borda permanece `border-white/20` para manter o contorno cristalino.
+Em `src/components/CampaignsSection.tsx`:
 
-## Arquivos editados
-- `src/components/CampaignsSection.tsx` — linhas 441, 447 (min-h reduzidos)
-- `src/components/HeroSection.tsx` — linha 36 (`bg-white/10` → `bg-white/15`)
+**Container da imagem (linha 436)** — adicionar a proporção no wrapper:
+```
+<div className="w-full flex-shrink-0 overflow-hidden aspect-[16/7] md:aspect-[21/7]">
+```
 
-Sem impacto em: lightbox, modal, lazy loading, layout do card, tipografia.
+**`<img>` (linha 441)** — simplificar para preencher o container:
+```
+className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+```
+
+**Placeholder "Em breve" (linha 447)** — remover `min-h`, herdar do pai:
+```
+<div className="w-full h-full flex items-center justify-center bg-white/[0.05]">
+```
+
+### Proporções escolhidas
+- **Mobile `aspect-[16/7]`** → em ~360px de largura ≈ 157px de altura (próximo aos 140px desejados)
+- **Desktop `aspect-[21/7]` (3:1)** → em ~900px de largura ≈ 300px de altura
+
+Se preferir ainda mais baixo (faixa editorial bem fina), uso `aspect-[21/6]` ou `aspect-[24/7]`.
+
+## Arquivo editado
+- `src/components/CampaignsSection.tsx` — linhas 436, 441, 447
+
+Sem impacto em: lightbox, modal, layout do card, tipografia, hover overlay.
 
