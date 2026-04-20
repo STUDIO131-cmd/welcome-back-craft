@@ -19,6 +19,7 @@ import pfImg6 from "@/assets/campaigns/pinkfriday/DSC05586_1.webp";
 import pfImg7 from "@/assets/campaigns/pinkfriday/5D4A6286.webp";
 import pfImg8 from "@/assets/campaigns/pinkfriday/DSC05589.webp";
 import pfImg9 from "@/assets/campaigns/pinkfriday/A3_6.webp";
+import pfImg10 from "@/assets/campaigns/pinkfriday/5D4A6299.webp";
 import tngCover from "@/assets/campaigns/tng/cover.webp";
 import tngVid1 from "@/assets/campaigns/tng/TNG-Campaing01.mp4";
 import tngImg1 from "@/assets/campaigns/tng/5D4A5594.webp";
@@ -182,7 +183,8 @@ const campaigns: {
       "A Pink Friday foi construída com calendário de publicações, estratégia de oferta e antecipação para criar expectativa antes da abertura.\nCom uma estrutura enxuta de lançamento, a campanha ganhou força rápido e acelerou a decisão de compra.\nO que era para durar uma semana esgotou em 2 dias.",
     tags: ["Black Friday", "Estratégia de oferta", "Calendário de publicações"],
     gallery: [
-      { src: pfVid1, type: "video", colSpan: 2, posterTime: 4 },
+      { src: pfVid1, type: "video", colSpan: 1, posterTime: 4 },
+      { src: pfImg10, type: "image", colSpan: 1 },
       { src: pfImg1, type: "image", colSpan: 1 },
       { src: pfImg2, type: "image", colSpan: 1 },
       { src: pfVid2, type: "video", colSpan: 2 },
@@ -196,12 +198,12 @@ const campaigns: {
       { src: pfImg9, type: "image", colSpan: 1 },
     ] satisfies GalleryItem[],
     manualLayout: [
-      { indices: [0] },          // L1: vídeo principal full-width
-      { indices: [1, 2] },       // L2: 2 fotos
-      { indices: [3, 4] },       // L3: 2 vídeos
-      { indices: [5, 6] },       // L4: 2 fotos
-      { indices: [7, 8] },       // L5: 2 fotos
-      { indices: [9, 10] },      // L6: 2 fotos (novas)
+      { indices: [0, 1] },       // L1: vídeo + nova imagem
+      { indices: [2, 3] },       // L2: 2 fotos
+      { indices: [4, 5] },       // L3: 2 vídeos
+      { indices: [6, 7] },       // L4: 2 fotos
+      { indices: [8, 9] },       // L5: 2 fotos
+      { indices: [10, 11] },     // L6: 2 fotos
     ],
   },
   // 3 - Dani Fernandes Campanha de Natal
