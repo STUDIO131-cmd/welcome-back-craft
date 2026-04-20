@@ -267,20 +267,18 @@ const campaigns: {
     ] satisfies GalleryItem[],
     manualLayout: {
       mobile: [
-        { indices: [0, 1] },
-        { indices: [2, 3] },
-        { indices: [4, 5] },
-        { indices: [6, 7] },
-        { indices: [8, 9] },
-        { indices: [10] },
+        { indices: [0, 1] },        // L1: vid1 + img1
+        { indices: [2, 3] },        // L2: img2 + vid2
+        { indices: [4, 5] },        // L3: vid3 + img3
+        { indices: [6, 7, 8] },     // L4: tríade de fotos (img4, img5, img6)
+        { indices: [9, 10] },       // L5: 2 vídeos finais (vid4, vid5)
       ],
       tablet: [
         { indices: [0, 1] },
         { indices: [2, 3] },
         { indices: [4, 5] },
-        { indices: [6, 7] },
-        { indices: [8, 9] },
-        { indices: [10] },
+        { indices: [6, 7, 8] },
+        { indices: [9, 10] },
       ],
     },
   },
