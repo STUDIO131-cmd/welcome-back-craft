@@ -534,7 +534,7 @@ const CampaignsSection = () => {
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
-              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg w-full md:w-[85%] lg:w-[60%] mx-auto"
+              className="relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg w-full md:w-[85%] lg:w-[60%] mx-auto"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -542,28 +542,14 @@ const CampaignsSection = () => {
               custom={i}
               onClick={() => setOpenGallery(i)}
             >
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="px-6 py-3 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/[0.15]">
-                  <span
-                    className="text-white/90 text-sm md:text-base tracking-[0.3em] uppercase"
-                    style={{
-                      textShadow:
-                        "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3)",
-                    }}
-                  >
-                    VEJA A GALERIA
-                  </span>
-                </div>
-              </div>
-
               <div className="flex flex-col gap-0 h-full">
                 {/* Cover image — full width, editorial proportion */}
-                <div className="w-full flex-shrink-0 overflow-hidden">
+                <div className="group/cover relative w-full flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
                       alt={campaign.title}
-                      className="w-full h-full min-h-[140px] md:min-h-[210px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                      className="w-full h-full min-h-[140px] md:min-h-[210px] object-cover group-hover/cover:scale-[1.02] transition-transform duration-700"
                       loading="lazy"
                       decoding="async"
                       style={{ objectPosition: campaign.coverPosition || "center center" }}
@@ -573,6 +559,20 @@ const CampaignsSection = () => {
                       <span className="text-white/40 text-sm tracking-[0.2em] uppercase">Em breve</span>
                     </div>
                   )}
+                  {/* Hover overlay restricted to the cover image only */}
+                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 opacity-0 group-hover/cover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <div className="px-6 py-3 rounded-full backdrop-blur-md bg-white/[0.08] border border-white/[0.15]">
+                      <span
+                        className="text-white/90 text-sm md:text-base tracking-[0.3em] uppercase"
+                        style={{
+                          textShadow:
+                            "0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.3)",
+                        }}
+                      >
+                        VEJA A GALERIA
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div className="p-6 md:p-8 space-y-2 flex flex-col">
                   <p className="text-[10px] tracking-[0.2em] uppercase text-white/50">{campaign.subtitle}</p>
