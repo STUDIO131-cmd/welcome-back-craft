@@ -433,7 +433,7 @@ const CampaignsSection = () => {
 
               <div className="flex flex-col gap-0 h-full">
                 {/* Cover image — full width, editorial proportion */}
-                <div className="w-[48%] mx-auto flex-shrink-0 overflow-hidden">
+                <div className="w-full flex-shrink-0 overflow-hidden">
                   {campaign.image ? (
                     <img
                       src={campaign.image}
