@@ -138,6 +138,8 @@ type GalleryItem = {
   fit?: "cover" | "contain";
 };
 
+type ManualRow = { indices: number[]; fractions?: number[]; heights?: number[]; height?: string };
+
 const campaigns: {
   image: string;
   title: string;
@@ -145,7 +147,7 @@ const campaigns: {
   description: string;
   tags: string[];
   gallery: GalleryItem[];
-  manualLayout?: { indices: number[]; fractions?: number[]; heights?: number[] }[];
+  manualLayout?: ManualRow[] | { mobile?: ManualRow[]; tablet?: ManualRow[]; desktop?: ManualRow[] };
   coverPosition?: string; // CSS object-position per campaign
 }[] = [
   // 1 - Cimples e Dani Fernandes
@@ -172,6 +174,25 @@ const campaigns: {
       { src: cImg7, type: "image", colSpan: 1 },
       { src: cImg8, type: "image", colSpan: 2 },
     ] satisfies GalleryItem[],
+    manualLayout: {
+      mobile: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4, 5] },
+        { indices: [6, 7, 8] },
+        { indices: [9, 10, 11] },
+        { indices: [12] },
+      ],
+      tablet: [
+        { indices: [0, 1] },
+        { indices: [2, 3] },
+        { indices: [4, 5] },
+        { indices: [6, 7, 8] },
+        { indices: [9, 10, 11] },
+        { indices: [12] },
+      ],
+      // desktop: undefined → automatic engine
+    },
   },
   // 2 - Pink Friday
   {
