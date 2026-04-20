@@ -423,7 +423,7 @@ const CampaignsSection = () => {
           {campaigns.map((campaign, i) => (
             <motion.div
               key={i}
-              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg w-[48%] mx-auto"
+              className="group relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl bg-white/[0.12] border border-white/[0.15] shadow-md transition-all duration-500 hover:shadow-lg w-full md:w-[85%] lg:w-[60%] mx-auto"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
