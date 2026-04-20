@@ -1,6 +1,37 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 
+/* ───────── Responsive viewport hook ───────── */
+function useViewport(): "mobile" | "tablet" | "desktop" {
+  const [vp, setVp] = useState<"mobile" | "tablet" | "desktop">(() => {
+    if (typeof window === "undefined") return "desktop";
+    const w = window.innerWidth;
+    return w < 640 ? "mobile" : w < 1024 ? "tablet" : "desktop";
+  });
+  useEffect(() => {
+    const onResize = () => {
+      const w = window.innerWidth;
+      setVp(w < 640 ? "mobile" : w < 1024 ? "tablet" : "desktop");
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  return vp;
+}
+
+/* Split a row's items+fractions into chunks of at most `maxPerRow` */
+function chunkRow(items: ClassifiedItem[], fractions: number[], maxPerRow: number): { items: ClassifiedItem[]; fractions: number[] }[] {
+  if (items.length <= maxPerRow) return [{ items, fractions }];
+  const out: { items: ClassifiedItem[]; fractions: number[] }[] = [];
+  for (let i = 0; i < items.length; i += maxPerRow) {
+    out.push({
+      items: items.slice(i, i + maxPerRow),
+      fractions: fractions.slice(i, i + maxPerRow),
+    });
+  }
+  return out;
+}
+
 /* ═══════════════════════════════════════════════════════
    EDITORIAL LAYOUT ENGINE v3
    classify → compose → score → select → fix ending
@@ -524,6 +555,8 @@ type Props = {
 const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: Props) => {
   const [rows, setRows] = useState<Row[] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const viewport = useViewport();
+  const maxPerRow = viewport === "mobile" ? 2 : viewport === "tablet" ? 3 : 99;
 
   useEffect(() => {
     if (manualLayout) {
@@ -575,84 +608,83 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
           ))}
         </div>
       ) : (
-        rows.map((row, ri) => {
-          // For manual layout, compute a consistent row height based on container width and fractions
+        rows.flatMap((row, ri) => {
           const isManual = !!manualLayout;
-          const rowItemCount = row.items.length;
-          
           const manualRow = manualLayout?.[ri];
           const rowHeight = manualRow?.height;
 
-          // For manual multi-item rows, compute a single row aspect-ratio
-          // so all items share the same height without gaps
-          let rowAspectRatio: string | undefined;
-          if (isManual && rowItemCount > 1 && !rowHeight) {
-            const fracs = row.fractions;
-            const sumFracs = fracs.reduce((s, f) => s + f, 0);
-            // If any item uses fit:"contain", use its normH to drive the row height
-            // so the contain item fits perfectly without letterboxing
-            const containItems = row.items.filter((it) => it.fit === "contain");
-            let targetNormH: number;
-            if (containItems.length > 0) {
-              // Use the contain item's natural height as the target
-              targetNormH = Math.max(...containItems.map((it) => {
-                const idx = row.items.indexOf(it);
-                return fracs[idx] / it.ratio;
-              }));
-            } else {
-              targetNormH = Math.max(...row.items.map((it, i) => fracs[i] / it.ratio));
-            }
-            const computedRatio = sumFracs / targetNormH;
-            rowAspectRatio = `${computedRatio}`;
-          }
+          // Split into sub-rows on mobile/tablet to avoid squeezed items
+          const subRows = chunkRow(row.items, row.fractions, maxPerRow);
 
-          return (
-            <div
-              key={ri}
-              style={{
-                display: "grid",
-                gridTemplateColumns: row.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
-                gap: "8px",
-                alignItems: "stretch",
-                ...(rowHeight ? { height: rowHeight } : {}),
-                ...(rowAspectRatio ? { aspectRatio: rowAspectRatio } : {}),
-              }}
-            >
-              {row.items.map((item, ci) => {
-                // For manual single-item rows, preserve the item's natural aspect ratio
-                const isSingleManual = isManual && rowItemCount === 1;
-                const itemFit = item.fit === "contain" ? "object-contain" : "object-cover";
-                return (
-                <div
-                  key={`${ri}-${ci}`}
-                  className="overflow-hidden rounded-xl bg-black w-full h-full"
-                  style={isSingleManual ? { aspectRatio: `${item.ratio}` } : {}}
-                >
-                  {item.type === "video" ? (
-                    <div className="h-full w-full">
-                      <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} fitMode={itemFit} />
+          return subRows.map((sub, si) => {
+            const subItemCount = sub.items.length;
+
+            // Compute aspect-ratio per sub-row so items share consistent height
+            let subAspectRatio: string | undefined;
+            if (subItemCount > 1 && !rowHeight) {
+              const fracs = sub.fractions;
+              const sumFracs = fracs.reduce((s, f) => s + f, 0);
+              const containItems = sub.items.filter((it) => it.fit === "contain");
+              let targetNormH: number;
+              if (containItems.length > 0) {
+                targetNormH = Math.max(...containItems.map((it) => {
+                  const idx = sub.items.indexOf(it);
+                  return fracs[idx] / it.ratio;
+                }));
+              } else {
+                targetNormH = Math.max(...sub.items.map((it, i) => fracs[i] / it.ratio));
+              }
+              const computedRatio = sumFracs / targetNormH;
+              subAspectRatio = `${computedRatio}`;
+            }
+
+            return (
+              <div
+                key={`${ri}-${si}`}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: sub.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
+                  gap: "8px",
+                  alignItems: "stretch",
+                  ...(rowHeight && subRows.length === 1 ? { height: rowHeight } : {}),
+                  ...(subAspectRatio ? { aspectRatio: subAspectRatio } : {}),
+                }}
+              >
+                {sub.items.map((item, ci) => {
+                  const isSingleItem = subItemCount === 1;
+                  const itemFit = item.fit === "contain" ? "object-contain" : "object-cover";
+                  return (
+                    <div
+                      key={`${ri}-${si}-${ci}`}
+                      className="overflow-hidden rounded-xl bg-black w-full h-full"
+                      style={isSingleItem ? { aspectRatio: `${item.ratio}` } : {}}
+                    >
+                      {item.type === "video" ? (
+                        <div className="h-full w-full">
+                          <VideoPlayer src={item.src} alt={`${campaignTitle} - ${item.index + 1}`} posterTime={item.posterTime} poster={item.poster} fitMode={itemFit} />
+                        </div>
+                      ) : (
+                        <img
+                          src={item.src}
+                          alt={`${campaignTitle} - ${item.index + 1}`}
+                          loading="lazy"
+                          decoding="async"
+                          className={`w-full h-full ${itemFit} block cursor-pointer`}
+                          onClick={() => {
+                            if (onImageClick) {
+                              const imageItems = items.filter(it => it.type === "image");
+                              const imgIdx = imageItems.findIndex(it => it.src === item.src);
+                              if (imgIdx !== -1) onImageClick(imgIdx);
+                            }
+                          }}
+                        />
+                      )}
                     </div>
-                  ) : (
-                    <img
-                      src={item.src}
-                      alt={`${campaignTitle} - ${item.index + 1}`}
-                      loading="lazy"
-                      decoding="async"
-                      className={`w-full h-full ${itemFit} block cursor-pointer`}
-                      onClick={() => {
-                        if (onImageClick) {
-                          const imageItems = items.filter(it => it.type === "image");
-                          const imgIdx = imageItems.findIndex(it => it.src === item.src);
-                          if (imgIdx !== -1) onImageClick(imgIdx);
-                        }
-                      }}
-                    />
-                  )}
-                </div>
-                );
-              })}
-            </div>
-          );
+                  );
+                })}
+              </div>
+            );
+          });
         })
       )}
     </div>
