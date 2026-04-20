@@ -128,6 +128,31 @@ import adImg8 from "@/assets/campaigns/adriano/img8.webp";
 import adImg9 from "@/assets/campaigns/adriano/img9.webp";
 import adImg10 from "@/assets/campaigns/adriano/img10.webp";
 
+/* ───────── Auto-resolved video posters ─────────
+   We pre-generate `<video>.poster.webp` siblings via ffmpeg (see /tmp/gen_posters.sh).
+   Vite's import.meta.glob picks them up at build time and produces hashed URLs.
+   We index them by basename (without extension) so any video import can be matched
+   to its sibling poster regardless of Vite's URL hashing of the .mp4. */
+const posterModules = import.meta.glob<string>("@/assets/**/*.poster.webp", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
+const POSTERS_BY_KEY: Record<string, string> = {};
+for (const path in posterModules) {
+  // path looks like: /src/assets/campaigns/cimples/video1.poster.webp
+  const m = path.match(/\/([^/]+)\.poster\.webp$/);
+  if (m) POSTERS_BY_KEY[m[1]] = posterModules[path];
+}
+/** Given a Vite-hashed video URL, find a sibling poster by basename. */
+function resolvePosterFor(videoUrl: string): string | undefined {
+  // videoUrl is like "/assets/video1-abc123.mp4" — extract the original basename.
+  // Vite hashes filename as `<name>-<hash>.<ext>`.
+  const m = videoUrl.match(/\/([^/]+?)(?:-[A-Za-z0-9_]+)?\.mp4(?:\?.*)?$/);
+  if (!m) return undefined;
+  return POSTERS_BY_KEY[m[1]];
+}
+
 type GalleryItem = {
   src: string;
   type: "image" | "video";
@@ -597,7 +622,11 @@ const CampaignsSection = () => {
 
               <div className="max-w-3xl mx-auto">
                 <AdaptiveGallery
-                  items={campaigns[openGallery].gallery}
+                  items={campaigns[openGallery].gallery.map((it) =>
+                    it.type === "video" && !it.poster
+                      ? { ...it, poster: resolvePosterFor(it.src) }
+                      : it
+                  )}
                   campaignTitle={campaigns[openGallery].title}
                   manualLayout={(campaigns[openGallery] as any).manualLayout}
                   onImageClick={(imgIdx) => {
