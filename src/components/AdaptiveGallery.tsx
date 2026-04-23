@@ -491,6 +491,9 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
 
       {coverSrc && !playing ? (
         <img src={coverSrc} alt={alt} loading="lazy" decoding="async" className={`w-full h-full ${fitMode} block`} />
+      ) : !coverSrc && !playing ? (
+        // No poster available — show neutral placeholder, do NOT mount <video> (saves bandwidth on Hostinger)
+        <div className={`w-full h-full ${fitMode} block bg-gradient-to-br from-neutral-800 to-neutral-900`} aria-label={alt} />
       ) : (
         <video
           ref={videoRef}
@@ -499,7 +502,7 @@ const VideoPlayer = ({ src, alt, posterTime, poster, fitMode = "object-cover" }:
           controlsList="nodownload"
           playsInline
           muted
-          preload="metadata"
+          preload="none"
           onLoadedData={handleLoadedData}
           onSeeked={handleSeeked}
           onCanPlay={() => {
