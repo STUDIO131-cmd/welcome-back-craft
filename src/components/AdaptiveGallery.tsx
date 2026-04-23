@@ -661,10 +661,8 @@ const AdaptiveGallery = ({ items, campaignTitle, manualLayout, onImageClick }: P
                   display: "grid",
                   gridTemplateColumns:
                     subItemCount === 1 && viewport !== "desktop"
-                      ? "60%"
+                      ? "100%"
                       : sub.fractions.map((f) => `${f.toFixed(4)}fr`).join(" "),
-                  justifyContent:
-                    subItemCount === 1 && viewport !== "desktop" ? "center" : undefined,
                   gap: "8px",
                   alignItems: "stretch",
                   ...(rowHeight && subRows.length === 1 ? { height: rowHeight } : {}),
