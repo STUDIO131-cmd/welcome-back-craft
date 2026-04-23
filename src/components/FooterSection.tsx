@@ -1,4 +1,5 @@
 import { useState } from "react";
+import studio131Logo from "@/assets/studio131-logo.png";
 
 const FooterSection = () => {
   const scrollToTop = () => {
@@ -39,10 +40,10 @@ const FooterSection = () => {
           alt="Studio 131"
           width={200}
           height={80}
-          loading="lazy"
+          loading="eager"
           decoding="async"
           className="h-16 md:h-20 w-auto"
-          src="/lovable-uploads/e96bcd27-f057-48d3-b6de-5d3953b0b2ba.png"
+          src={studio131Logo}
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-[92vw] sm:w-auto sm:max-w-lg mx-auto">
