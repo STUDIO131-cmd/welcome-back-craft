@@ -2,6 +2,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
+// EmailJS publishable credentials.
+// These are public by design (EmailJS validates requests via the
+// "Allowed Origins" allowlist configured in the EmailJS dashboard).
+const EMAILJS_PUBLIC_KEY =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "r2C6rMxegs-BaaEqv";
+const EMAILJS_SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_l3hskrl";
+const EMAILJS_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_i0glhup";
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -20,9 +30,8 @@ const ContactForm = () => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    if (publicKey) {
-      emailjs.init(publicKey);
+    if (EMAILJS_PUBLIC_KEY) {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
     }
   }, []);
 
@@ -37,14 +46,16 @@ const ContactForm = () => {
     setSubmitError("");
 
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-
-      if (!serviceId || !templateId) {
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        console.error("[ContactForm] EmailJS credentials missing", {
+          hasServiceId: !!EMAILJS_SERVICE_ID,
+          hasTemplateId: !!EMAILJS_TEMPLATE_ID,
+          hasPublicKey: !!EMAILJS_PUBLIC_KEY,
+        });
         throw new Error("EmailJS not configured");
       }
 
-      await emailjs.send(serviceId, templateId, {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         first_name: formData.firstName,
         last_name: formData.lastName,
         company: formData.company,
@@ -71,10 +82,28 @@ const ContactForm = () => {
         hasPlan: "",
         planDescription: ""
       });
-    } catch {
-      setSubmitError(
-        "Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp."
-      );
+    } catch (err: unknown) {
+      // EmailJS errors expose `status` and `text`; network errors expose `message`.
+      const e = err as { status?: number; text?: string; message?: string };
+      console.error("[ContactForm] Send failed", {
+        status: e?.status,
+        text: e?.text,
+        message: e?.message,
+      });
+
+      if (e?.status === 0 || e?.message === "Failed to fetch") {
+        setSubmitError(
+          "Falha de conexão. Verifique sua internet e tente novamente."
+        );
+      } else if (e?.status && e.status >= 400) {
+        setSubmitError(
+          "Não foi possível enviar agora. Entre em contato pelo WhatsApp."
+        );
+      } else {
+        setSubmitError(
+          "Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp."
+        );
+      }
     } finally {
       setIsSubmitting(false);
     }
