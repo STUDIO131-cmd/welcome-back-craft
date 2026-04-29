@@ -1,16 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import emailjs from "@emailjs/browser";
-
-// EmailJS publishable credentials.
-// These are public by design (EmailJS validates requests via the
-// "Allowed Origins" allowlist configured in the EmailJS dashboard).
-const EMAILJS_PUBLIC_KEY =
-  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "r2C6rMxegs-BaaEqv";
-const EMAILJS_SERVICE_ID =
-  import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_l3hskrl";
-const EMAILJS_TEMPLATE_ID =
-  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_i0glhup";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -29,12 +19,6 @@ const ContactForm = () => {
   const [submitError, setSubmitError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
 
-  useEffect(() => {
-    if (EMAILJS_PUBLIC_KEY) {
-      emailjs.init(EMAILJS_PUBLIC_KEY);
-    }
-  }, []);
-
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setSubmitError("");
@@ -46,27 +30,14 @@ const ContactForm = () => {
     setSubmitError("");
 
     try {
-      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-        console.error("[ContactForm] EmailJS credentials missing", {
-          hasServiceId: !!EMAILJS_SERVICE_ID,
-          hasTemplateId: !!EMAILJS_TEMPLATE_ID,
-          hasPublicKey: !!EMAILJS_PUBLIC_KEY,
-        });
-        throw new Error("EmailJS not configured");
-      }
-
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        company: formData.company,
-        whatsapp: formData.whatsapp,
-        instagram: formData.instagram,
-        revenue: formData.revenue,
-        timing: formData.timing,
-        campaign_date: formData.campaignDate,
-        has_plan: formData.hasPlan,
-        plan_description: formData.planDescription
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
       });
+
+      if (error) {
+        console.error("[ContactForm] Send failed", error);
+        throw error;
+      }
 
       setShowSuccess(true);
 
@@ -83,21 +54,11 @@ const ContactForm = () => {
         planDescription: ""
       });
     } catch (err: unknown) {
-      // EmailJS errors expose `status` and `text`; network errors expose `message`.
-      const e = err as { status?: number; text?: string; message?: string };
-      console.error("[ContactForm] Send failed", {
-        status: e?.status,
-        text: e?.text,
-        message: e?.message,
-      });
-
-      if (e?.status === 0 || e?.message === "Failed to fetch") {
+      const e = err as { message?: string };
+      console.error("[ContactForm] Send failed", e?.message);
+      if (e?.message === "Failed to fetch") {
         setSubmitError(
           "Falha de conexão. Verifique sua internet e tente novamente."
-        );
-      } else if (e?.status && e.status >= 400) {
-        setSubmitError(
-          "Não foi possível enviar agora. Entre em contato pelo WhatsApp."
         );
       } else {
         setSubmitError(
